@@ -5,6 +5,67 @@ The video provides an amazing intro to ruby that moves quickly and doesn't focus
 
 
 
+# TL;DR
+
+
+```rb
+
+# Create some new class
+class Test
+end
+
+
+# Create a class method
+
+class Test
+  def Test.some_random_class_method
+    "Hello 1!"
+  end
+end
+
+
+# Create a class method another way
+
+class Test
+  def self.another_class_method
+    "I'm a class method."
+  end
+end
+
+
+# Create an instance method
+
+class Test
+  def hi
+    puts "hi"
+  end
+end
+
+# Create another instance method
+
+class Test
+  def palindrome?
+    self == self.reverse?
+  end  
+end  
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Understanding class methods vs instance methods. 
 
 ```rb
@@ -105,7 +166,7 @@ Test.new.methods.length
 
 ### Creating a **class** method ([2 ways](https://www.rubyfleebie.com/2007/04/09/understanding-class-methods-in-ruby/))
 
-Create a new class called `Test`
+Create a new class method called `class_method`
 
 ```rb
 class Test #Test is now an instance of a built-in class named Class
