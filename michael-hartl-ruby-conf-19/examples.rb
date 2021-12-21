@@ -35,3 +35,15 @@ class String
     self == self.reverse
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
