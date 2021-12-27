@@ -12,21 +12,32 @@
 class Test
 end
 
+
+
 # Define a class method (the preferred way by RoR link)
 
 class Test
-  def self.hello2
-    "Hello 2!"
+  def self.hello1
+    "Hello 1!"
   end
 end
+
+# Test.hello1
+# => "Hello 1!"
+
+
 
 # Another way to define a class method. Okay, but not the preferred way.
 
 class Test
-  def Test.hello1
-    "Hello 1!"
+  def Test.hello2
+    "Hello 2!"
   end
 end
+
+# Test.hello2
+# => "Hello 2!"
+
 
 
 # A third way to define a class method
@@ -56,6 +67,9 @@ class Test
   end
 end
 
+# test = Test.new
+# test.hello4()
+
 # The same way of defining an instance method, but one which uses 'self'
 
 class Test
@@ -65,20 +79,34 @@ class Test
 end  
 
 
+# Note that the method above will error if run because the .reverse method is not defined for class Test (only for class String).
+# I.e. this won't work:
+
+# test = Test.new
+# test.palindrome? 
+# NoMethodError (undefined method `reverse' for #<Test:0x00007fb2ef9d9e38>)
+
+# But if we define the same method on the string class:
+
+
+class String
+  def palindrome?
+    self == self.reverse
+  end
+end
+
+# "hi".palindrome?
+# => false
+# "hih".palindrome?
+# => true
+
+
 ```
 
 
-Run them with
 
 
-```rb
-Test.hello1
-# => "Hello 1!"
 
-hello4
-# => "Hello 4!"
-
-```
 
 
 
