@@ -1,0 +1,1 @@
+This directory contains lessons on important ruby topics. 
