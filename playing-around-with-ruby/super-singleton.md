@@ -1,20 +1,114 @@
 
 
-# Singleton
 
-Resources
+
+Quick summary of things in this file: 
+
+- How to use pry to debug, view docs, and view source code
+- Singletons
+- Scopes
+- Super
+- Splat and keyword arguments
+
+
+
+
+
+# Super
+
+
+
+
+
+
+
+
+
+# Splat
+
+
+
+
+
+
+
+
+
+
+
+
+# Pry - Using `pry` to debug, view docs, and view source (for both irb and rails c)
+
+- Rubyconf 2019 [video on pry and debugging](https://www.youtube.com/watch?v=GwgF8GcynV0) by Jim Weirich
+  - `ls` to view objects available to you
+  - `cd ../` etc to navigate 
+  - `$` to show the current source of where your `binding.pry` is (or wherever you've cd'd into)
+  - `$ Module` or `$ method` to see other stuff's source
+    - Great [examples here](https://stackoverflow.com/a/7056610/5783745) 
+- The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality). 
+
+Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like. 
+
+To run the pry console in irb or rails console, you do the following:
+
+```
+gem install pry
+gem install pry-doc
+```
+then run `irb` or `rails c`
+
+```ruby
+require 'pry'
+require 'pry-doc'
+
+# Don't forget to run 'pry' command to enter pry
+pry 
+```
+
+
+**To look up documentation for a method**
+
+
+```ruby
+? File.link # Grabs docs for File.link method
+
+
+```
+
+
+**To look up source code for a method**
+
+```ruby
+
+$ File.link
+
+```
+
+
+
+
+
+
+
+# Scopes
+
+TL;DR - [Don't use scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using scopes is strong: they look convenient, but really just mess with your queries - steer clear. 
+
+
+
+
+
+# Singletons
+
+My quick summary: Singletons are good to know about, but except for special cases, avoid using them. 
 
 - [Medium article](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596)
-
-
-### About Singletons
 
 From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigenclass-to-confused-beginners-cep): 
 
 > The Singleton pattern is simply an object-oriented programming pattern where you make sure to have 1 and only 1 instance of some class.
 
 - Might also be called an [Eigenclass](https://en.wiktionary.org/wiki/eigenclass)
-
 
 
 From [here](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596):
@@ -46,20 +140,6 @@ but instead we can ask `Shop` for its one and only instance, like so:
 
 Shop.instance
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
