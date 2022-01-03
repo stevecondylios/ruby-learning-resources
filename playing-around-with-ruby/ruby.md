@@ -9,7 +9,7 @@ Quick summary of things in this file:
 - Scopes
 - Super
 - Splat and keyword arguments
-
+- Odds and Ends to explore some day
 
 
 
@@ -25,6 +25,92 @@ Quick summary of things in this file:
 
 
 # Splat
+
+
+
+
+
+# Blocks
+
+
+
+
+
+
+
+
+
+
+# Things to know about ruby language capabilities and quirks
+
+- You can assign multiple variables like this: `a, b = 2, 3`
+
+
+
+
+
+
+
+
+# Modules
+
+From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
+
+> A `Module` is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
+
+```ruby
+module Mod
+  include Math
+  CONST = 1
+  def meth
+    #  ...
+  end
+end
+Mod.class              #=> Module
+Mod.constants          #=> [:CONST, :PI, :E]
+Mod.instance_methods   #=> [:meth]
+```
+
+
+
+
+
+
+
+
+# Odds and ends (mostly methods) to explore some day
+
+
+- `ObjectSpace.each_object(String){}` from [here](https://ruby-doc.org/stdlib-2.5.1/libdoc/singleton/rdoc/Singleton.html).
+- `Module.constants.first(4)` - note you can call `.constants` on some objects
+- You can call `.instance_methods` on a class (funnily, you cannot call it on an instance of a class, also funnily, you cannot replace 'instance' with class/module e.g. .class_methods isn't a thing). Example of `.instance_methods` [here](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods), as well as [docs here](https://apidock.com/ruby/Module/instance_methods)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -92,7 +178,7 @@ $ File.link
 
 # Scopes
 
-TL;DR - [Don't use scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using scopes is strong: they look convenient, but really just mess with your queries - steer clear. 
+**Scopes TL;DR** - [Don't use scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using scopes is strong: they look convenient, but really just mess with your queries - steer clear. 
 
 
 
@@ -100,7 +186,7 @@ TL;DR - [Don't use scopes!](https://piechowski.io/post/why-is-default-scope-bad-
 
 # Singletons
 
-My quick summary: Singletons are good to know about, but except for special cases, avoid using them. 
+**Singletons TL;DR** Singletons are good to know about, but except for special cases, avoid using them. 
 
 - [Medium article](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596)
 
@@ -140,6 +226,19 @@ but instead we can ask `Shop` for its one and only instance, like so:
 
 Shop.instance
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

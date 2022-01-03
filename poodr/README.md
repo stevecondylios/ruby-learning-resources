@@ -15,6 +15,12 @@ This is a distincly non-thorough summary of some key points from Sandi Metz's *P
   - Dependency Inversion
 
 
+- In object oriented programming, we define methods on objects. Classes are objects. 
+
+
+
+
+
 
 
 
