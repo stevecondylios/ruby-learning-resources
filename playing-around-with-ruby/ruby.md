@@ -9,6 +9,8 @@ Quick summary of things in this file:
 - Scopes
 - Super
 - Splat and keyword arguments
+- Modules
+- Ruby Gems
 - Odds and Ends to explore some day
 
 
@@ -30,7 +32,7 @@ Quick summary of things in this file:
 
 
 
-# Blocks
+# Blocks, procs, and lambdas
 
 
 
@@ -41,11 +43,37 @@ Quick summary of things in this file:
 
 
 
-# Things to know about ruby language capabilities and quirks
+
+
+
+# Ruby language capabilities and quirks
 
 - You can assign multiple variables like this: `a, b = 2, 3`
+- `.self` can [sometimes be ommitted](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=19m05s), since without it the default is the current object. For example, this can be re-written:
+
+```ruby
+
+class String
+  def palindrome?
+    self == self.reverse
+  end
+end
+```
+
+as this
+
+```ruby
+
+class String
+  def palindrome?
+    self == reverse
+  end
+end
+```
 
 
+> When calling a method, ruby will first look within the class, then the module, then `method_missing` , then at any ancestor classes
+ - TODO `method_missing` example here
 
 
 
@@ -78,12 +106,97 @@ Mod.instance_methods   #=> [:meth]
 
 
 
+# Ruby Gems
+
+
+[How to create one](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=11m43s) - simply run:
+
+```sh
+bundle gem rubyconf_palindrome
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Odds and ends (mostly methods) to explore some day
 
 
 - `ObjectSpace.each_object(String){}` from [here](https://ruby-doc.org/stdlib-2.5.1/libdoc/singleton/rdoc/Singleton.html).
 - `Module.constants.first(4)` - note you can call `.constants` on some objects
 - You can call `.instance_methods` on a class (funnily, you cannot call it on an instance of a class, also funnily, you cannot replace 'instance' with class/module e.g. .class_methods isn't a thing). Example of `.instance_methods` [here](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods), as well as [docs here](https://apidock.com/ruby/Module/instance_methods)
+- This works on a class method `String.method(:hello2).source_location` (not on an instance method though)
+- Calling `.source_location` on a method returns the location it was defined, which isn't too useful in irb/rails console, but is probably very handy in an actual application, particularly when debugging. 
+- What is monkey patching? From [here](https://www.geeksforgeeks.org/monkey-patching-in-ruby):
+
+> In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

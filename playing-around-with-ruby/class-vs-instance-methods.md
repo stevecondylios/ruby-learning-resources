@@ -1,9 +1,16 @@
 
 
-# TL;DR on class vs instance methods
+# TL;DR Class methods vs Instance methods
 
 
-### How to define class methods
+Define a class method:
+
+
+From [here](https://www.rubyfleebie.com/2007/04/09/understanding-class-methods-in-ruby/):
+
+> Once you understand that classes are objects, this use of the self variable to define a class method finally makes sense.
+
+
 
 
 ```rb
@@ -55,7 +62,7 @@ class Test
 end
 ```
 
-### How to define instance methods
+Define an instance method:
 
 
 ```rb
@@ -104,54 +111,11 @@ end
 ```
 
 
-
-
-
-
-
-
-
-### Undefine an instance method
-
-From [here](https://medium.com/@scottradcliff/undefining-methods-in-ruby-eb7fba21f63f)
-
-```rb
-
-# Define instance method
-def hello4
-  "Hello 4!"
-end
-
-# Undefine instance method
-undef hello4
-
-```
-
-### Undefine a class method
-
-
-
-```rb
-
-
-```
-
-
-
-### (special case) Remove a method from just one instance
-
-Not totally sure I understand this one. From [here](https://stackoverflow.com/a/27095187/5783745). Incidentally, it's a good example of metaprogramming.  
-
-```rb
-f1.instance_eval('undef :a_method')
-```
-
-
-
-
-
-
-
+- After defining a **class** method, you can see that it exists like so: `Thing.methods(:your_class_method)` (you can add `.source_location` to get result if it exists and an obvious error if it doesn't). 
+- After defining an **instance** method, you can check it like so `Thing.new.methods(:your_instance_method)` (add `.source_location` as before). Note that looking up a class method on an instance will return nothing/error, and looking up an instance method on a class will also return nothing/error! 
+- These are good ways of understanding that class methods really are available to the class (only), and instance methods only available to the instance (only).
+  - This is obvious once you know, but those from a functional programming background may erroneously assume that class methods are available to instances and instance methods available to classes, but that's not the case. 
+- A good practical example of a class method is something like `purge_banned_users` or some method that would have to run across all instances of a class. Whereas a good example of an instance method is something that would only be run on one instance (e.g. one user) at a time. 
 
 
 
@@ -205,9 +169,6 @@ SC note: So if I'm not mistaken, `class String def hi puts "hi" end end` must ha
 
 
 
-From [here](https://www.rubyfleebie.com/2007/04/09/understanding-class-methods-in-ruby/):
-
-> Once you understand that classes are objects, this use of the self variable to define a class method finally makes sense.
 
 
 
