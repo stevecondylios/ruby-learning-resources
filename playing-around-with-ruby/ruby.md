@@ -35,6 +35,28 @@ Quick summary of things in this file:
 # Blocks, procs, and lambdas
 
 
+From [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
+
+> Ruby blocks are anonymous functions that can be passed into methods. Blocks are enclosed in a do-end statement or curly braces {}. do-end is usually used for blocks that span through multiple lines while {} is used for single line blocks. Blocks can have arguments which should be defined between two pipe | characters.
+
+
+```ruby 
+
+# A block
+[1, 2, 3].each { |n| puts n }
+
+# Also a block
+[1, 2, 3].each do |n|
+  puts n
+end
+```
+
+> In this example, the block’s argument is **n** and the block’s body is **puts n**. The block is passed to the **.each** method of an **array** object. So if you have used the each method before, you’ve definitely used Ruby blocks.
+
+
+
+
+
 
 
 
@@ -74,9 +96,7 @@ end
 
 > When calling a method, ruby will first look within the class, then the module, then `method_missing` , then at any ancestor classes
  - TODO `method_missing` example here
-
-
-
+- HEREDOCs and [Squiggly heredocs](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc)
 
 
 
