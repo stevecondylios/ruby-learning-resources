@@ -18,6 +18,55 @@ Quick summary of things in this file:
 
 # Super
 
+`super` (and `super()`) are keywords (not methods). 
+
+A really basic example 
+
+```ruby
+
+class Test1 
+  def hello
+    puts "hello"
+  end
+end
+
+Test1.new.hello
+# hello
+
+class Test2 < Test1
+end
+
+Test2.new.hello
+# hello
+
+class Test2 
+  def hello
+    super
+  end
+end
+
+Test2.new.hello
+# hello
+
+class Test2
+  def hello
+    super
+    puts "yo"
+  end
+end
+Test2.new.hello
+# hello
+# yo
+
+```
+
+
+A few quick questions I have off the bat
+
+- When you change an existing method in a subclass, does it override any existing methods (other than the one being changed)?
+- These methods so far don't have arguments. How do arguments work? 
+- How does it work with blocks? 
+
 
 
 
@@ -27,6 +76,32 @@ Quick summary of things in this file:
 
 
 # Splat
+
+Using splat in a method
+
+```ruby
+def hi(*names)
+  names.map{ |name| puts "hi #{name}"}
+end
+
+hi("john", "susan", "jo")
+# hi john
+# hi susan
+# hi jo
+```
+
+Using splat in assignment 
+
+```ruby
+arr = ["mouse", "cat", "dog"]
+pest, *pets = arr
+
+pest
+# "mouse"
+
+pets
+# ["cat", "dog"]
+```
 
 
 
@@ -70,8 +145,29 @@ end
 
 # Ruby language capabilities and quirks
 
-- You can assign multiple variables like this: `a, b = 2, 3`
-- `.self` can [sometimes be ommitted](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=19m05s), since without it the default is the current object. For example, this can be re-written:
+- [Single quotes vs Double quotes](https://stackoverflow.com/questions/6395288/double-vs-single-quotes#comment88736030_6395332)? ANS: just use double quotes all the time (they allow string interpolation, and there's no performance impact over single quotes). 
+
+
+
+Assign multiple variables like this: `a, b = 2, 3`
+
+It also works with splat `*` e.g. 
+
+```ruby
+arr = ['mouse', 'cat', 'dog']
+pest, *pets = arr
+
+pest
+# "mouse"
+
+pets
+# ["cat", "dog"]
+```
+
+<hr>
+
+
+`.self` can [sometimes be ommitted](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=19m05s), since without it the default is the current object. For example, this can be re-written:
 
 ```ruby
 
@@ -94,9 +190,90 @@ end
 ```
 
 
+<hr>
+
 > When calling a method, ruby will first look within the class, then the module, then `method_missing` , then at any ancestor classes
- - TODO `method_missing` example here
+  - TODO `method_missing` example here
+
+
+<hr> 
+
+The way to remove / delete / destroy an object in ruby? Surprise: there isn't one! The best you can do is [set it to `nil`](https://stackoverflow.com/a/19530391/5783745). 
+
+
+
+<hr>
+
+How to add an instance variable to a class, and access it (example based on [here](https://ruby-doc.org/core-3.1.0/Object.html#method-i-remove_instance_variable)) (also demonstrates `attr_reader` and `attr_writer`):
+
+```ruby
+
+class Dummy
+  def initialize
+    @var = 999
+  end
+end
+Dummy.new.var
+# NoMethodError (undefined method `var' for #<Dummy:0x00007fad5905de40 @var=999>)
+
+# So give it an attr_reader
+
+class Dummy2
+  attr_reader :var
+  def initialize
+    @var = 9999
+  end
+end
+Dummy2.new.var
+# => 9999
+
+
+# Note that
+a = Dummy2.new
+a.var 
+# 9999
+a.var = 80
+# NoMethodError (undefined method `var=' for #<Dummy2:0x00007fad78815a88 @var=9999>)
+a.update(var: 80)
+# NoMethodError (undefined method `update' for #<Dummy2:0x00007fad78815a88 @var=9999>)
+
+# So we need attr_writer
+class Dummy3
+  attr_reader :var
+  attr_writer :var
+  def initialize 
+    @var = 99999
+  end
+end
+
+a = Dummy3.new
+a.var
+# => 99999
+a.var = 80
+a.var
+# => 80
+
+```
+
+
+<hr>
+
+Note that removing / deleting / destroying objects doesn't seem to be simple as with R, I'm not exactly sure why there aren't simple ways of deleting things (perhaps it's just not that important, or because it's safer to make the dev build those features themselves). See more [here](https://stackoverflow.com/a/2012125)
+
+
+
+
+
+
+
+
+TODO
 - HEREDOCs and [Squiggly heredocs](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc)
+
+
+
+
+
 
 
 
@@ -158,6 +335,19 @@ bundle gem rubyconf_palindrome
 - What is monkey patching? From [here](https://www.geeksforgeeks.org/monkey-patching-in-ruby):
 
 > In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
