@@ -10,6 +10,8 @@ At some stage it would be great to:
     - When working in the view, you’ll automagically have access to any helpers defined in the helper file of the same name. E.g. ‘thing’ views will have access to anything defined in `things_helpers.rb`
     - Don’t edit `Gemfile.lock` manually, instead, edit `Gemfile` then run `bundle install` which will update the lock file
   - Possible names: rails-speedrun, rails-unmagic
+  - Useful references:
+    - Stack Overflow question on [ruby gotchas](https://stackoverflow.com/questions/372652/what-are-the-ruby-gotchas-a-newbie-should-be-warned-about)
 2. Create a single readme intro to ruby, so it can be used an a very quick primer for an experienced programmer or someone who used ruby before but forgot its syntax. 
 
 
