@@ -200,6 +200,9 @@ end
 
 The way to remove / delete / destroy an object in ruby? Surprise: there isn't one! The best you can do is [set it to `nil`](https://stackoverflow.com/a/19530391/5783745). 
 
+However, you can use the pry console (by `gem install pry`, then `require 'pry'`, then simply `pry`), and use `reset` to remove all objects. 
+
+
 
 
 <hr>
@@ -254,6 +257,10 @@ a.var
 # => 80
 
 ```
+
+- Note (from [here](https://medium.com/@alicespyglass/why-attr-reader-attr-writer-are-windows-into-object-orientated-programming-and-how-they-work-9bb67014af82)) that while `attr_reader`, and `attr_writer` can be used to determine which bits of data for a class can be seen and alterned, `public`, and `private` methods for a class detemine whether the methods can be accessed on that class. (note that we can probably add `protected` to that list)
+
+
 
 
 <hr>
@@ -336,7 +343,8 @@ bundle gem rubyconf_palindrome
 
 > In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods
 
-
+- `public_send` as found [here](https://ruby-doc.org/core-3.1.0/Object.html#method-i-remove_instance_variable)
+- `.send` found [here](https://stackoverflow.com/a/420837/5783745) to access a class's private methods. 
 
 
 
