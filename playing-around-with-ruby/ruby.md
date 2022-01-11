@@ -20,7 +20,7 @@ Quick summary of things in this file:
 
 `super` (and `super()`) are keywords (not methods). 
 
-A really basic example 
+A really basic example: 
 
 ```ruby
 
@@ -61,12 +61,51 @@ Test2.new.hello
 ```
 
 
-A few quick questions I have off the bat
 
-- When you change an existing method in a subclass, does it override any existing methods (other than the one being changed)?
-- These methods so far don't have arguments. How do arguments work? 
-- How does it work with blocks? 
+An [example](https://medium.com/rubycademy/the-super-keyword-a75b67f46f05) of when the child method accepts an argument, but the parent method does not:
 
+
+```ruby
+
+class Parent
+  def say
+    p "I'm the parent"
+  end
+end
+
+class Child < Parent
+  def say(message)
+    super()
+  end
+end
+
+Child.new.say('Hi!') # => "I'm the parent"
+```
+
+So the point here is that when using the `super()` keyword (with `()`), then the argument *won't* get passed up to the parent method. I'm not too sure where this would be useful tbh (a [quick search](https://github.com/search?p=5&q=%22super%22+language%3Aruby&type=Code) on GitHub shows the first case of super *with* the parentheses appears on page 5 of the search results, around the 50th result). 
+
+
+
+`super` with blocks works how you'd expect ([example](https://medium.com/rubycademy/the-super-keyword-a75b67f46f05)):
+
+
+```ruby
+
+class Parent
+  def say
+    yield
+  end
+end
+
+class Child < Parent
+  def say
+    super
+  end
+end
+
+Child.new.say { p 'Hi!' }
+
+```
 
 
 
@@ -77,7 +116,7 @@ A few quick questions I have off the bat
 
 # Splat
 
-Using splat in a method
+Using splat in a method creates an array of all the arguments:
 
 ```ruby
 def hi(*names)
@@ -107,10 +146,14 @@ pets
 
 
 
-# Blocks, procs, and lambdas
+# Blocks
+
+Resources:
+- https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843
+- Agile Web Development in Ruby On Rails (DHH, Sam Ruby et al)
 
 
-From [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
+[From here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
 
 > Ruby blocks are anonymous functions that can be passed into methods. Blocks are enclosed in a do-end statement or curly braces {}. do-end is usually used for blocks that span through multiple lines while {} is used for single line blocks. Blocks can have arguments which should be defined between two pipe | characters.
 
@@ -129,12 +172,126 @@ end
 > In this example, the block’s argument is **n** and the block’s body is **puts n**. The block is passed to the **.each** method of an **array** object. So if you have used the each method before, you’ve definitely used Ruby blocks.
 
 
+**Yielding a block** (based on [this](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843))
+
+```ruby
+def hi
+  puts "Hi there"
+  yield
+  puts "goodbye"
+end
+
+hi do |content|
+  puts "Hope you're having a great day!"
+end
+
+# Hi there
+# Hope you're having a great day!
+# goodbye
+```
+
+
+**Passing parameters to yield** (based on [this](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843))
+
+
+```ruby
+
+def hi
+  yield 2
+  yield 3
+end
+
+hi { |parameter| puts "My number is #{parameter}"}
+
+# My number is 2
+# My number is 3
+
+```
+
+
+Another example (from [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1), this time defining behaviour when a block is optional:
+
+```ruby
+def say_my_age
+  if block_given?
+    yield
+  else
+    "You didn't give me your age"
+  end
+end
+
+```
+
+
+
+Another example (based on [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1)): We can explicitly pass in a block as method parameter and invoke the block right inside our method (using the `.call` method). Note: The `&` denotes that the parameter is a block. 
+
+
+```ruby
+
+def say_age(&my_block)
+  my_block.call # Gives same result as yield
+end
+
+say_age { puts 22 }
+# 22
+
+# or
+
+say_age do 
+  22
+end
+# 22
+
+```
+
+
+From [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
+
+> The `instance_exec` and `instance_eval` Methods: Blocks can also be invoked by using these two methods, and they come in handy in building Ruby DSLs such as FactoryBot when combined with some Ruby metaprogramming techniques such as `method_missing`, `define_method`, etc.
 
 
 
 
 
 
+
+
+
+# Procs
+
+From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843):
+
+> Ruby introduces procs so that we are able to pass blocks around. 
+
+> Proc objects are blocks of code that have been bound to a set of local variables. Once bound, the code may be called in different contexts and still access those variables.
+
+
+**2 ways to define a proc**
+
+```ruby
+myproc = Proc.new {|num| puts num**3 }
+
+myproc = proc {|num| puts num**3}
+
+[1,2,3,4].each(&myproc)
+# 1
+# 8
+# 27
+# 64
+
+```
+
+
+
+
+# Lambdas 
+
+- A great (and really easy to understand) example of lambdas is in rails scopes. 
+
+From [here](https://scoutapm.com/blog/how-to-use-lambdas-in-ruby): 
+
+> Ruby lambdas allow you to encapsulate logic and data in an eminently portable variable.
 
 
 
@@ -288,7 +445,8 @@ TODO
 
 From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
 
-> A `Module` is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
+> A module is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
+- A module is a great way of including the same methods/constants in mulitple classes whilst keeping code DRY (since you can simply write the module, then import it in any class you want it in, then the methods/constants will be considered part of whatever class(s) imported the module).
 
 ```ruby
 module Mod
@@ -303,6 +461,55 @@ Mod.constants          #=> [:CONST, :PI, :E]
 Mod.instance_methods   #=> [:meth]
 ```
 
+- A good example of a module is the helper file in a rails app. E.g. the application_helper.rb:
+
+```ruby
+module ApplicationHelper
+end
+``` 
+
+- `include` the module like so
+
+```ruby
+include CurrenciesHelper
+include HomeHelper
+# etc 
+```
+
+Note that it's common to include one or more modules inside a class. Note that rails automatically includes the helper file of the same name in that class without you having to do anything. 
+
+From [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=34m25s):
+
+> the most common reason you're going to use these is to add functionality to a class because we're only going to be able to inherit one class when we're creating a class, but we will be able to inherit mulitple modules.
+
+
+A note on the enumerables module (from [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=41m20s)):
+
+> a class that includes the Enummerable module is gonna gain collection capabilities sort of like we saw with arrays and hashes
+
+e.g. 
+
+```ruby
+class Menu
+  include Enumerable
+
+  def my_each 
+    yield "pizza"
+    yield "coke"
+    yield "fries"
+  end
+end
+
+Menu.new.my_each do |item|
+  puts item
+end
+# pizza
+# coke
+# fries
+
+```
+
+
 
 
 
@@ -316,9 +523,13 @@ Mod.instance_methods   #=> [:meth]
 [How to create one](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=11m43s) - simply run:
 
 ```sh
-bundle gem rubyconf_palindrome
+bundle gem rubyconf_palindrome # creates gem
+# cd into gem
+bundle exec rake test # Runs tests
 ```
 
+Side note: incidentally, [this](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=12m) is an excellent \~10 minute example of
+test driven development. 
 
 
 
