@@ -98,6 +98,9 @@ hotdog
 hotdog(7)
 # Hi, I'd like 7 hotdogs, please!
 
+
+# BE CAREFUL OF THIS ONE - when you *think* you're working with a function expecting keyword arguments, 
+# but in fact you're not. Then it will pass the hash through 
 hotdog(amount: 9)
 # Hi, I'd like {:amount=>9} hotdogs, please!
 # WOW - that's quite dangerous! Be wary 
