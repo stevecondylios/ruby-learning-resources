@@ -145,6 +145,75 @@ pets
 
 
 
+# Keyword arguments and default arguments
+
+There are some great examples of these in my poodr notes. TL;DR 
+
+- Use keyword arguments \~80% of the time (they make code more loosely coupled, since argument order ceases to matter), so keyword arguments > positional arguments 80% of the time. 
+- Be careful of a potential 'gotcha' when you think you're dealing with a method that accepts keyword arguments. Since they're submitted like hashes, a method that *doesn't* accept keyword arguments but receives one will think it's a hash and might run without error, which could be dangerous! 
+
+
+**Keyword arguments**
+
+```ruby
+
+# No keyword arguments
+def hotdog1(amount)
+  puts "#{amount} hotdogs please!"
+end
+
+# Now it will require the keyword argument
+def hotdog2(amount:)
+  puts "#{amount} hotdogs please!"
+end
+
+hotdog2(5) # Expecting keyword argument but doesn't receive one: errors
+hotdog2(amount: 5) # Expecting keyword argument and receives one: works
+
+```
+
+
+**Default arguments**
+
+
+Default parameters without keyword arguments
+
+```ruby
+
+def hotdog(amount = 4)
+  puts "Hi, I'd like #{amount} hotdogs, please!"
+end
+
+hotdog # workds
+hotdog(99) # works
+hotdog(amount: 55) # DANGER - it doesn't error but it's not what we want! 
+```
+
+Default paramters with keyword arguments
+
+```ruby
+def hotdog(amount: 5)
+  puts "Hi, I'd like #{amount} hotdogs, please!"
+end
+
+hotdog # works
+hotdog(amount: 7) # works
+hotdog(7) # errors
+
+```
+
+**A potential gotcha to be aware of**
+
+When a method doesn't expect a keyword argument but you supply it with one, it **may not throw an error**, but instead interpret what you gave it as a hash. So be wary!
+
+```ruby
+
+hotdog1(amount: 7)
+# {:amount=>7} hotdogs please!
+
+```
+
+
 
 # Blocks
 
@@ -357,7 +426,7 @@ end
 
 The way to remove / delete / destroy an object in ruby? Surprise: there isn't one! The best you can do is [set it to `nil`](https://stackoverflow.com/a/19530391/5783745). 
 
-However, you can use the pry console (by `gem install pry`, then `require 'pry'`, then simply `pry`), and use `reset` to remove all objects. 
+However, you can use the pry console (by `gem install pry`, then `require 'pry'`, then simply `pry`), and use `reset` to remove all objects. Another way to enter the pry console from terminal simply type `pry` and boom, you're in!
 
 
 
@@ -683,7 +752,8 @@ To run the pry console in irb or rails console, you do the following:
 gem install pry
 gem install pry-doc
 ```
-then run `irb` or `rails c`
+
+then in terminal run `pry` and it starts. OR run `irb` or `rails c`
 
 ```ruby
 require 'pry'
@@ -696,10 +766,20 @@ pry
 
 **To look up documentation for a method**
 
+Use `?` or `show-source` methods (I'm not sure of the difference, but `?` appears to give a little more info)
+
 
 ```ruby
 ? File.link # Grabs docs for File.link method
 
+# NOTE: if this doesn't work, don't forget to require 'pry-doc'
+
+
+# Note - ? and show-source appear to do the same thing:
+
+? Array#pop 
+show-source Array#pop -d
+# Second example is from here: https://www.reddit.com/r/ruby/comments/m11lms/how_to_fix_invoke_the_geminstall_prydoc_pry/
 
 ```
 
@@ -709,6 +789,7 @@ pry
 ```ruby
 
 $ File.link
+# NOTE: if this doesn't work, don't forget to require 'pry-doc'
 
 ```
 
