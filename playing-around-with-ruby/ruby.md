@@ -15,7 +15,6 @@ Quick summary of things in this file:
 
 
 
-
 # Super
 
 `super` (and `super()`) are keywords (not methods). 
@@ -109,8 +108,11 @@ Child.new.say { p 'Hi!' }
 
 
 
+# Regular expressions in ruby 
 
+From Agile Web Development in Rails:
 
+> A regular expression lets you specify a *pattern* of characters to be matched in a string. In Ruby, you typically create a regular epression by writing `/pattern/` or `%r{pattern}`. (p52). Programs typically use the *match operator* `=~` to test strings against regular expressions. 
 
 
 
@@ -769,14 +771,13 @@ pry
 Use `?` or `show-source` methods (I'm not sure of the difference, but `?` appears to give a little more info)
 
 
-```ruby
+```sh
 ? File.link # Grabs docs for File.link method
 
 # NOTE: if this doesn't work, don't forget to require 'pry-doc'
 
 
-# Note - ? and show-source appear to do the same thing:
-
+# Note: ? and show-source appear to do the same thing:
 ? Array#pop 
 show-source Array#pop -d
 # Second example is from here: https://www.reddit.com/r/ruby/comments/m11lms/how_to_fix_invoke_the_geminstall_prydoc_pry/
