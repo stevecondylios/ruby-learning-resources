@@ -97,12 +97,12 @@ Note: **Avoid** using `default_scope`s - they tend to [make a massive mess](http
 
 - Awesome [rails guide on testing](https://guides.rubyonrails.org/testing.html)
   - It covers **unit**, **functional**, **integration**, and **system** tests
+- Nice reinteractive [article](https://reinteractive.com/posts/342-what-constitutes-good-testing-in-rails) on what constitutes good testing
 
 
 The purpose of testing is to:
 
 > ensure your code adheres to the desired functionality even after some major code refactoring.
-
 
 > Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
 
@@ -124,7 +124,116 @@ From Jason K:
 
 
 
-# RSpec
+
+### Quick tips on testing
+
+From reinteractive's [article](https://reinteractive.com/posts/342-what-constitutes-good-testing-in-rails):
+
+- What's the best framework? Ruby has minitest and Rspec; both are great, just be sure to use a framework - don't go writing your own DSL or doing testing in raw ruby code. 
+
+Testing in essence:: 
+
+> you want to check if something returns the expected results for a known input
+
+
+**On TDD**
+
+> I am personally not a hardcore fan of any of those camps. Sometimes I write the test before I write the actual code. However, there are also times when I write the code first and then the test. The important part is that I have a test for my new feature. Whether you write the test before or after doesn't really matter, as long as it is there by the time you push your code to review and merge it to the main codebase.
+
+
+To what extent should you test? 
+
+Author: 
+
+> I'll test the 'happy path' (both arguments provided), possible error paths (e.g. both arguments `nil`), and with one argument as `nil`. 
+
+It would look like this:
+
+```ruby
+
+def full_name
+  "#{first_name} #{last_name}".strip 
+end
+
+
+describe "#full_name" do
+    let(:user) { User.new(first_name: first_name, last_name: last_name) }
+
+    context "with first name and last name" do
+      let!(:first_name) { 'sylvester' }
+      let!(:last_name) { 'stallone' }
+
+      it "shows the full name" do
+        expect(user.full_name).to eq('sylvester stallone')
+      end
+    end
+
+    context "when both first and last names are nil" do
+      let!(:first_name) { nil }
+      let!(:last_name) { nil }
+
+      it "shows the full name" do
+        expect(user.full_name).to eq('')
+      end
+    end
+
+    context "when only one name is present" do
+      let!(:first_name) { 'sylvester' }
+      let!(:last_name) { nil }
+
+      it "shows the full name" do
+        expect(user.full_name).to eq('sylvester')
+      end
+    end
+  end
+```
+
+> If it's not critical code, test the 'happy path', the worst case scenario, and one other test. 
+
+
+Don't test frameworks/libraries (trust their maintainers and the community to do that).
+
+**Validation tests**
+
+Use [shoulda gem](https://github.com/thoughtbot/shoulda) (some more examples [here](https://github.com/thoughtbot/shoulda#overview)):
+
+
+```ruby
+# spec/models/user_spec.rb
+ describe '#validations' do
+   it { should validate_presence_of(:first_name) }
+ end
+```
+
+
+
+Always write readable tests: 
+
+> Tests usually serve as documentation for your code. Try to write them in a way that someone can understand the intention of the code simply by reading your tests.
+
+> with an existing project, the first thing most of us will do is to run the test suite to see if it passes.
+
+
+You can run `rspec spec --format documentation` to print the documentation when running tests. It's good practice to use the documentation command above to check whether your spec is readable.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## RSpec
 
 What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over. 
 
@@ -132,7 +241,7 @@ What does `let` do? `let` simply creates a variable [but it lazy evaluates it](h
 
 
 
-# Factories and Fixtures
+## Factories and Fixtures
 
 From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-between-a-fixture-and-a-factory-in-my-unit-tests):
 
@@ -140,6 +249,27 @@ From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-bet
   A Fixture is "the fixed state used as a baseline for running tests in software testing"
   A Factory is "an object for creating other objects"
 </blockquote>
+
+
+From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-are-fixtures-questionmark):
+
+> What are fixtures? Fixtures is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
