@@ -120,7 +120,7 @@ The [rails guide on testing lists 4 types]():
 3. Integration tests
   - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
   - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
-4. System tests (AKA acceptance tests, feature tests)
+4. System tests ([AKA **acceptance tests**, **feature tests**](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
 
 Other notes: 
 
