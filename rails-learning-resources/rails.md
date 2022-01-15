@@ -107,12 +107,37 @@ The purpose of testing is to:
 > Rails tests can also simulate browser requests and thus you can test your application's response without having to test it through your browser.
 
 
+### Types of tests
+
+The [rails guide on testing lists 4 types]():
+
+1. Unit tests 
+  - e.g. testing minute details in a methods inputs/outputs
+  - A unit test is about testing a single function/method in isolation with all of its possible outputs. ([source](https://developers.forem.com/tests/unit-functional-tests))
+2. Functional tests 
+  - 'testing that controllers and models are using the mailer in the right way'
+  - A functional test is about testing a single functionality, which can span multiple methods and a controller. Other common terms in Rails are "model tests," "controller tests," and others. ([source](https://developers.forem.com/tests/unit-functional-tests))
+3. Integration tests
+  - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
+  - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
+4. System tests (AKA acceptance tests, feature tests)
+
+Other notes: 
+
+- Acceptance tests are also known as Feature tests or System tests. ([source](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
+
+On mailer tests: 
+
+> There are two aspects of testing your mailer, the **unit tests** and the **functional tests**. In the unit tests, you run the mailer in isolation with tightly controlled inputs and compare the output to a known value (a fixture). In the functional tests you don't so much test the minute details produced by the mailer; instead, we test that our controllers and models are using the mailer in the right way. You test to prove that the right email was sent at the right time.
+
+> Functional tests do not verify whether the specified request type is accepted by the action, we're more concerned with the result. Request tests exist for this use case to make your tests more purposeful. ([source](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests))
+
 
 ### What is acceptance testing? 
 
 From top of google [results](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.): 
 
-> **Acceptance tests are tests from the perspective of the end-user**. In the Rails world, we sometimes refer to these as Feature or System tests. A tool called Capybara is included to help us simulate a human's actions inside of our tests.
+> **Acceptance tests are tests from the perspective of the end-user**. In the Rails world, we sometimes refer to these as **Feature tests** or **System tests**. A tool called Capybara is included to help us simulate a human's actions inside of our tests.
 
 From the [RSpec cheat sheet on acceptance tests](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). Very elucidating example [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). 
 
@@ -121,7 +146,9 @@ From Jason K:
 
 > You might have an acceptance test to make sure that when that route is visited, the db is 'fixtured up' and something displayed in the view
 
+From Jason S ([here](https://www.codewithjason.com/set-rails-application-testing/)):
 
+> Capybara is a tool for writing acceptance tests, i.e. tests that interact with the browser and simulate clicks and keystrokes. The underlying tool that allows us to simulate user input in the browser is called Selenium. Capybara allows us to control Selenium using Ruby.
 
 
 
@@ -253,7 +280,7 @@ From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-bet
 
 From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-are-fixtures-questionmark):
 
-> What are fixtures? Fixtures is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
+> What are fixtures? **Fixtures is a fancy word for sample data**. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
 
 
 > YAML-formatted fixtures are a human-friendly way to describe your sample data.
