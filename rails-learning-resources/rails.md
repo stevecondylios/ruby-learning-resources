@@ -256,10 +256,23 @@ From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-a
 > What are fixtures? Fixtures is a fancy word for sample data. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
 
 
+> YAML-formatted fixtures are a human-friendly way to describe your sample data.
 
 
+Example
 
+```yaml
+# lo & behold! I am a YAML comment!
+david:
+  name: David Heinemeier Hansson
+  birthday: 1979-10-15
+  profession: Systems development
 
+steve:
+  name: Steve Ross Kellock
+  birthday: 1974-09-27
+  profession: guy with keyboard
+```
 
 
 
