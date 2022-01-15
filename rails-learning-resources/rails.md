@@ -109,7 +109,9 @@ The purpose of testing is to:
 
 ### Types of tests
 
-The [rails guide on testing lists 4 types]():
+The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/testing.html):
+
+> How to write unit, functional, integration, and system tests for your application.
 
 1. Unit tests 
   - e.g. testing minute details in a methods inputs/outputs
@@ -302,10 +304,34 @@ steve:
 ```
 
 
+### Faker
 
 
+Allows us to change this:
 
+```ruby
+FactoryBot.define do
+  factory :customer do
+    first_name { "MyString" }
+    last_name { "MyString" }
+    email { "MyString" }
+  end
+end
+```
 
+to this: 
+
+```ruby
+FactoryBot.define do
+  factory :customer do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.email }
+  end
+end
+```
+
+That solves the problem of any unique constraints we have in the db (e.g. 'email' field might have the requirement that it's unique). Example from [here](https://www.codewithjason.com/set-rails-application-testing/). 
 
 
 
