@@ -123,6 +123,8 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
   - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
   - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
 4. System tests ([AKA **acceptance tests**, **feature tests**](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
+  - Might use capibara (a ruby tool for managing selenium) to visit a certain route, and see if it can see what it expects on the page (see great example [here](https://www.youtube.com/watch?v=ZPcRiPrpQTc))
+  - System tests allow you to test user interactions with your application, running tests in either a real or a headless browser. System tests use Capybara under the hood. ([source](https://guides.rubyonrails.org/testing.html#system-testing))
 
 Other notes: 
 
@@ -151,6 +153,8 @@ From Jason K:
 From Jason S ([here](https://www.codewithjason.com/set-rails-application-testing/)):
 
 > Capybara is a tool for writing acceptance tests, i.e. tests that interact with the browser and simulate clicks and keystrokes. The underlying tool that allows us to simulate user input in the browser is called Selenium. Capybara allows us to control Selenium using Ruby.
+
+- Brilliant hello world example video [here](https://www.youtube.com/watch?v=ZPcRiPrpQTc)
 
 
 
@@ -288,7 +292,7 @@ From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-a
 > YAML-formatted fixtures are a human-friendly way to describe your sample data.
 
 
-Example
+Example:
 
 ```yaml
 # lo & behold! I am a YAML comment!
