@@ -108,6 +108,21 @@ The purpose of testing is to:
 
 
 
+### What is acceptance testing? 
+
+From top of google [results](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.): 
+
+> **Acceptance tests are tests from the perspective of the end-user**. In the Rails world, we sometimes refer to these as Feature or System tests. A tool called Capybara is included to help us simulate a human's actions inside of our tests.
+
+From the [RSpec cheat sheet on acceptance tests](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). Very elucidating example [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). 
+
+
+From Jason K: 
+
+> You might have an acceptance test to make sure that when that route is visited, the db is 'fixtured up' and something displayed in the view
+
+
+
 
 # RSpec
 
@@ -117,7 +132,14 @@ What does `let` do? `let` simply creates a variable [but it lazy evaluates it](h
 
 
 
+# Factories and Fixtures
 
+From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-between-a-fixture-and-a-factory-in-my-unit-tests):
+
+<blockquote>
+  A Fixture is "the fixed state used as a baseline for running tests in software testing"
+  A Factory is "an object for creating other objects"
+</blockquote>
 
 
 
