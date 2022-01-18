@@ -19,25 +19,13 @@ Quick summary of things in this file:
 
 # First thing's first
 
-Some quick examples of how the language works
+Some quick examples of how the language works and some "idiomatic ruby". Mostly from [here](http://cbcg.net/talks/rubyidioms/) (tap to go to next page of slideshow).
 
 ```ruby
 
 2 * 2
 # 4
 
-
-
-
-
-```
-
-
-# Some ruby quirks (i.e. "idiomatic ruby")
-
-- Mostly from [here](http://cbcg.net/talks/rubyidioms/) (tap to go to next page of slideshow)
-
-```ruby
 
 s = "Hello!"
 
@@ -57,6 +45,8 @@ x += 7 # plusequals adds 7 to x
 
 /know/ =~ "give it away now"
 # nil
+
+# Note: it seems not to matter which side the regex is on: /ell/ =~ "hello" is the same as "hello" =~ /ell/ 
 
 # threeequals asks: does the thing on the right belong on in the set on the left
 (1..5) === 4 
@@ -128,6 +118,18 @@ a = false
 b = 5
 a ||= b 
 # a is now 5 
+
+
+
+def false? 
+  self == false
+end
+
+s ||= "hello" # is the same as
+
+s = "hello" if (s.nil? || s.false?)
+
+
 
 ```
 
