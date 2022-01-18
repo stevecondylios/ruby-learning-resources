@@ -471,9 +471,9 @@ From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f6884
 **2 ways to define a proc**
 
 ```ruby
-myproc = Proc.new {|num| puts num**3 }
+myproc = Proc.new { |num| puts num**3 }
 
-myproc = proc {|num| puts num**3}
+myproc = proc { |num| puts num**3}
 
 [1,2,3,4].each(&myproc)
 # 1
@@ -626,8 +626,19 @@ a.var
 Note that removing / deleting / destroying objects doesn't seem to be simple as with R, I'm not exactly sure why there aren't simple ways of deleting things (perhaps it's just not that important, or because it's safer to make the dev build those features themselves). See more [here](https://stackoverflow.com/a/2012125)
 
 
+<hr>
 
+Note that while hashes can have keys that are symbols or strings, that doesn't mean they can be accessed either way. That is, if the key is a string, use a string to access it; similarly, if they key is a symbol, you must use a symbol to acccess it. From community: "most of the time you'll want symbol keys". Note that you [must use hash rocket](https://stackoverflow.com/a/70726247/5783745) notation when defining a hash with keys of class String. 
 
+Easy example (from [here](https://stackoverflow.com/a/16194278/5783745)):
+
+```ruby
+h = {:name => 'Charles', "name" => 'Something else'}
+h[:name] #=> 'Charles'
+h["name"] #=> 'Something else'
+```
+
+<hr>
 
 
 
