@@ -17,6 +17,126 @@ Quick summary of things in this file:
 
 
 
+# First thing's first
+
+Some quick examples of how the language works
+
+```ruby
+
+2 * 2
+# 4
+
+
+
+
+
+```
+
+
+# Some ruby quirks (i.e. "idiomatic ruby")
+
+- Mostly from [here](http://cbcg.net/talks/rubyidioms/) (tap to go to next page of slideshow)
+
+```ruby
+
+s = "Hello!"
+
+p s # prints string
+pp s # pretty prints string
+
+
+x = 5
+x -= 3 # minusequals takes 3 away from x
+x += 7 # plusequals adds 7 to x
+
+# the 'match operator' matches a regular expression on the left with a string on the right and 
+# provides the offset, otherwise nil. See: https://stackoverflow.com/a/5781400
+
+/away/ =~ "give it away now"
+# 8
+
+/know/ =~ "give it away now"
+# nil
+
+# threeequals asks: does the thing on the right belong on in the set on the left
+(1..5) === 4 
+# true
+
+(1..5) === 10 
+# false
+
+
+
+# unless works like 'if not'
+
+no_time_to_talk = false
+puts "hey there" unless no_time_to_talk
+# hey there
+
+
+# until works like 'while not'
+x = 2
+while x > -5 do 
+  puts x
+  x -= 1
+end
+# 2
+# 1
+# 0
+# -1
+# -2
+# -3
+# -4
+
+
+
+__FILE__ # is the name of the current source file
+$0 # at the top level is the name of the top-level program being executed
+$: # is an array of paths to look for Ruby scripts to load
+$! # is the current Exception passed to raise 
+
+ENV # is the hash of environment variables
+ARGV # is the array of command line arguments (synonym for $*)
+```
+
+
+Conventions:
+
+- Methods ending in `?` return boolean
+- Methods ending in `!` are dangerous (they modify the receiver) 
+  - Note that in rails, the `!` (or 'bang') often means "raise an error if the method doesn't work" e.g. `update!(age = "lskdjfs")` 
+- These are optional but make code readable
+
+
+
+- Ruby considers `nil` and `false` the only two "falsey" values, everything else is "truthy". Source [here](https://stackoverflow.com/a/3082399/5783745)
+
+
+
+```ruby
+
+# Conditional assignment operator
+a ||= b # means if a doesn't exist or is falsy, assign it the value of b
+# Read more: https://stackoverflow.com/a/14697343
+
+a = nil
+b = 5
+a ||= b 
+# now a is 5
+
+a = false
+b = 5
+a ||= b 
+# a is now 5 
+
+```
+
+
+
+
+
+
+
 
 
 
@@ -498,6 +618,221 @@ From [here](https://scoutapm.com/blog/how-to-use-lambdas-in-ruby):
 
 
 
+# Modules
+
+From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
+
+> A module is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
+- A module is a great way of including the same methods/constants in mulitple classes whilst keeping code DRY (since you can simply write the module, then import it in any class you want it in, then the methods/constants will be considered part of whatever class(s) imported the module).
+
+```ruby
+module Mod
+  include Math
+  CONST = 1
+  def meth
+    #  ...
+  end
+end
+Mod.class              #=> Module
+Mod.constants          #=> [:CONST, :PI, :E]
+Mod.instance_methods   #=> [:meth]
+```
+
+- A good example of a module is the helper file in a rails app. E.g. the application_helper.rb:
+
+```ruby
+module ApplicationHelper
+end
+``` 
+
+- `include` the module like so
+
+```ruby
+include CurrenciesHelper
+include HomeHelper
+# etc 
+```
+
+Note that it's common to include one or more modules inside a class. Note that rails automatically includes the helper file of the same name in that class without you having to do anything. 
+
+From [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=34m25s):
+
+> the most common reason you're going to use these is to add functionality to a class because we're only going to be able to inherit one class when we're creating a class, but we will be able to inherit mulitple modules.
+
+
+A note on the enumerables module (from [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=41m20s)):
+
+> a class that includes the Enummerable module is gonna gain collection capabilities sort of like we saw with arrays and hashes
+
+e.g. 
+
+```ruby
+class Menu
+  include Enumerable
+
+  def my_each 
+    yield "pizza"
+    yield "coke"
+    yield "fries"
+  end
+end
+
+Menu.new.my_each do |item|
+  puts item
+end
+# pizza
+# coke
+# fries
+
+```
+
+
+
+
+
+
+
+
+
+# Ruby Gems
+
+
+[How to create one](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=11m43s) - simply run:
+
+```sh
+bundle gem rubyconf_palindrome # creates gem
+# cd into gem
+bundle exec rake test # Runs tests
+```
+
+Side note: incidentally, [this](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=12m) is an excellent \~10 minute example of
+test driven development. 
+
+
+
+
+
+
+
+
+
+
+
+# Pry - Using `pry` to debug, view docs, and view source (for both irb and rails c)
+
+- Rubyconf 2019 [video on pry and debugging](https://www.youtube.com/watch?v=GwgF8GcynV0) by Jim Weirich
+  - `ls` to view objects available to you
+  - `cd ../` etc to navigate 
+  - `$` to show the current source of where your `binding.pry` is (or wherever you've cd'd into)
+  - `$ Module` or `$ method` to see other stuff's source
+    - Great [examples here](https://stackoverflow.com/a/7056610/5783745) 
+- The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality). 
+
+Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like. 
+
+To run the pry console in irb or rails console, you do the following:
+
+```
+gem install pry
+gem install pry-doc
+```
+
+then in terminal run `pry` and it starts. OR run `irb` or `rails c`
+
+```ruby
+require 'pry'
+require 'pry-doc'
+
+# Don't forget to run 'pry' command to enter pry
+pry 
+```
+
+
+**To look up documentation for a method**
+
+Use `?` or `show-source` methods (I'm not sure of the difference, but `?` appears to give a little more info)
+
+
+```sh
+? File.link # Grabs docs for File.link method
+
+# NOTE: if this doesn't work, don't forget to require 'pry-doc'
+
+
+# Note: ? and show-source appear to do the same thing:
+? Array#pop 
+show-source Array#pop -d
+# Second example is from here: https://www.reddit.com/r/ruby/comments/m11lms/how_to_fix_invoke_the_geminstall_prydoc_pry/
+
+```
+
+
+**To look up source code for a method**
+
+```ruby
+
+$ File.link
+# NOTE: if this doesn't work, don't forget to require 'pry-doc'
+
+```
+
+
+
+
+
+
+
+
+
+
+
+# Singletons
+
+**Singletons TL;DR** Singletons are good to know about, but except for special cases, avoid using them. 
+
+- [Medium article](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596)
+
+From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigenclass-to-confused-beginners-cep): 
+
+> The Singleton pattern is simply an object-oriented programming pattern where you make sure to have 1 and only 1 instance of some class.
+
+- Might also be called an [Eigenclass](https://en.wiktionary.org/wiki/eigenclass)
+
+
+From [here](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596):
+
+> In general, Ruby methods are stored in classes while data is stored in objects, which are instances of classes. 
+
+
+### A quick example of a singleton
+
+```ruby
+require 'singleton'
+
+class Shop
+  include Singleton
+end
+```
+
+Now we can't create a new shop instance in the usual way:
+
+```ruby
+Shop.new
+NoMethodError (private method `new' called for Shop:Class)
+```
+
+
+but instead we can ask `Shop` for its one and only instance, like so:
+
+```ruby
+
+Shop.instance
+```
+
+
+
+
+
 
 
 
@@ -653,102 +988,6 @@ TODO
 
 
 
-# Modules
-
-From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
-
-> A module is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
-- A module is a great way of including the same methods/constants in mulitple classes whilst keeping code DRY (since you can simply write the module, then import it in any class you want it in, then the methods/constants will be considered part of whatever class(s) imported the module).
-
-```ruby
-module Mod
-  include Math
-  CONST = 1
-  def meth
-    #  ...
-  end
-end
-Mod.class              #=> Module
-Mod.constants          #=> [:CONST, :PI, :E]
-Mod.instance_methods   #=> [:meth]
-```
-
-- A good example of a module is the helper file in a rails app. E.g. the application_helper.rb:
-
-```ruby
-module ApplicationHelper
-end
-``` 
-
-- `include` the module like so
-
-```ruby
-include CurrenciesHelper
-include HomeHelper
-# etc 
-```
-
-Note that it's common to include one or more modules inside a class. Note that rails automatically includes the helper file of the same name in that class without you having to do anything. 
-
-From [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=34m25s):
-
-> the most common reason you're going to use these is to add functionality to a class because we're only going to be able to inherit one class when we're creating a class, but we will be able to inherit mulitple modules.
-
-
-A note on the enumerables module (from [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=41m20s)):
-
-> a class that includes the Enummerable module is gonna gain collection capabilities sort of like we saw with arrays and hashes
-
-e.g. 
-
-```ruby
-class Menu
-  include Enumerable
-
-  def my_each 
-    yield "pizza"
-    yield "coke"
-    yield "fries"
-  end
-end
-
-Menu.new.my_each do |item|
-  puts item
-end
-# pizza
-# coke
-# fries
-
-```
-
-
-
-
-
-
-
-
-
-# Ruby Gems
-
-
-[How to create one](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=11m43s) - simply run:
-
-```sh
-bundle gem rubyconf_palindrome # creates gem
-# cd into gem
-bundle exec rake test # Runs tests
-```
-
-Side note: incidentally, [this](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=12m) is an excellent \~10 minute example of
-test driven development. 
-
-
-
-
-
-
-
 
 
 
@@ -871,126 +1110,6 @@ test driven development.
 
 
 
-
-
-
-
-
-
-# Pry - Using `pry` to debug, view docs, and view source (for both irb and rails c)
-
-- Rubyconf 2019 [video on pry and debugging](https://www.youtube.com/watch?v=GwgF8GcynV0) by Jim Weirich
-  - `ls` to view objects available to you
-  - `cd ../` etc to navigate 
-  - `$` to show the current source of where your `binding.pry` is (or wherever you've cd'd into)
-  - `$ Module` or `$ method` to see other stuff's source
-    - Great [examples here](https://stackoverflow.com/a/7056610/5783745) 
-- The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality). 
-
-Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like. 
-
-To run the pry console in irb or rails console, you do the following:
-
-```
-gem install pry
-gem install pry-doc
-```
-
-then in terminal run `pry` and it starts. OR run `irb` or `rails c`
-
-```ruby
-require 'pry'
-require 'pry-doc'
-
-# Don't forget to run 'pry' command to enter pry
-pry 
-```
-
-
-**To look up documentation for a method**
-
-Use `?` or `show-source` methods (I'm not sure of the difference, but `?` appears to give a little more info)
-
-
-```sh
-? File.link # Grabs docs for File.link method
-
-# NOTE: if this doesn't work, don't forget to require 'pry-doc'
-
-
-# Note: ? and show-source appear to do the same thing:
-? Array#pop 
-show-source Array#pop -d
-# Second example is from here: https://www.reddit.com/r/ruby/comments/m11lms/how_to_fix_invoke_the_geminstall_prydoc_pry/
-
-```
-
-
-**To look up source code for a method**
-
-```ruby
-
-$ File.link
-# NOTE: if this doesn't work, don't forget to require 'pry-doc'
-
-```
-
-
-
-
-
-
-
-# Scopes
-
-**Scopes TL;DR** - [Don't use scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using scopes is strong: they look convenient, but really just mess with your queries - steer clear. 
-
-
-
-
-
-# Singletons
-
-**Singletons TL;DR** Singletons are good to know about, but except for special cases, avoid using them. 
-
-- [Medium article](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596)
-
-From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigenclass-to-confused-beginners-cep): 
-
-> The Singleton pattern is simply an object-oriented programming pattern where you make sure to have 1 and only 1 instance of some class.
-
-- Might also be called an [Eigenclass](https://en.wiktionary.org/wiki/eigenclass)
-
-
-From [here](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596):
-
-> In general, Ruby methods are stored in classes while data is stored in objects, which are instances of classes. 
-
-
-### A quick example of a singleton
-
-```ruby
-require 'singleton'
-
-class Shop
-  include Singleton
-end
-```
-
-Now we can't create a new shop instance in the usual way:
-
-```ruby
-Shop.new
-NoMethodError (private method `new' called for Shop:Class)
-```
-
-
-but instead we can ask `Shop` for its one and only instance, like so:
-
-```ruby
-
-Shop.instance
-```
 
 
 
