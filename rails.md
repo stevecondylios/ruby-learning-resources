@@ -42,6 +42,10 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 # Scopes
 
+
+> Scopes are custom queries that you define inside your Rails models with the scope method. From [here](https://www.rubyguides.com/2019/10/scopes-in-ruby-on-rails/)
+
+
 In your controller you might want to only show published posts: 
 
 ```ruby
@@ -76,8 +80,7 @@ And it will do the exact same thing.
 So TL;DR scopes are a great way to keep controller code DRY, and move some controller code into the model. 
 
 
-
-Note: **Avoid** using `default_scope`s - they tend to [make a massive mess](https://stackoverflow.com/questions/25087336/why-is-using-the-rails-default-scope-often-recommend-against)!. 
+**A note on default scopes** - [Don't use default scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using default scopes is strong: they look convenient, but really just mess with your queries - steer well clear. `default_scope`s  tend to [make a massive mess](https://stackoverflow.com/questions/25087336/why-is-using-the-rails-default-scope-often-recommend-against)!. 
 
 
 
@@ -98,6 +101,7 @@ Note: **Avoid** using `default_scope`s - they tend to [make a massive mess](http
 - Awesome [rails guide on testing](https://guides.rubyonrails.org/testing.html)
   - It covers **unit**, **functional**, **integration**, and **system** tests
 - Nice reinteractive [article](https://reinteractive.com/posts/342-what-constitutes-good-testing-in-rails) on what constitutes good testing
+- JS article on the specific kinds of tests he uses in a rails app ([here](https://www.codewithjason.com/set-rails-application-testing/))
 
 
 The purpose of testing is to:
@@ -125,6 +129,8 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
 4. System tests ([AKA **acceptance tests**, **feature tests**](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
   - Might use capibara (a ruby tool for managing selenium) to visit a certain route, and see if it can see what it expects on the page (see great example [here](https://www.youtube.com/watch?v=ZPcRiPrpQTc))
   - System tests allow you to test user interactions with your application, running tests in either a real or a headless browser. System tests use Capybara under the hood. ([source](https://guides.rubyonrails.org/testing.html#system-testing))
+  - Good thoughtbot cheatsheet on accepting testing in Rspec [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf) which uses `feature` and `scenario` e.g. (feature 'Signing in' do
+scenario 'signs the user in successfully with a valid email and password')
 
 Other notes: 
 
