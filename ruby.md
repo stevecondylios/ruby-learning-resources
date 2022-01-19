@@ -94,7 +94,7 @@ Conventions:
 
 - Methods ending in `?` return boolean
 - Methods ending in `!` are dangerous (they modify the receiver) 
-  - Note that in rails, the `!` (or 'bang') often means "raise an error if the method doesn't work" e.g. `update!(age = "lskdjfs")` 
+  - Note that in rails, the `!` (or 'bang') often means "raise an error if the method doesn't work" e.g. `update!(age: "lskdjfs")` 
 - These are optional but make code readable
 
 
@@ -121,19 +121,79 @@ a ||= b
 
 
 
-def false? 
-  self == false
-end
 
 s ||= "hello" # is the same as
 
-s = "hello" if (s.nil? || s.false?)
+s = "hello" if (s.nil? || s == false)
 
 
 
 ```
 
 
+
+By default, object attributes cannot be read or written from outside the object. You can change the access on attributes with `attr_writer` and `attr_reader` (or `attr_accessor` which does both). These are class methods that open the named attributes up to reading and writing. 
+
+
+You can write virtual attributes too. Example
+
+```ruby
+
+class RubyBean # a play on 'JavaBean', some minimal Java object
+  attr_reader :name, :date, :location
+
+  def name=(str)
+    @name = str.titleize
+  end
+end
+
+x = RubyBean.new
+x.name = "frank"
+p x.name
+# Frank
+
+```
+
+
+**Exception handling** 
+
+Catch exceptions with `begin` and `rescue`
+
+```ruby
+
+begin 
+  2 * "hi"
+rescue => e 
+  $stderr.puts "error: #{e.message}"
+end
+
+# error: String can't be coerced into Integer
+
+```
+
+`ensure` makes sure the code is called regardless of outcome
+
+```ruby
+
+begin
+  2 * "hi"
+rescue => e
+  $stderr.puts "error: #{e.message}"
+ensure
+  puts "Something that MUST run, e.g. close a connection to a file with f.close"
+end
+
+```
+
+You can raise your own exceptions with `raise`. `raise` can be used with `String` or `Exception` objects. 
+
+```ruby
+raise
+raise StandardError.new
+raise "failure to raise resource ABC"
+```
+
+`fail` is an alias for `raise`, they can be used interchangably. Some exceptions cannot be caught unless explicity caught in `rescue`. 
 
 
 
@@ -364,6 +424,44 @@ Child.new.say { p 'Hi!' }
 From Agile Web Development in Rails:
 
 > A regular expression lets you specify a *pattern* of characters to be matched in a string. In Ruby, you typically create a regular epression by writing `/pattern/` or `%r{pattern}`. (p52). Programs typically use the *match operator* `=~` to test strings against regular expressions. 
+
+
+Some examples from [idiomatic ruby slides](http://cbcg.net/talks/rubyidioms/) (slide 17). Reminder that `gsub` subs the *first* ocurrance, and `gsub` subs *all* ocurrences. 
+
+```ruby
+"hello".sub /o/, ' no'
+# hell no
+
+def no_vowels(str)
+  str.gsub /[aeiou]/, "!"
+end
+
+no_vowels "Hello, world!"
+# "H!ll!, w!rld!"
+
+```
+
+
+Group matching:
+
+
+```ruby
+
+def obfuscate_cc(num)
+  if num =~ /\d\d\d\d-\d\d\d\d-\d\d\d\d-(\d\d\d\d)/
+    "XXXX-XXXX-XXXX-#{$1}"
+  else
+    "Invalid credit card number"
+  end
+end
+
+puts obfuscate_cc("1234-5678-9012-3456")
+# XXXX-XXXX-XXXX-3456
+
+```
+
+
+
 
 
 
