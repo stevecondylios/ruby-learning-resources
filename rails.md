@@ -421,7 +421,10 @@ Notes on upgrading from ruby 2.x.x to 3.x.x:
 
 
 
-General notes:
+
+
+
+**General notes**:
 
 From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
 
@@ -433,7 +436,11 @@ From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workfl
 - If your code base is very large you might need to go in smaller increments.
 
 
-A workflow from rails 6.0.4.4 / ruby 2.7.1 could look like: 
+- [This walkthrough](https://satchel.works/@wclittle/how-to-upgrade-ruby-versions-within-your-ruby-on-rails-app) suggests running `yarn upgrade` to upgrade javascript packages after you finish updating gems. 
+
+
+
+An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like: 
 
 0. Make sure you have good test coverage!
 1. Upgrade to rails 6.1.4.4 
