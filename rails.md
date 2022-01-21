@@ -285,8 +285,19 @@ You can run `rspec spec --format documentation` to print the documentation when 
 
 ## RSpec
 
-What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over. 
+- To run RSpec tests, simply: `bundle exec rspec` (or simply `rspec`)
 
+- What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over. 
+
+
+- It looks like when you [install and setup Rspec](https://semaphoreci.com/community/tutorials/getting-started-with-rspec) it creates a /spec directory. I *think* everything inside it will get run automatically as part of RSpec tests. 
+
+A few notes about organising RSpec tests:
+
+- After setting up RSpec, any new scaffolds will automatically set up RSpec tests (a la 'reviews' tests in HW app). 
+- The scaffold will also generate 'routes' tests - by default testing all 7 controller actions (and update via PUT and PATCH). 
+- As for controller tests? (there's no directory for those). From rorlink: "You should use requests specs instead of controllers. Request specs tests all from routes, to actions and rendering.". 
+- Similarlly helpers/ directory is to test the helpers in your app. (see Rspec docs [here](https://relishapp.com/rspec/rspec-rails/v/5-0/docs/helper-specs/helper-spec))
 
 
 
