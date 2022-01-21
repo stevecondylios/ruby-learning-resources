@@ -16,7 +16,6 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 # Incredibly important resources:
 
-- Railsdiff (explained [here](https://www.youtube.com/watch?v=ljgmjoIv4Y8&t=5m46s), link [here](https://railsdiff.org/)) - use it when upgrading from one rails version to another.
 - How to look up rails documentation: [api.rubyonrails.org](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/Table.html#method-i-timestamps) - **use the search bar on top left**
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
 
@@ -32,6 +31,18 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 - `.deliver_later` knows to run inline in development, and for it to work properly (i.e. asynchonously) in production, it requires some setup of (??) 
 - Rich text fields
 - 
+
+
+
+
+# Model associations
+
+Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well: 
+
+- has_many 
+- belongs_to
+- has_many :through
+
 
 
 
@@ -368,8 +379,34 @@ How to think of classes and objects in an object oriented language like ruby:
 
 
 
+# Upgrading a ruby or rails version
 
 
+General resources:
+
+- Railsdiff (explained [here](https://www.youtube.com/watch?v=ljgmjoIv4Y8&t=5m46s), link [here](https://railsdiff.org/)) - use it when upgrading from one rails version to another.
+
+
+
+
+
+Notes on upgrading from ruby 2.x.x to 3.x.x:
+
+- When upgrading from ruby 2 to 3, upgrade to the latest 2.x version first, then run tests and play around with the app for a while. The main difference between 2 and 3 is positional vs keyword arguments. The latest patch of 2.x (2.7) warns where there could be a change in behaviour. Hence why going to 2.7 first is a good idea. From [here](https://reinteractive.com/posts/499-no-app-left-behind-upgrade-your-application-to-ruby-3-0-and-stay-on-the-upgrade-path)
+
+- [Ruby-lang notes](https://www.ruby-lang.org/en/news/2019/12/12/separation-of-positional-and-keyword-arguments-in-ruby-3-0/) on positional vs keyword arguments when going to ruby 3.x.x.
+
+
+
+
+General notes:
+
+From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
+
+- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2.
+  - Upgrade your gems together with Rails if possible.
+- Upgrade Ruby in a separate step.
+- If your code base is very large you might need to go in smaller increments.
 
 
 
