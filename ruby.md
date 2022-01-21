@@ -572,11 +572,16 @@ Resources:
 - https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843
 - Agile Web Development in Ruby On Rails (DHH, Sam Ruby et al)
 - Good explanation of {} and do on [stack overflow](https://stackoverflow.com/questions/5587264/do-end-vs-curly-braces-for-blocks-in-ruby)
-
+- [Enumerable methods](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=14m) (.each, .map, .inject)
 
 [From here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
 
 > Ruby blocks are anonymous functions that can be passed into methods. Blocks are enclosed in a do-end statement or curly braces {}. do-end is usually used for blocks that span through multiple lines while {} is used for single line blocks. Blocks can have arguments which should be defined between two pipe | characters.
+
+
+From [idiomatic ruby](http://cbcg.net/talks/rubyidioms/) (slide 21):
+
+> Blocks make it easy to implement iterators, callbacks, transactions etc. 
 
 
 ```ruby 
