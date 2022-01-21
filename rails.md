@@ -35,6 +35,17 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 
 
+
+# Rails environments: test / dev / prod
+
+- `rails console` will get you the rails console. `RAILS_ENV=test rails c` will open the rails console in test mode! 
+  - Similarly, to reset the test database: `RAILS_ENV=test rails db:reset`
+
+
+
+
+
+
 # Model associations
 
 Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well: 
