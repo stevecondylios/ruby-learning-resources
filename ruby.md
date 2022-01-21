@@ -879,6 +879,10 @@ show-source Array#pop -d
 $ File.link
 # NOTE: if this doesn't work, don't forget to require 'pry-doc'
 
+# Another example (hese do the same thing): 
+$ Rails.configuration
+show-source Rails.configuration
+
 ```
 
 
