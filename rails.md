@@ -403,10 +403,23 @@ General notes:
 
 From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
 
-- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2.
+- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2. 
+  - NOTE: rorlink chat says go through each minor version, that is x.X.x (the big X). 
+    - Fig: "Rails treats x.x as a major version."
   - Upgrade your gems together with Rails if possible.
 - Upgrade Ruby in a separate step.
 - If your code base is very large you might need to go in smaller increments.
+
+
+A workflow from rails 6.0.4.4 / ruby 2.7.1 could look like: 
+
+0. Make sure you have good test coverage!
+1. Upgrade to rails 6.1.4.4 
+2. Upgrade to rails 7 (note that "Rails 7 requires Ruby 2.7.0 or newer" ([here](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html)))
+3. Upgrade to ruby 3.x.x
+4. Migrate to hotwire from UJS/Turbolinks. DK: Keep your browser's console up as you're working through this. You'll uncover a bunch of "hidden" issues.
+5. keep webpack for the time being. migrate to esbuild (or whatever) as a second step
+6. move to cssbundling
 
 
 
