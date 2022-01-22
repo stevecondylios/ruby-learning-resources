@@ -301,7 +301,7 @@ You can run `rspec spec --format documentation` to print the documentation when 
 - What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over. 
 
 
-- It looks like when you [install and setup Rspec](https://semaphoreci.com/community/tutorials/getting-started-with-rspec) it creates a /spec directory. I *think* everything inside it will get run automatically as part of RSpec tests. 
+- It looks like when you [install and setup Rspec](https://semaphoreci.com/community/tutorials/getting-started-with-rspec) it creates a /spec directory. I *think* everything inside it will get run automatically as part of RSpec tests, so long as it ends in `_spec.rb` (a file I created that ended in `_helper.rb` did *not* get run). 
 
 A few notes about organising RSpec tests:
 
