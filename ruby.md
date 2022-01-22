@@ -583,13 +583,17 @@ From [idiomatic ruby](http://cbcg.net/talks/rubyidioms/) (slide 21):
 
 > Blocks make it easy to implement iterators, callbacks, transactions etc. 
 
+From [here](http://www.vikingcodeschool.com/falling-in-love-with-ruby/blocks-procs-and-lambdas):
+
+> They're often called "anonymous functions" because they have no name but behave much like functions.
+
 
 ```ruby 
 
-# A block
+# A block (inline)
 [1, 2, 3].each { |n| puts n }
 
-# Also a block
+# Also a block (multi-line)
 [1, 2, 3].each do |n|
   puts n
 end
@@ -646,6 +650,11 @@ def say_my_age
   end
 end
 
+say_my_age
+# "You didn't give me your age"
+say_my_age { 30 }
+# 30 
+
 ```
 
 
@@ -678,7 +687,21 @@ From [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1)
 
 
 
+Another example from slide 22 [here](http://cbcg.net/talks/rubyidioms/). This example shows how to pass a parameter and a block to a method other examples [here](http://www.vikingcodeschool.com/falling-in-love-with-ruby/blocks-procs-and-lambdas): 
 
+```ruby
+
+def fibonacci(max)
+  x, y = 1, 1
+  while x <= max
+    yield x if block_given? 
+    x, y = y, x + y
+  end
+end
+
+fibonacci(30) { |x| puts x }
+
+```
 
 
 
@@ -698,7 +721,7 @@ From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f6884
 ```ruby
 myproc = Proc.new { |num| puts num**3 }
 
-myproc = proc { |num| puts num**3}
+myproc = proc { |num| puts num**3} # the 'proc' method is simply an alias for Proc.new
 
 [1,2,3,4].each(&myproc)
 # 1
@@ -720,6 +743,17 @@ From [here](https://scoutapm.com/blog/how-to-use-lambdas-in-ruby):
 > Ruby lambdas allow you to encapsulate logic and data in an eminently portable variable.
 
 
+```ruby
+lamb = lambda {|n| puts 'I am a lambda' } # A lambda defined using the lambda method
+lamb = -> (n) { puts 'I am a stuby lambda' } # A "stuby lambda"
+```
+
+
+So what's the difference between a proc and a lambda? (from [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843))
+
+- Procs don’t care about the correct number of arguments, while lambdas will raise an exception.
+- Return and break behaves differently in procs and lambdas
+- Next behaves same way in both procs and lambdas
 
 
 
