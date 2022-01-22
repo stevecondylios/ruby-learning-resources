@@ -14,3 +14,13 @@ puts formatter % {
 
 thing = "%{f} and %{g}"
 puts thing % {f: 22, g: 43}
+
+
+
+error_message = """
+The currency %{currency_code} cannot be found. 
+See `Currency.last.blob[\"rates\"].keys` to view 
+available currencies. 
+"""
+from = "AUDz"
+error_message % {currency_code: from}
