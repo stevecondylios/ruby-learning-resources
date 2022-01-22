@@ -699,7 +699,13 @@ def fibonacci(max)
   end
 end
 
-fibonacci(30) { |x| puts x }
+fibonacci(30) { |x| print x.to_s + " " }
+# 1 1 2 3 5 8 13 21
+
+y = 0
+fibonacci(30) { |x| y += x }
+p y 
+# 54
 
 ```
 
@@ -1117,6 +1123,72 @@ h["name"] #=> 'Something else'
 ```
 
 <hr>
+
+
+**Closures** (from slide 24 [here](http://cbcg.net/talks/rubyidioms/)). Note that rorlink thought it was unclear what exactly this code was trying to achieve/demonstrate:
+
+```ruby
+class ButtonController
+  def initialize(label, &action)
+    @label = label
+    @action = action
+  end
+  def press
+    @action.call @label
+  end
+end
+
+ButtonController.new("Start") { thread.start }
+ButtonController.new("Pause") { thread.pause }
+
+
+```
+
+- .start and .pause work even when thread goes out of scope
+- closure's environment is a reference, not a copy
+- They're most commonly created with blocks or lambda: 
+
+```ruby
+def mkcounter
+  lambda { a += 1; puts "#{a}" }
+end
+```
+
+The lambda creates a `proc` object with associated block. 
+
+
+<hr>
+
+`method_missing` will capture any method call for which the receiver has no predefined method
+
+```ruby
+class Roman
+  def romanToInt(str)
+    # ...
+  end
+  def method_missing(methId)
+    str = methId.id2name
+    romanToInt str 
+  end
+end
+
+r = Roman.new
+r.iv #=> 4
+r.xxiii #=> 23
+r.mm #=> 2000
+
+```
+
+
+<hr>
+
+**Continuations** ([here](http://cbcg.net/talks/rubyidioms/) - slide 29) are the saved state of a program.
+- Calling a continuation brings execution back to right after it was created
+- `callcc` (["call with current continuation"](https://stackoverflow.com/questions/tagged/callcc)) takes a block and passes a `Continuation` object to it
+- Often described as a "go to with arguments".
+- When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations". 
+
+
 
 
 
