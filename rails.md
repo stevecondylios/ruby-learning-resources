@@ -404,15 +404,26 @@ How to think of classes and objects in an object oriented language like ruby:
 # Upgrading a ruby or rails version
 
 
-General resources:
+**General resources**:
 
 - Railsdiff (explained [here](https://www.youtube.com/watch?v=ljgmjoIv4Y8&t=5m46s), link [here](https://railsdiff.org/)) - use it when upgrading from one rails version to another.
 
 
 
 
+**General notes**
 
-Notes on upgrading from ruby 2.x.x to 3.x.x:
+
+- [This walkthrough](https://satchel.works/@wclittle/how-to-upgrade-ruby-versions-within-your-ruby-on-rails-app) suggests running `yarn upgrade` to upgrade javascript packages after you finish updating gems. 
+- You can delete `yarn.lock` and `node_modules/` and run `yarn install` to grab javascript packages. 
+- Run `node --version` to see the node version. 
+
+
+
+
+
+
+**Notes on upgrading from ruby 2.x.x to 3.x.x**:
 
 - When upgrading from ruby 2 to 3, upgrade to the latest 2.x version first, then run tests and play around with the app for a while. The main difference between 2 and 3 is positional vs keyword arguments. The latest patch of 2.x (2.7) warns where there could be a change in behaviour. Hence why going to 2.7 first is a good idea. From [here](https://reinteractive.com/posts/499-no-app-left-behind-upgrade-your-application-to-ruby-3-0-and-stay-on-the-upgrade-path)
 
@@ -424,7 +435,7 @@ Notes on upgrading from ruby 2.x.x to 3.x.x:
 
 
 
-**General notes**:
+**Workflow notes**:
 
 From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
 
@@ -435,8 +446,6 @@ From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workfl
 - Upgrade Ruby in a separate step.
 - If your code base is very large you might need to go in smaller increments.
 
-
-- [This walkthrough](https://satchel.works/@wclittle/how-to-upgrade-ruby-versions-within-your-ruby-on-rails-app) suggests running `yarn upgrade` to upgrade javascript packages after you finish updating gems. 
 
 
 
@@ -449,7 +458,6 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 4. Migrate to hotwire from UJS/Turbolinks. DK: Keep your browser's console up as you're working through this. You'll uncover a bunch of "hidden" issues.
 5. keep webpack for the time being. migrate to esbuild (or whatever) as a second step
 6. move to cssbundling
-
 
 
 
