@@ -1187,7 +1187,7 @@ r.mm #=> 2000
 - `callcc` (["call with current continuation"](https://stackoverflow.com/questions/tagged/callcc)) takes a block and passes a `Continuation` object to it
 - Often described as a "go to with arguments".
 - When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations". 
-
+- Good use case [here](https://www.honeybadger.io/blog/how-to-try-again-when-exceptions-happen-in-ruby/)
 
 
 
