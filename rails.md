@@ -441,9 +441,8 @@ How to think of classes and objects in an object oriented language like ruby:
 
 From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
 
-- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2. 
-  - NOTE: rorlink chat says go through each minor version, that is x.X.x (the big X). 
-    - Fig: "Rails treats x.x as a major version."
+- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2. [Here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice#section-workflow-for-each-major-rails-upgrade-a) is a workflow for going from one major rails version to another. 
+- From [rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#the-upgrade-process): When changing Rails versions, it's best to move slowly, one minor version at a time, in order to make good use of the deprecation warnings. Rails version numbers are in the form Major.Minor.Patch.
   - Upgrade your gems together with Rails if possible.
 - Upgrade Ruby in a separate step.
 - If your code base is very large you might need to go in smaller increments.
