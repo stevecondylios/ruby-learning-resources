@@ -1190,7 +1190,39 @@ r.mm #=> 2000
 - Good use case [here](https://www.honeybadger.io/blog/how-to-try-again-when-exceptions-happen-in-ruby/)
 
 
+<hr>
 
+Note that methods like `<<` can still be called with the `.` syntax, like so:
+
+```ruby
+arr = [1,2,3]
+
+arr << 4 # standard way to call << 
+
+lol.<<(5) # with . syntax
+```
+
+<hr>
+
+A way to store data in a method
+
+
+```ruby
+
+def foo
+  @foo ||= [1,2,3]
+end
+
+foo
+# => [1, 2, 3]
+
+foo << 4
+foo
+# => [1, 2, 3, 4]
+
+```
+
+<hr>
 
 
 TODO
