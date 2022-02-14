@@ -455,10 +455,10 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 0. Make sure you have good test coverage!
 1. Upgrade to rails 6.1.4.4 
-2. Upgrade to rails 7 (note that "Rails 7 requires Ruby 2.7.0 or newer" ([here](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html)))
+2. Upgrade to rails 7 (note that "Rails 7 requires Ruby 2.7.0 or newer" ([here](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html))). Note [steps](https://stackoverflow.com/a/71112586/5783745) for dealing with webpacker when upgrading to rails 7 (more [here](https://docs.google.com/document/d/1jQn7EP3N53c55p601bgnxw5HO8jMLXhu0EDZCW6SWmQ/edit#).
 3. Upgrade to ruby 3.x.x
 4. Migrate to hotwire from UJS/Turbolinks. DK: Keep your browser's console up as you're working through this. You'll uncover a bunch of "hidden" issues.
-5. keep webpack for the time being. migrate to esbuild (or whatever) as a second step
+5. keep webpack for the time being. migrate to esbuild (or whatever) as a second step.
 6. move to cssbundling
 
 
