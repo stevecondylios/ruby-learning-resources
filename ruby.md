@@ -17,7 +17,7 @@ Quick summary of things in this file:
 
 
 
-# First thing's first
+# First things first
 
 Some quick examples of how the language works and some "idiomatic ruby". Mostly from [here](http://cbcg.net/talks/rubyidioms/) (tap to go to next page of slideshow).
 
@@ -414,6 +414,8 @@ class Child < Parent
 end
 
 Child.new.say { p 'Hi!' }
+# "Hi!"
+# => "Hi!"
 
 ```
 
@@ -426,7 +428,7 @@ From Agile Web Development in Rails:
 > A regular expression lets you specify a *pattern* of characters to be matched in a string. In Ruby, you typically create a regular epression by writing `/pattern/` or `%r{pattern}`. (p52). Programs typically use the *match operator* `=~` to test strings against regular expressions. 
 
 
-Some examples from [idiomatic ruby slides](http://cbcg.net/talks/rubyidioms/) (slide 17). Reminder that `gsub` subs the *first* ocurrance, and `gsub` subs *all* ocurrences. 
+Some examples from [idiomatic ruby slides](http://cbcg.net/talks/rubyidioms/) (slide 17). Reminder that `sub` subs the *first* ocurrance, and `gsub` subs *all* ocurrences. 
 
 ```ruby
 "hello".sub /o/, ' no'
