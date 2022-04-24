@@ -321,6 +321,68 @@ end
 
 
 
+A note about how ruby handles hashes as arguments 
+
+
+```rb
+def foo(first={}, second={})
+  puts "First hash:"
+  first.each do |k, v|
+    puts k.to_s + ": " + v.to_s 
+  end
+  puts "Second hash:"
+  second.each do |k, v|
+    puts k.to_s + ": " + v.to_s
+  end
+end
+
+
+
+# A method that accepts two hashes assumes any 'loose' key value pairs belong to the first hash
+
+foo(hi: 2, there: 4)
+# First hash:
+# hi: 2
+# there: 4
+# Second hash:
+
+foo({hi: 2, there: 4}, {})
+# First hash:
+# hi: 2
+# there: 4
+# Second hash:
+
+foo({hi: 2, there: 4}, {other: 7})
+# First hash:
+# hi: 2
+# there: 4
+# Second hash:
+# other: 7
+
+foo({hi: 2, there: 4}, other: 7)
+# First hash:
+# hi: 2
+# there: 4
+# Second hash:
+# other: 7
+
+foo({hi: 2, there: 4}, other: 7, more: 9)
+# First hash:
+# hi: 2
+# there: 4
+# Second hash:
+# other: 7
+# more: 9
+```
+
+Lessons:
+
+- when a method accepts a hash, you don't need to place the {} around its key value pairs as you would normally when making a hash. 
+- When a method accepts multiple hashes, it will assume arguments without {} around them are all from the **first** hash
+  - If the first hash has {} around it and there's more key/value pair(s) without {} around it/them, it will be assumed those arguments are from the **second** hash
+
+Yeah, that's not intuitive, but it makes sense when you're aware of it. Methods like [button_to](https://apidock.com/rails/v5.2.3/ActionView/Helpers/UrlHelper/button_to) will then make sense. 
+
 
 
 
