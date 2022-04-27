@@ -15,13 +15,13 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 
 
-# Incredibly important resources:
+# Important resources
 
 - How to look up rails documentation: [api.rubyonrails.org](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/Table.html#method-i-timestamps) - **use the search bar on top left**
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
 
 
-# How to setup your working environment (IDE, terminal etc):
+# How to setup your working environment (IDE, terminal etc)
 
 - Great video on vscode extensions [here](https://www.youtube.com/watch?v=VXTmd-4jx8g)
 
@@ -468,7 +468,9 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 
 
+# Generators
 
+- Great way to see available options [here](https://rails.help/g/model). 
 
 
 
