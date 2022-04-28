@@ -57,6 +57,26 @@ Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well:
 
 
 
+### has_and_belongs_to_many
+
+
+[This](https://www.youtube.com/watch?v=rbpye74Wt2o) video says: 
+
+> Don't use (has_and_belongs_to_many) when you need validations, callbacks, or extra attributes on the join model
+
+(but I suspect by 'join model' it means the little model rails sets up *inbetween* the two models connected by has_and_belongs_to_many, so I think has_and_belongs_to_many should still be fine for my purposes)
+
+- A 'Join Table' is just a table that has two columns, model1_id, and model2_id, that way for a given model1_id you can see all the model2_ids, and vice-verse. I.e. allowing a many to many relationship. 
+
+Resources on HABTM:
+- Great diagram [here](https://stackoverflow.com/questions/34565148/what-is-the-use-of-join-table-in-rails#comment127295361_34565307) (3rd/last diagram)
+- How to create a HABTM migration [here](https://stackoverflow.com/a/5917599/5783745)
+- Note that the join table should be defined ***alphabetically*** (see [here](https://apidock.com/rails/v6.1.3.1/ActiveRecord/Associations/ClassMethods/has_and_belongs_to_many)):
+
+> Developer and Project will give the default join table name of “developers_projects” because “D” precedes “P” alphabetically
+
+- Rails Guide on [HABTM](https://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association) is really good. 
+
 
 
 
