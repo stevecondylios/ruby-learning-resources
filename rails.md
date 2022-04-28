@@ -77,7 +77,7 @@ Resources on HABTM:
 
 - Rails Guide on [HABTM](https://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association) is really good. 
 
-
+- How to create a join table, see [here](https://guides.rubyonrails.org/active_record_migrations.html#creating-a-join-table)
 
 
 
