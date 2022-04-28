@@ -101,7 +101,7 @@ Landlord.first.properties
 
 ```
 
-
+Note that `Landlord.first.properties.first.destory` would delete **the actual property** record. To remove just the *association* (not the object), use [this](https://stackoverflow.com/a/21279265/5783745) method (untested by me).
 
 
 
