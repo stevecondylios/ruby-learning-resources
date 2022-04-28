@@ -66,6 +66,7 @@ Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well:
 
 (but I suspect by 'join model' it means the little model rails sets up *inbetween* the two models connected by has_and_belongs_to_many, so I think has_and_belongs_to_many should still be fine for my purposes)
 
+
 - A 'Join Table' is just a table that has two columns, model1_id, and model2_id, that way for a given model1_id you can see all the model2_ids, and vice-verse. I.e. allowing a many to many relationship. 
 
 Resources on HABTM:
@@ -78,6 +79,29 @@ Resources on HABTM:
 - Rails Guide on [HABTM](https://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association) is really good. 
 
 - How to create a join table, see [here](https://guides.rubyonrails.org/active_record_migrations.html#creating-a-join-table)
+
+
+Note that for uuid in the join table, need the extra parameter in the migration:
+
+```rb
+    create_join_table :landlords, :properties, column_options: {type: :uuid} do |t|
+      t.index [:landlord_id, :property_id]
+      t.index [:property_id, :landlord_id]
+    end
+```
+
+How to create records in the join table
+
+```rb
+
+Landlord.first.properties << Property.first
+Landlord.first.properties
+
+# Note that nothing stops duplicates. 
+
+```
+
+
 
 
 
