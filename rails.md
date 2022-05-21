@@ -45,6 +45,95 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 
 
+# Views
+
+
+
+
+### How to display errors in the view (e.g. after a form validation error)
+
+- Controller re-renders new View when model fails to save
+
+e.g.
+
+```rb
+  if @simulation.save
+    redirect_to action: 'index'
+  else
+    render 'new'
+  end
+```
+
+Since it's using render, that will send the same model instance back to the view, and it will at that stage have errors, hence the code at the top of the scaffold will run. E.g. something like this:
+
+
+```erb
+<%= form_with(model: report) do |form| %>
+  <% if report.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(report.errors.count, "error") %> prohibited this report from being saved:</h2>
+
+      <ul>
+        <% report.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+```
+
+Note, I'm pretty sure you can roll your own mechanism, just create something like `@errors` in the controller, and some logic to display it in the view. 
+
+
+### How to make flash messages in the view 
+
+Reading:
+
+- [SO: How to show error message on rails views?](https://stackoverflow.com/a/31092957/5783745)
+- [Flash Messages](https://www.rubyguides.com/2019/11/rails-flash-messages/)
+  - The flash object has methods like `keys`, `any?` or `each` & you can access a particular message with `[]`.
+
+By default you have `notice` and `alart`, e.g.:
+
+```rb
+flash.alert = "User not found."
+```
+
+or like this
+
+```rb
+redirect_to :books_path, notice: "Book not found"
+```
+
+And to render the flash messages:
+
+```
+<% flash.each do |type, msg| %>
+  <div class="alert alert-info">
+    <%= msg %>
+  </div>
+<% end %>
+```
+
+Keep in mind:
+
+- If you redirect_to, then render a flash message, that’s good
+- If you redirect_to & DON’T render the message, the message will stick around, in the flash hash
+- If you render on the same action that you’re setting the flash message, that flash message will be available, but NOT removed so it will stay around & potentially be shown twice
+
+
+
+When using render, you may wish to use `flash.now` to render on the *current* action:
+
+```rb
+# In controller
+flash.now[:notice] = "We have exactly #{@books.size} books available."
+```
+
+
+
+
+
 
 
 # Model associations
