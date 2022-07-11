@@ -276,7 +276,7 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
 1. Unit tests 
   - e.g. testing minute details in a methods inputs/outputs
   - A unit test is about testing a single function/method in isolation with all of its possible outputs. ([source](https://developers.forem.com/tests/unit-functional-tests))
-2. Functional tests 
+2. [Functional tests(https://guides.rubyonrails.org/testing.html#functional-tests-for-your-controllers)
   - 'testing that controllers and models are using the mailer in the right way'
   - A functional test is about testing a single functionality, which can span multiple methods and a controller. Other common terms in Rails are "model tests," "controller tests," and others. ([source](https://developers.forem.com/tests/unit-functional-tests))
 3. Integration tests
@@ -327,7 +327,7 @@ From reinteractive's [article](https://reinteractive.com/posts/342-what-constitu
 
 - What's the best framework? Ruby has minitest and Rspec; both are great, just be sure to use a framework - don't go writing your own DSL or doing testing in raw ruby code. 
 
-Testing in essence:: 
+Testing in essence:
 
 > you want to check if something returns the expected results for a known input
 
@@ -346,42 +346,40 @@ Author:
 It would look like this:
 
 ```ruby
-
 def full_name
   "#{first_name} #{last_name}".strip 
 end
 
-
 describe "#full_name" do
-    let(:user) { User.new(first_name: first_name, last_name: last_name) }
+  let(:user) { User.new(first_name: first_name, last_name: last_name) }
 
-    context "with first name and last name" do
-      let!(:first_name) { 'sylvester' }
-      let!(:last_name) { 'stallone' }
+  context "with first name and last name" do
+    let!(:first_name) { 'sylvester' }
+    let!(:last_name) { 'stallone' }
 
-      it "shows the full name" do
-        expect(user.full_name).to eq('sylvester stallone')
-      end
-    end
-
-    context "when both first and last names are nil" do
-      let!(:first_name) { nil }
-      let!(:last_name) { nil }
-
-      it "shows the full name" do
-        expect(user.full_name).to eq('')
-      end
-    end
-
-    context "when only one name is present" do
-      let!(:first_name) { 'sylvester' }
-      let!(:last_name) { nil }
-
-      it "shows the full name" do
-        expect(user.full_name).to eq('sylvester')
-      end
+    it "shows the full name" do
+      expect(user.full_name).to eq('sylvester stallone')
     end
   end
+
+  context "when both first and last names are nil" do
+    let!(:first_name) { nil }
+    let!(:last_name) { nil }
+
+    it "shows the full name" do
+      expect(user.full_name).to eq('')
+    end
+  end
+
+  context "when only one name is present" do
+    let!(:first_name) { 'sylvester' }
+    let!(:last_name) { nil }
+
+    it "shows the full name" do
+      expect(user.full_name).to eq('sylvester')
+    end
+  end
+end
 ```
 
 > If it's not critical code, test the 'happy path', the worst case scenario, and one other test. 
@@ -401,6 +399,20 @@ Use [shoulda gem](https://github.com/thoughtbot/shoulda) (some more examples [he
  end
 ```
 
+**Example of testing that data got stored in database correctly** (from [rails guide](https://guides.rubyonrails.org/testing.html#putting-it-together)):
+
+```rb
+test "should update article" do
+  article = articles(:one)
+
+  patch article_url(article), params: { article: { title: "updated" } }
+
+  assert_redirected_to article_path(article)
+  # Reload association to fetch updated data and assert that title is updated.
+  article.reload
+  assert_equal "updated", article.title
+end
+```
 
 
 Always write readable tests: 
