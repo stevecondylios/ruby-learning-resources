@@ -785,6 +785,51 @@ From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f6884
 
 > Proc objects are blocks of code that have been bound to a set of local variables. Once bound, the code may be called in different contexts and still access those variables.
 
+From me: basically it's storing code as a variable. Nothing more than that. E.g. 
+
+```rb
+square = Proc.new { |x| x ** 2 }
+square.call(5)
+# 25
+```
+
+It's that simple. To compare to what I already know, R, and noting that R can store a function as a first class object without any rigmorale:
+
+```r
+square <- function(x) {
+  x ^ 2
+}
+
+square(5)
+# 25
+```
+
+```r
+outer_funct <- function(dosomething, number) {
+  dosomething(number)
+}
+
+outer_funct(square, 5)
+```
+
+TL;DR R can already do the work of Procs. R calls the *outer* function a 'functional' (a function which accepts a function). Whereas in ruby you can't pass a method/function to another method/function, so instead you create a Proc if you want to do that. 
+
+Here's a great example of using ruby procs (from Jason's book on testing):
+
+```ruby
+def perform_operation_on(number, operation)
+  operation.call(number)
+end
+
+square = Proc.new { |x| x**2 }
+double = Proc.new { |x| x * 2 }
+
+puts perform_operation_on(5, square)
+# 25
+puts perform_operation_on(5, double)
+# 10
+```
+
 
 **2 ways to define a proc**
 
@@ -798,7 +843,6 @@ myproc = proc { |num| puts num**3} # the 'proc' method is simply an alias for Pr
 # 8
 # 27
 # 64
-
 ```
 
 
