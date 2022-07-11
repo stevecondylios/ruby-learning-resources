@@ -425,6 +425,11 @@ Always write readable tests:
 You can run `rspec spec --format documentation` to print the documentation when running tests. It's good practice to use the documentation command above to check whether your spec is readable.
 
 
+**System tests use Capybara**
+
+- Capybara docs: https://github.com/teamcapybara/capybara#setup
+- Capybara methods (like `click_on`, `fill_in` and `assert_text`): https://github.com/teamcapybara/capybara#the-dsl
+
 
 
 
