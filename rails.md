@@ -427,6 +427,7 @@ You can run `rspec spec --format documentation` to print the documentation when 
 
 **System tests use Capybara**
 
+- System tests (those with an automated browswer simulating user clicks etc) [use capybara](https://guides.rubyonrails.org/v5.1/testing.html#system-testing) under the hood.
 - Capybara docs: https://github.com/teamcapybara/capybara#setup
 - Capybara methods (like `click_on`, `fill_in` and `assert_text`): https://github.com/teamcapybara/capybara#the-dsl
 
