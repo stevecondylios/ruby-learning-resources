@@ -279,6 +279,10 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
 2. [Functional tests](https://guides.rubyonrails.org/testing.html#functional-tests-for-your-controllers) (AKA Controller Tests)
   - 'testing that controllers and models are using the mailer in the right way'
   - A functional test is about testing a single functionality, which can span multiple methods and a controller. Other common terms in Rails are "model tests," "controller tests," and others. ([source](https://developers.forem.com/tests/unit-functional-tests))
+  - SC thinking: Based on the examples I see in a MRE test rails app, I *think* controller tests test things like whether a GET/POST/PATCH/DELETE to a certain url works, whether a new record is created/deleted in the right table, and whether any redirect occurs as expected. 
+    - But note (from [rails guide](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests)): 
+    > Functional tests do not verify whether the specified request type is accepted by the action, we're more concerned with the result. Request tests exist for this use case to make your tests more purposeful.
+    - Also note under 'functional tests' (aka controller tests) the [rails guide](https://guides.rubyonrails.org/testing.html#putting-it-together) gives an example of a test that reloads the fixure after a PATCH, and checks that the new attribute was indeed updated as expected. 
 3. Integration tests
   - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
   - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
@@ -287,7 +291,8 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
   - Might use capibara (a ruby tool for managing selenium) to visit a certain route, and see if it can see what it expects on the page (see great example [here](https://www.youtube.com/watch?v=ZPcRiPrpQTc))
   - System tests allow you to test user interactions with your application, running tests in either a real or a headless browser. System tests use Capybara under the hood. ([source](https://guides.rubyonrails.org/testing.html#system-testing))
   - Good thoughtbot cheatsheet on accepting testing in Rspec [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf) which uses `feature` and `scenario` e.g. (feature 'Signing in' do
-scenario 'signs the user in successfully with a valid email and password')
+  scenario 'signs the user in successfully with a valid email and password')
+  - SC thinking: I *think* system tests use a browser and simulate mouse clicks, then check if the next page has what we expect on it. I think the distinguishing characteristic of system tests is that system tests are confirming what's going on *from the user's perspective*, that is, based on things a user would do, and based on what a user would see. 
 
 Other notes: 
 
