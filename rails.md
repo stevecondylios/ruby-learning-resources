@@ -276,7 +276,7 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
 1. Unit tests 
   - e.g. testing minute details in a methods inputs/outputs
   - A unit test is about testing a single function/method in isolation with all of its possible outputs. ([source](https://developers.forem.com/tests/unit-functional-tests))
-2. [Functional tests](https://guides.rubyonrails.org/testing.html#functional-tests-for-your-controllers)
+2. [Functional tests](https://guides.rubyonrails.org/testing.html#functional-tests-for-your-controllers) (AKA Controller Tests)
   - 'testing that controllers and models are using the mailer in the right way'
   - A functional test is about testing a single functionality, which can span multiple methods and a controller. Other common terms in Rails are "model tests," "controller tests," and others. ([source](https://developers.forem.com/tests/unit-functional-tests))
 3. Integration tests
