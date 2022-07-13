@@ -283,6 +283,7 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
     - But note (from [rails guide](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests)): 
     > Functional tests do not verify whether the specified request type is accepted by the action, we're more concerned with the result. Request tests exist for this use case to make your tests more purposeful.
     - Also note under 'functional tests' (aka controller tests) the [rails guide](https://guides.rubyonrails.org/testing.html#putting-it-together) gives an example of a test that reloads the fixure after a PATCH, and checks that the new attribute was indeed updated as expected. 
+    - Note that Rspec recommends not doing controller tests (since around 2018), and now recommends [request tests](https://medium.com/just-tech/rspec-controller-or-request-specs-d93ef563ef11) which are like integration tests and route tests conbined. 
 3. Integration tests
   - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
   - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
@@ -464,7 +465,7 @@ A few notes about organising RSpec tests:
 
 - After setting up RSpec, any new scaffolds will automatically set up RSpec tests (a la 'reviews' tests in HW app). 
 - The scaffold will also generate 'routes' tests - by default testing all 7 controller actions (and update via PUT and PATCH). 
-- As for controller tests? (there's no directory for those). From rorlink: "You should use requests specs instead of controllers. Request specs tests all from routes, to actions and rendering.". 
+- As for controller tests? (there's no directory for those). From rorlink: "You should use requests specs instead of controllers. Request specs tests all from routes, to actions and rendering.". Also confirmed [here](https://medium.com/just-tech/rspec-controller-or-request-specs-d93ef563ef11)
 - Similarlly helpers/ directory is to test the helpers in your app. (see Rspec docs [here](https://relishapp.com/rspec/rspec-rails/v/5-0/docs/helper-specs/helper-spec))
 
 
