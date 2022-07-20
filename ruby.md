@@ -637,6 +637,8 @@ Resources:
 - Agile Web Development in Ruby On Rails (DHH, Sam Ruby et al)
 - Good explanation of {} and do on [stack overflow](https://stackoverflow.com/questions/5587264/do-end-vs-curly-braces-for-blocks-in-ruby)
 - [Enumerable methods](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=14m) (.each, .map, .inject)
+  - These are methods applied to collection objects that can do a lot of different things (iterating, sorting, filtering, querying, fetching, and more). See [here](https://ruby-doc.org/core-3.1.2/Enumerable.html) for a list of them and what they do!
+  - Awesome quick and dirty list of each enumerable method and what it does [here](https://ruby-doc.org/core-3.1.2/Enumerable.html).
 
 [From here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1):
 
