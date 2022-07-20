@@ -440,10 +440,50 @@ You can run `rspec spec --format documentation` to print the documentation when 
 
 
 
+### My quick notes on capybara
+
+- Capybara comes with a new rails app, enables browser automation for systems tests
+  - You can get it to do pretty much anything you'd expect with browser automation: easily find elements on the page and click on them, enter info into forms etc
+- Capybara quick and dirty docs at their readme: https://github.com/teamcapybara/capybara#the-dsl
+- And more complete reference: https://rubydoc.info/github/teamcapybara/capybara/master
+
+Some random examples to explore (form [Capybara docs](https://github.com/teamcapybara/capybara#clicking-links-and-buttons)):
+
+```rb
+click_link('id-of-link')
+click_link('Link Text')
+click_button('Save')
+click_on('Link Text') # clicks on either links or buttons
+click_on('Button Value')
+```
+
+Querying (AKA selecting elements on the page, a bit like javascript's `document.querySelector()`/`document.querySelectorAll()`):
+
+```rb
+page.has_selector?('table tr')
+page.has_selector?(:xpath, './/table/tr')
+
+page.has_xpath?('.//table/tr')
+page.has_css?('table tr.foo')
+page.has_content?('foo')
+```
 
 
 
+Interacting with forms:
 
+```rb
+fill_in('First Name', with: 'John')
+fill_in('Password', with: 'Seekrit')
+fill_in('Description', with: 'Really Long Text...')
+choose('A Radio Button')
+check('A Checkbox')
+uncheck('A Checkbox')
+attach_file('Image', '/path/to/image.jpg')
+select('Option', from: 'Select Box')
+```
+
+And a LOT more (check the [readme](https://github.com/teamcapybara/capybara)).
 
 
 
