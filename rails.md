@@ -487,6 +487,100 @@ And a LOT more (check the [readme](https://github.com/teamcapybara/capybara)).
 
 
 
+### Nice example of GitHub Action for CI to run RSpec tests for rails 7 app (postgres db)
+
+- See CE readme for more. 
+
+```yaml
+# .github/workflows/main.yml
+name: CI
+on:
+
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services: 
+      postgres:
+        image: postgres:10.8
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: ""
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        # tmpfs makes DB faster by using RAM
+        options: >-
+          --mount type=tmpfs,destination=/var/lib/postgresql/data
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }} # Sc: https://stackoverflow.com/a/69242971/5783745
+      PGHOST: localhost
+      PGUSER: postgres
+      # Rails verifies the time zone in DB is the same as the time zone of the Rails app
+      TZ: "Australia/Melbourne"
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      # SC: guess based on docs: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions
+      - name: Install libvips
+        run: sudo apt-get install -y libvips
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1.111.0
+        with:
+          ruby-version: 3.0.3
+
+      - uses: Borales/actions-yarn@v3
+        with:
+          cmd: install
+
+      - name: Install Dependencies
+        run: |
+          sudo apt install -yqq libpq-dev
+          gem install bundler
+      - name: Install Gems
+        run: |
+          bundle install
+      - name: Setup database
+        env:
+          PG_DATABASE: postgres
+          PG_HOST: localhost
+          PG_USER: postgres
+          PG_PASSWORD: password
+          RAILS_ENV: test
+          WITH_COVERAGE: true
+          DISABLE_SPRING: 1
+        run: |
+          bundle exec rails db:prepare
+          bundle exec rake assets:precompile # <-- needed this for rails 7 with esbuild (default js bundling)
+      - name: Build and test with rspec
+        env:
+          PG_DATABASE: postgres
+          PG_HOST: localhost
+          PG_USER: postgres
+          PG_PASSWORD: password
+          RAILS_ENV: test
+        run: |
+          bundle exec rspec spec
+      - name: Create Coverage Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage
+          path: coverage/
+```
+
 
 
 
