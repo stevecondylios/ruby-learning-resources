@@ -767,4 +767,8 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 
 
+# Miscellaneous notes
 
+- On the role of models vs controllers (from John M):
+
+>  The idea of fat models/skinny controllers is that models should encapsulate business logic. Well business logic and behavior, whereas controllers act more like orchestrators/handling the request/response layer.
