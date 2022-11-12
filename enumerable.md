@@ -5,4 +5,167 @@ This file contains a quick example of each of the 59 enumerable methods found [h
 The three big ones: `.each`, `.map`, and `.inject`. But there are 56 more!
 
 
+- Enumerable one-pager of documentation: 
+
+
+
+
+### `.each`
+
+
+```ruby
+pets = "cat", "mouse", "dog", "lizard", "tiger"]
+pets.each do |pet| 
+  puts "I have a #{pet}"
+end
+# I have a cat
+# I have a mouse
+# I have a dog
+# I have a lizard
+# I have a tiger 
+```
+
+
+
+### `.map`
+
+```ruby
+pets.map do |pet| 
+  pet + "aaa"
+end
+# => ["cataaa", "mouseaaa", "dogaaa", "lizardaaa", "tigeraaa"]
+
+pets.map{ |pet| pet + "aaa" }
+# => ["cataaa", "mouseaaa", "dogaaa", "lizardaaa", "tigeraaa"]
+```
+
+### `.inject` 
+
+
+```ruby
+
+
+
+
+
+```
+
+### `.count` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+### `.group_by` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+
+
+### `.partition` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+
+### `.any? 
+
+
+```ruby
+arr = [1,2,3,4]
+arr.any? { |el| el >4 }
+# => false
+
+arr2 = [1,2,3,4,5]
+arr2.any? { |el| el >4 }
+# => true 
+```
+
+
+
+
+
+
+
+### `.all?` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+### `.none?` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
+
+### `.zip` 
+
+
+```ruby
+
+
+
+
+
+```
+
+
+
+
+
+
 
