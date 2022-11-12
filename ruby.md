@@ -1021,6 +1021,13 @@ show-source Array#pop -d
 
 ```
 
+Another great way to look up source code is to use `ri` in *the command line* (not in irb/rails console). E.g.:
+
+```sh
+ri File.link
+ri inject
+```
+
 
 **To look up source code for a method**
 
