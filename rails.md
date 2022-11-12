@@ -774,3 +774,37 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 >  The idea of fat models/skinny controllers is that models should encapsulate business logic. Well business logic and behavior, whereas controllers act more like orchestrators/handling the request/response layer.
 
 - If some code that would ordinarily go in the model but doesn't belong there, for example if it's used across many controllers and would seem odd going in one model, then place it in a module. More on that [here](https://medium.com/@qasimali7566675/ruby-on-rails-best-practices-every-developer-should-know-6a4ed5b7e43f).
+
+
+
+
+
+
+# Rails 7 Turbo Drive, Turbo Frames, and Turbo Streams
+
+- From hotwire docs [here](https://turbo.hotwired.dev/):
+
+> Turbo Drive accelerates links and form submissions by negating the need for full page reloads.
+
+> Turbo Frames decompose pages into independent contexts, which scope navigation and can be lazily loaded.
+
+> Turbo Streams deliver page changes over WebSocket, SSE or in response to form submissions using just HTML and a set of CRUD-like actions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
