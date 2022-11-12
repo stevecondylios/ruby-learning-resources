@@ -56,14 +56,27 @@ pets.map{ |pet| pet + "aaa" }
 
 ### `.count` 
 
+```ruby
+(1..10).to_a.count
+```
+
+### `.select`
 
 ```ruby
-
-
-
-
-
+(1..10).to_a.select{ |el| el > 5}
+# => [6, 7, 8, 9, 10]
 ```
+
+### `.min` and `.max` 
+
+
+```ruby
+[4,3,11,9,555].min
+# => 3
+irb(main):005:0> [4,3,11,9,555].max
+# => 555
+```
+
 
 
 
