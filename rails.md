@@ -798,8 +798,17 @@ include ActionView::Helpers
 
 
 
+### Creating a dom_id so the turbo_stream knows what to target
 
+```ruby
+include ActionView::Helpers
+dom_id(Todo.new)
+# => "new_todo"
+dom_id(Todo.last)
+# => "todo_65"  
+```
 
+In other words, if `dom_id()` receives a `.new` object, it will recognise that and simply give the element a dom_id of "new_thing". 
 
 
 
