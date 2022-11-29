@@ -1342,11 +1342,26 @@ foo
 <hr>
 
 
-TODO
-- HEREDOCs and [Squiggly heredocs](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc)
 
 
 
+### Heredocs
+
+A heredoc lets you create a string that spans multiple lines. It's a way to create a string that contains a lot of text without having to escape all the quotes and newlines. A [squiggly heredoc](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc) is the same but removes whitespace from the start of lines.  
+
+```ruby
+# Regular heredoc retains indentation
+str1 = <<-DOC
+  This is a string
+  that spans multiple lines
+DOC
+
+# Squiggly heredoc (<<~) removes leading whitespace from the start of each line of the string.
+str2 = <<~DOC
+  This is a string
+  that spans multiple lines
+DOC
+``` 
 
 
 
@@ -1372,7 +1387,13 @@ TODO
 - `public_send` as found [here](https://ruby-doc.org/core-3.1.0/Object.html#method-i-remove_instance_variable)
 - `.send` found [here](https://stackoverflow.com/a/420837/5783745) to access a class's private methods. 
 
+- Example of macros (mentioned [here](https://github.com/alexandreruban/action-markdown#usage), and implemented as code [here](https://github.com/alexandreruban/action-markdown/blob/d636ba7e809ecc46782423149ca61f30c2236c66/lib/action_markdown/attribute.rb)) which defines the `has_markdown` macro. From Walter:
 
+> Devise, to pick a gem at random, has all sorts of macros in it (by this consensus definition). Basically, if you grep for a method and cannot find it at all in either your application or any of the gems' source code, that's a strong indication that it was built by a macro.
+
+and from Tobias:
+
+> to me, macros are mostly class methods adding behavior to a class. this can be setting a configuration (like `set` in sinatra) or generating code in a meta programming way. like `belongs_to`, `enum`, `validates`, callbacks and all these other methods.
 
 
 
