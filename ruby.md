@@ -1395,38 +1395,7 @@ and from Tobias:
 
 > to me, macros are mostly class methods adding behavior to a class. this can be setting a configuration (like `set` in sinatra) or generating code in a meta programming way. like `belongs_to`, `enum`, `validates`, callbacks and all these other methods.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+And great explanation of `instance_eval` and `class_eval` [here](https://web.stanford.edu/~ouster/cgi-bin/cs142-winter15/classEval.php)
 
 
 
