@@ -63,6 +63,17 @@ no_time_to_talk = false
 puts "hey there" unless no_time_to_talk
 # hey there
 
+# A note about unless
+# Recall that the two falsey values in ruby are false and nil, everything else is truthy (I think)
+# So something like 
+puts "hi" unless 5
+# won't print because 5 is 'truthy', which can be a little surprising first time around
+# Also, 
+b = 55
+puts "hi" unless b
+# That will also not print because b is 55, and that's again truthy. Just be aware that unless doesn't have to be provided some very obvious `true` for it to work. Use to your advantage, for example https://github.com/rails/rails/blob/577274d57d57df35f99655d0923252a6d9879090/activerecord/lib/active_record/tasks/database_tasks.rb#L555
+
+
 
 # until works like 'while not'
 x = 2
