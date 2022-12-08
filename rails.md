@@ -131,6 +131,19 @@ flash.now[:notice] = "We have exactly #{@books.size} books available."
 ```
 
 
+# Controllers
+
+This will let the url respond to `.html` (or no extension), vs `.json` (or other extensions in the url):
+
+```rb
+
+respond_to do |format|
+  format.html {} # Note that if it's empty that will give the default response (e.g. for the show action, it would render show.html.erb)
+  format.json
+end
+```
+
+Also note that if there's no `respond_to` block in the controller action, and a `.json` url is accessed, it will look for a jbuilder file, which is a ruby DSL to generate json. Note that it's not necessary to use jbuilder, you can always fall back on plain old ruby and `.to_json` or `.as_json` instead. 
 
 
 
@@ -490,6 +503,7 @@ And a LOT more (check the [readme](https://github.com/teamcapybara/capybara)).
 ### Nice example of GitHub Action for CI to run RSpec tests for rails 7 app (postgres db)
 
 - See CE readme for more. 
+- Update: note that this might not work since I think I used it somewhere and it broke because of some changes elsewhere	
 
 ```yaml
 # .github/workflows/main.yml
