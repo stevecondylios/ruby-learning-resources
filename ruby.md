@@ -1377,9 +1377,27 @@ DOC
 
 
 
+### Metaprogramming
 
+Nice example: 
 
+```rb
+def delete_an_image
+  @image = ActiveStorage::Attachment.find_by_id(delete_an_image_params[:attachment_id])
+  @image.purge
+  resource = delete_an_image_params[:resource] 
+  redirect_method = "edit_#{resource.underscore}_path" # underscore produces snake case
+  redirect_to send(redirect_method, delete_an_image_params[:resource_id])    
+end
 
+private
+
+def delete_an_image_params
+  params.permit(:authenticity_token, :commit, :_method, :resource, :resource_id, :attachment_id)
+end
+```
+
+The metaprogramming will evaluate the 'redirect_method' e.g. `edit_product_path(delete_an_image_params[:resource_id])`, but would just as easily handle `edit_seller_path` or any other resource/model. 
 
 
 
