@@ -1400,6 +1400,40 @@ end
 The metaprogramming will evaluate the 'redirect_method' e.g. `edit_product_path(delete_an_image_params[:resource_id])`, but would just as easily handle `edit_seller_path` or any other resource/model. 
 
 
+<hr>
+
+Another example (using `.send` and `.klass`) in [tutorial](https://www.driftingruby.com/episodes/nested-forms-from-scratch) on a form to accept multiple associated records (using simple_form_for).  
+
+Here's some output from `ri klass`:
+
+```
+(from gem activerecord-6.0.3.2)
+=== Implementation from MacroReflection
+------------------------------------------------------------------------
+  klass()
+
+------------------------------------------------------------------------
+
+Returns the class for the macro.
+
+composed_of :balance, class_name: 'Money' returns the Money class
+has_many :clients returns the Client class
+
+  class Company < ActiveRecord::Base
+    has_many :clients
+  end
+
+  Company.reflect_on_association(:clients).klass
+  # => Client
+
+Note: Do not call klass.new or klass.create to instantiate a
+new association object. Use build_association or create_association
+instead. This allows plugins to hook into association object creation.
+```
+
+
+
+
 
 # Odds and ends (mostly methods) to explore some day
 
