@@ -206,6 +206,17 @@ Landlord.first.properties
 Note that `Landlord.first.properties.first.destory` would delete **the actual property** record. To remove just the *association* (not the object), use [this](https://stackoverflow.com/a/21279265/5783745) method (untested by me).
 
 
+### Database and migrations
+
+Notes:
+
+- The [strong migrations](https://github.com/ankane/strong_migrations#changing-the-type-of-a-column) gem lets you try to do a migration but it will stop you if you're going to do it in a way that would be unsafe. Probably a great idea to use this gem as soon as an app has consistent usage.  
+
+
+
+
+
+
 
 
 
