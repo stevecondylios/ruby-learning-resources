@@ -19,7 +19,7 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 
 - How to look up rails documentation: [api.rubyonrails.org](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/Table.html#method-i-timestamps) - **use the search bar on top left**
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
-
+- To get source code of any ruby/rails method from the rails console [here](https://stackoverflow.com/a/70819821/5783745) 
 
 # How to setup your working environment (IDE, terminal etc)
 
