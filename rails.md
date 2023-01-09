@@ -48,8 +48,6 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 # Views
 
 
-
-
 ### How to display errors in the view (e.g. after a form validation error)
 
 - Controller re-renders new View when model fails to save
@@ -129,6 +127,28 @@ When using render, you may wish to use `flash.now` to render on the *current* ac
 # In controller
 flash.now[:notice] = "We have exactly #{@books.size} books available."
 ```
+
+
+### How to tell where the user navigated from
+
+Use [this](https://stackoverflow.com/a/18151260/5783745):
+
+```rb
+URI(request.referrer).path
+# "/products/14"
+```
+
+Could be used to conditionally display a button or text conditionally when the user navigated from some location.
+
+
+
+
+
+
+
+
+
+
 
 
 # Controllers
