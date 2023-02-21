@@ -747,7 +747,7 @@ How to think of classes and objects in an object oriented language like ruby:
 **General resources**:
 
 - Railsdiff (explained [here](https://www.youtube.com/watch?v=ljgmjoIv4Y8&t=5m46s), link [here](https://railsdiff.org/)) - use it when upgrading from one rails version to another.
-
+- Awesome guide from rorlink [here](https://github.com/railslink/resources/wiki/Rails:-Upgrade-process).
 
 
 
