@@ -1460,6 +1460,8 @@ and from Tobias:
 
 And great explanation of `instance_eval` and `class_eval` [here](https://web.stanford.edu/~ouster/cgi-bin/cs142-winter15/classEval.php)
 
+- A note about ruby macros [here](https://stackoverflow.com/questions/47746381/creating-a-macro-in-ruby?noredirect=1#comment132510618_47746381). Basically what ruby calls a macros isn't consistent with what the broader programming world calls macros (so ruby's macros aren't consistent with what a Lisp programmer would call a macro)
+
 
 
 
