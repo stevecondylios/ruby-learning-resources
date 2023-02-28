@@ -577,7 +577,7 @@ There are some great examples of these in my poodr notes. TL;DR
 
 - Use keyword arguments \~80% of the time (they make code more loosely coupled, since argument order ceases to matter), so keyword arguments > positional arguments 80% of the time. 
 - Be careful of a potential 'gotcha' when you think you're dealing with a method that accepts keyword arguments. Since they're submitted like hashes, a method that *doesn't* accept keyword arguments but receives one will think it's a hash and might run without error, which could be dangerous! 
-
+- Interesting case with rails `render` method [here](https://stackoverflow.com/a/75586745/5783745)
 
 **Keyword arguments**
 
