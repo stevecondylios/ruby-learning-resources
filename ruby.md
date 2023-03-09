@@ -332,7 +332,50 @@ end
 
 
 
-A note about how ruby handles hashes as arguments 
+
+### Extending classes and the `Object` class
+
+
+
+You can extend a class like so:
+
+
+```rb
+
+class User
+  def new_thing
+   ...
+  end
+end
+```
+
+
+
+Note that all classes inherit from the `Object` class, so anything you place there will be available in other classes. For example, here we make `somemethod` available to the `String` class, via the `Object` class. 
+
+
+```rb
+class Object
+  def somemethod
+    self + "hi"
+  end
+end
+"nn".somemethod
+# => "nnhi" 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+### How ruby handles hashes as arguments 
 
 
 ```rb
