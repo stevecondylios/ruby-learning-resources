@@ -785,7 +785,16 @@ From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workfl
 - Upgrade Ruby in a separate step.
 - If your code base is very large you might need to go in smaller increments.
 
+- Discussion [here](https://www.reddit.com/r/rails/comments/11nxqqv/comment/jbpmp9i/?utm_source=reddit&utm_medium=web2x&context=3): 
 
+> Trying to run an old rails on a ruby version that didn't exist when the rails version was written is a recipe for many confusing issues.
+
+also 
+
+> Gems first, then rails, then ruby.
+
+
+- So tl;dr, upgrading rails before ruby is a good idea, but probably only if the rails version was made to work on that particular version of ruby. 
 
 
 An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like: 
