@@ -1359,7 +1359,7 @@ r.mm #=> 2000
 - Often described as a "go to with arguments".
 - When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations". 
 - Good use case [here](https://www.honeybadger.io/blog/how-to-try-again-when-exceptions-happen-in-ruby/)
-
+  - Brilliant examples of case when and case in [here](https://www.akshaykhot.com/ruby-switch-statement/)
 
 <hr>
 
