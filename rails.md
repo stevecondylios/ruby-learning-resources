@@ -315,6 +315,20 @@ The purpose of testing is to:
 
 ### Types of tests
 
+
+
+A quick note on how DHH tests (from his podcast appearance on *rerecursive* podcast):
+
+- DHH writes:
+  - **model tests** (which incorporate everything unit tests do, but may also talk to the database),
+  - **controller tests** (which, like model tests, talk to the db)
+  - **system tests** which "flex the system"
+
+- When talking to the db, he uses real models, not mocks or stubs
+- He usually has about half the amount of test code as app code (typically no need for super fine grained unit tests)
+
+<hr>
+
 The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/testing.html):
 
 > How to write unit, functional, integration, and system tests for your application.
