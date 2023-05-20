@@ -681,6 +681,9 @@ From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-bet
 
 From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-are-fixtures-questionmark):
 
+
+- Interesting comment [here](https://www.reddit.com/r/rails/comments/13lvzk4/comment/jksu5n8/?utm_source=reddit&utm_medium=web2x&context=3) saying they wouldn't use fixtures at all. 
+
 > What are fixtures? **Fixtures is a fancy word for sample data**. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
 
 
