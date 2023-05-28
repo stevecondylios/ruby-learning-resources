@@ -869,6 +869,13 @@ include ActionView::Helpers
 
 > Turbo Streams deliver page changes over WebSocket, SSE or in response to form submissions using just HTML and a set of CRUD-like actions.
 
+### Notes and resources on hotwire, stimulus and the Turbos
+
+- Nice simple tutorial on hotwire [here](https://monn.app/blog/the-simplest-ruby-on-rails-and-hotwire-app-possible-beginners-guide), found [here](https://www.reddit.com/r/rails/comments/13tratd/learn_hotwire_by_building_the_simplest_possible/). 
+
+
+
+
 
 
 ### Creating a dom_id so the turbo_stream knows what to target
