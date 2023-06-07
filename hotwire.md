@@ -9,7 +9,10 @@
 
 
 
+### Random notes
 
+- What's the difference between a [broadcast]() (as per the rails 7 demo video) and turbo_stream from the controller? 
+  - ANS: use a broadcast when you want every browser with a certain page (e.g. multiple users with that particular page open) to receive an update. Regular turbo stream will update the *one* browser (i.e. the user's browser). 
 
 
 
