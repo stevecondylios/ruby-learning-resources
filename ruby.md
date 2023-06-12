@@ -740,6 +740,32 @@ end
 # goodbye
 ```
 
+So literally all yield does is run the code supplied in the block. 
+
+Another example (from [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=31m14s)):
+
+```
+def twice
+  yield
+  yield
+end
+
+twice { puts "Get your shoes on..." }
+
+# Get your shoes on...
+# Get your shoes on...
+
+# or
+
+twice do 
+  puts "Get your shoes on..."
+end
+
+# Get your shoes on...
+# Get your shoes on...
+
+
+```
 
 **Passing parameters to yield** (based on [this](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843))
 
