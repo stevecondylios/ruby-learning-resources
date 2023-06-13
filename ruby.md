@@ -1566,75 +1566,9 @@ t.respond_to? :pqr
 
 ```
 
-If a particular class shares similar/same methods to another class, then it can be said that they're similar. Like if we had a calss of Mailard and class of Pochard, and they both `respond_to? :quack`, then they both quack so they're probably both ducks (whereas class Goose has `respond_to :quack # false` so it's not a goose. 
+If a particular class shares similar/same methods to another class, then it can be said that they're similar. Like if we had a calss of Mailard and class of Pochard, and they both `respond_to? :quack`, then they both quack so they're probably both ducks (whereas class Goose has `respond_to :quack # false` so it's not a goose. From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=48m45s): 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+> An object is less defined by ineritance, and more by what the object does.  
 
 
 
