@@ -1532,13 +1532,41 @@ And great explanation of `instance_eval` and `class_eval` [here](https://web.sta
 - A note about ruby macros [here](https://stackoverflow.com/questions/47746381/creating-a-macro-in-ruby?noredirect=1#comment132510618_47746381). Basically what ruby calls a macros isn't consistent with what the broader programming world calls macros (so ruby's macros aren't consistent with what a Lisp programmer would call a macro)
 
 
+- A quick demonstration of duck typing. 
+  - Great example [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=48m)
+  - Basic idea: instead of asking: "is this instance a class (or subclass) of some class?", you ask, does it have the same/similar methods to some class. 
+  - Example:
 
 
+```rb
+
+class Thing
+  def abc
+    puts "hi"
+  end
+end
 
 
+t = Thing.new
 
+t.abc
+# hi
 
+t.respond_to? "abc"
+# true
 
+t.respond_to? :abc
+# true
+
+t.respond_to? "pqr"
+# false
+
+t.respond_to? :pqr
+# false
+
+```
+
+If a particular class shares similar/same methods to another class, then it can be said that they're similar. Like if we had a calss of Mailard and class of Pochard, and they both `respond_to? :quack`, then they both quack so they're probably both ducks (whereas class Goose has `respond_to :quack # false` so it's not a goose. 
 
 
 
