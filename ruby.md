@@ -1506,6 +1506,19 @@ instead. This allows plugins to hook into association object creation.
 
 
 
+# Mixins
+
+From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mixin is nothing more than a class which includes a module (which, as one may anticipate, makes the module's methods available to the class). My own thought: seems hardly worth mentioning, since it seems obvious.  
+
+
+
+
+
+
+
+
+
+
 
 
 # Odds and ends (mostly methods) to explore some day
