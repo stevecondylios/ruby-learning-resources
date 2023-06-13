@@ -1572,9 +1572,9 @@ If a particular class shares similar/same methods to another class, then it can 
 
 
 
+> Instead of a String I could use a File here .. it would do just the right thing (since it would have the right methods)
 
-
-
+> it breaks you from having to do, like in Java, create an interface and then having to implement all the methods and not use them ([here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=52m25s)
 
 
 
