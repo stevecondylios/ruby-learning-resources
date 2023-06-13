@@ -1452,6 +1452,13 @@ DOC
 
 ### Metaprogramming
 
+
+- Technically, things like `attr_accessor` and `has_many` are metaprogramming, since they're macros that define more methods/functions within a class (i.e. they're functions that define functions). 
+  - See [berkeley video](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h7m34s) for more. 
+
+
+
+
 Nice example: 
 
 ```rb
