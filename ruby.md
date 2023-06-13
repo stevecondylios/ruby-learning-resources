@@ -1021,8 +1021,12 @@ end
 
 ```
 
+- Note that the ruby language has many modules as part of its standard library, for example the Math module. And a reminder tha to use methods from a module you can first load the module with include (see example above), or you can just prepend the module name and :: and then the metho, like so:
 
-
+```
+Math::PI
+=> 3.141592653589793 
+```	
 
 
 
