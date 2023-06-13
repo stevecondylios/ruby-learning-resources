@@ -55,6 +55,9 @@ x += 7 # plusequals adds 7 to x
 (1..5) === 10 
 # false
 
+String === "hi"
+# true
+
 
 
 # unless works like 'if not'
