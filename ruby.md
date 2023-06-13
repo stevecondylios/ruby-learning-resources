@@ -1456,7 +1456,9 @@ DOC
 - Technically, things like `attr_accessor` and `has_many` are metaprogramming, since they're macros that define more methods/functions within a class (i.e. they're functions that define functions). 
   - See [berkeley video](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h7m34s) for more. 
 
+From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h9m32s): 
 
+> the idea is, with metaprogramming, I can inject code into my Classes. And a lot of the way rails works is ... at run time it's injecting a whole bunch of methods dynamically into that class
 
 
 Nice example: 
