@@ -440,9 +440,11 @@ Lessons:
 
 Yeah, that's not intuitive, but it makes sense when you're aware of it. Methods like [button_to](https://apidock.com/rails/v5.2.3/ActionView/Helpers/UrlHelper/button_to) will then make sense. 
 
+- Consider what would happen if a function took two hashes as arguments and the {} were omitted, then it would be ambiguous as to which hash each key/value pair belonged to. See [here](https://www.youtube.com/watch?v=LuuKDyUYFTU&t=5m50s): 
 
+> If you have a function that can take multiple arguments each of which is a hash, then it becomes confusing
 
-
+Solution: use {} in that case to denote the start and end of each hash. 
 
 
 # Super
