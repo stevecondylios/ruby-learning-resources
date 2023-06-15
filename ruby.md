@@ -336,6 +336,58 @@ end
 
 
 
+### Storing data in a class with attr_accessor
+
+Example from [ruby on rails berkeley](https://www.youtube.com/watch?v=LuuKDyUYFTU&t=10m45s) course:
+
+
+```
+class Foo
+
+# constructor
+  def initialize(args={})
+    @bar = args[:bar]
+  end
+
+  # getter
+  def bar
+    @bar
+  end
+
+  # setter
+  def bar=(newval)
+    @bar = newval
+  end
+
+end
+```
+
+The same can be achieved with just:
+
+```
+class Autofoo
+  attr_accessor :bar
+end
+```
+
+These allow you to do things like:
+
+
+```
+a = Foo.new
+a.bar
+# => nil
+
+# Set the value
+a.bar = 2
+
+# Get the value
+a.bar
+# => 2
+```
+
+
+
 ### Extending classes and the `Object` class
 
 
