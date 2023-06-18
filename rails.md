@@ -21,7 +21,7 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
 - To get source code of any ruby/rails method from the rails console [here](https://stackoverflow.com/a/70819821/5783745) 
 - Awesome list of ruby gems by category [here](https://opensource-heroes.com/awesome/ruby)
-
+- Nice list of ruby gems used in a typical application [here](https://twitter.com/marckohlbrugge/status/1669794416343523355?s=20)
 
 # How to setup your working environment (IDE, terminal etc)
 
@@ -876,6 +876,7 @@ include ActionView::Helpers
 
 
 
+twire_by_building_the_simplest_poss
 
 
 ### Creating a dom_id so the turbo_stream knows what to target
