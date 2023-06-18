@@ -912,7 +912,40 @@ p y
 
 ```
 
+Just one more example of a block, use of &block, block_given? and yield (I made this one up)
 
+```rb
+def hi(*args)
+  args.each do |arg|
+    puts arg.to_s
+  end
+end
+
+hi("a", "b")
+a
+b
+
+def hii(*args, &block)
+  args.each do |arg|
+    puts arg
+  end
+  if block_given?
+    yield
+  end
+end
+
+# Call without a block
+hii("a", "b")
+a
+b
+
+# Call with a block
+hii("a", "b") { puts "boom!" }
+a
+b
+boom!
+
+```
 
 
 
