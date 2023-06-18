@@ -18,6 +18,8 @@ things to include: fixtures, factories, testing (defaults, but also with RSpec).
 # Important resources
 
 - How to look up rails documentation: [api.rubyonrails.org](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/Table.html#method-i-timestamps) - **use the search bar on top left**
+  - And how to find out which module/class a method comes from [here](https://stackoverflow.com/a/76500645/5783745). 
+    - Basically: `method(:render).source_location` where 'render' is the method you want to look up (and remember to do it in the same scope as you're using it in the app - e.g. the view, but could be anywhere else - use `binding.pry` if necessary)
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
 - To get source code of any ruby/rails method from the rails console [here](https://stackoverflow.com/a/70819821/5783745) 
 - Awesome list of ruby gems by category [here](https://opensource-heroes.com/awesome/ruby)
