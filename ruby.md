@@ -1043,6 +1043,79 @@ So what's the difference between a proc and a lambda? (from [here](https://mediu
 
 
 
+
+### Some nice simple examples of procs and lambdas from codecademy
+
+- My words: procs and lambdas are both just chunks of code that can be called at some future time
+
+
+- From [here](https://www.codecademy.com/learn/learn-ruby/modules/learn-ruby-blocks-procs-and-lambdas-u/cheatsheet): 
+
+> In Ruby, a proc and a lambda can be called directly using the `.call` method.
+
+
+```rb
+
+test = Proc.new { puts "I am the proc method!" }
+lambda_test = lambda { puts "I am the lambda method!"}
+
+proc_test.call # => I am the proc method!
+lambda_test.call # => I am the lambda method!
+```
+
+The difference between a proc and a lambda:
+
+> In Ruby, a lambda is an object similar to a proc. Unlike a proc, a lambda requires a specific number of arguments passed to it, and it returns to its calling method rather than returning immediately.
+
+
+```rb
+def proc_demo_method
+  proc_demo = Proc.new { return "Only I print!" }
+  proc_demo.call
+  "But what about me?" # Never reached
+end
+
+puts proc_demo_method 
+# Output 
+# Only I print!
+
+# (Notice that the proc breaks out of the method when it returns the value.)
+
+def lambda_demo_method
+  lambda_demo = lambda { return "Will I print?" }
+  lambda_demo.call
+  "Sorry - it's me that's printed."
+end
+
+puts lambda_demo_method
+# Output
+# Sorry - it's me that's printed.
+
+# (Notice that the lambda returns back to the method in order to complete it.)
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Modules
 
 From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
