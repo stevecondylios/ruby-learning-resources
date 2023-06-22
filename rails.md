@@ -6,13 +6,10 @@ This may become its own repo. For now including in ruby-learning-resources
 The purpose is to collect rails tid-bits that will serve as a useful reminder for anyone forgetful. 
 
 
-things to include: fixtures, factories, testing (defaults, but also with RSpec). 
-
-
-# Intro
+# Random notes
 
 - The average rails app has 1.03 lines of test code for every line of code in the app! [Source](https://semaphoreci.com/blog/2018/04/11/state-of-testing-in-rails.html)
-
+- Brilliant explanation of why modern rails apps are started with `bin/dev` instead of `rails server` [here](https://www.youtube.com/watch?v=GGpt2TEkDqo&t=78s) (spoiler: css updates run through a separate process, so the bin/dev script installs foreman if it's not installed and then starts the Procfile (.dev version) which starts the various processes).
 
 
 # Important resources
