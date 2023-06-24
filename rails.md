@@ -45,8 +45,57 @@ The purpose is to collect rails tid-bits that will serve as a useful reminder fo
 
 
 
+### Credentials
 
-# Views
+
+Open credentials with 
+
+```
+EDITOR="vim" bin/rails credentials:edit
+```
+
+Example credentials.yml
+
+```
+aws:
+  access_key_id: 123
+  secret_access_key: 345
+```
+
+And access the variables like so
+
+```
+# Print credentials 
+Rails.application.credentials
+```
+
+
+### Note: a nice idea is to scope credentials to production, development and test environments
+
+```
+production:
+  myvar:
+    first_thing: abcd
+    second_thing: defg
+
+development:
+  myvar:
+    first_thing: abcd
+    second_thing: defg
+
+test:
+  myvar:
+    first_thing: abcd
+    second_thing: defg
+```
+
+And then use this to access them in the various environments: 
+
+```
+Rails.application.credentials[Rails.env.to_sym] 
+```
+
+
 
 
 ### How to display errors in the view (e.g. after a form validation error)
