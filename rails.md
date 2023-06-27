@@ -284,8 +284,31 @@ Notes:
 
 
 
+# Enums
+
+See
+
+- [Rails guides](https://guides.rubyonrails.org/active_record_querying.html#enums) enums section
+- [This video](://www.youtube.com/watch?v=EiceC-m2UmI&t=575s)
+- [rails 7 enum syntax](https://blog.saeloun.com/2021/02/26/rails-introduces-new-syntax-for-enum/)
+
+But basically all you need to do is 
+
+- Have a column that's an integer
+- Add something like this to the model file 
 
 
+```
+enum :status, { published: 0, draft: 1, archieved: 2 }
+```
+
+and the form field should look like [this](https://stackoverflow.com/a/49851936/5783745):
+
+```
+<%= form.select :incomeType, options_for_select([['Income', 'income'], ['Allowance', 'allowance']]), id: :incomeType %>
+```
+
+Note the array of arrays, where subarrays are length 2. The subarray contains what you want the user to see followed by what you want to pass to the database, in that order. I haven't looked particularly hard, but I suprisingly didn't find much documentation on how enums should be dealt with in the view, so I'm going by the stack overflow answer unless I find something better. 
 
 
 
