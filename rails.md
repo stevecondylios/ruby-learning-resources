@@ -311,6 +311,26 @@ and the form field should look like [this](https://stackoverflow.com/a/49851936/
 Note the array of arrays, where subarrays are length 2. The subarray contains what you want the user to see followed by what you want to pass to the database, in that order. I haven't looked particularly hard, but I suprisingly didn't find much documentation on how enums should be dealt with in the view, so I'm going by the stack overflow answer unless I find something better. 
 
 
+Some other (awesome) ways to populate the enum values in the form [here](https://spaquet.medium.com/activerecord-enum-and-activeview-form-f09dca0ea4b0):
+
+```
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Post.statuses.keys %>
+</div>
+```
+
+
+```
+<div>
+  <%= form.label :status %>
+  <%= form.select :status, Post.statuses.keys.map{ |key| [key.humanize, key] }, selected: @post.status || :draft %>
+</div>
+```
+
+
+
+
 
 
 # Scopes
