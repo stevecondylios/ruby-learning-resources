@@ -967,8 +967,6 @@ include ActionView::Helpers
 
 
 
-twire_by_building_the_simplest_poss
-
 
 ### Creating a dom_id so the turbo_stream knows what to target
 
