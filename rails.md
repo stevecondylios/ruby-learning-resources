@@ -984,11 +984,11 @@ In other words, if `dom_id()` receives a `.new` object, it will recognise that a
 
 
 
+# Deployment
 
 
-
-
-
+- Interesting advice [here](https://www.reddit.com/r/rails/comments/14khvxe/hosting_rails_app_on_aws/)) on deploying to EC2s - Tl;dr: don't. It's too much work and even with thorough GoRails guides, it's still more complicated. Go with a PaaS, pay a little to save a tonne of time/effort. 
+  - If you must go on aws, use elastic bean stalk (see comment in above thread)
 
 
 
