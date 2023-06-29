@@ -993,3 +993,64 @@ In other words, if `dom_id()` receives a `.new` object, it will recognise that a
 
 
 
+
+
+# More random things to follow up at some point
+
+
+Looking at `javascript_include_tag` which is used in application.html.erb when using esbuild, it's [source code](https://github.com/rails/rails/blob/de29ff225e47ddee3e5a1f2289a44852e5a65eb9/actionview/lib/action_view/helpers/asset_tag_helper.rb#L111) contains [`extract_options!`](https://api.rubyonrails.org/classes/Array.html#method-i-extract_options-21): 
+
+
+A note on loading the active_support library
+
+When using irb (not in a rails app), I thought `require 'active_support'` would make extract_options! available, but it doesn't. it's also necessary to do this: `require 'active_support/core_ext'`. Why? Because loading the active_support library doesn't automatically load all its extensions and modules (since doing so could slow down your application), instead you have to specifically load them yourself e.g. require 'active_support/core_ext'
+
+To see which modules and extensions a library contains, consult its official documentation you can load everything with require 'active_support/all'
+
+Note that presumably everything in this [active_support directory](https://github.com/rails/rails/tree/main/activesupport/lib/active_support) is also an extension/module within active_support. It contains 'core_ext' as well as 'all' and a heap of others. 
+
+
+```rb
+# Example from rails api:
+
+def options(*args)
+  args.extract_options!
+end
+
+options(1, 2)        # => {}
+options(1, 2, a: :b) # => {:a=>:b}
+
+
+# My playing around 
+
+def thing(*sources)
+  options = sources.extract_options!.stringify_keys
+  puts options
+  puts options.class
+  puts options.length
+  options.each do |k, v|
+    puts "key: " + k + " value: " + v 
+  end 
+end
+
+thing(a: "abc", b: "def")
+
+# {"a"=>"abc", "b"=>"def"}
+# Hash
+# 2
+# key: a value: abc
+# key: b value: def
+# => {"a"=>"abc", "b"=>"def"}
+
+
+```
+
+
+
+
+
+
+
+
+
+
