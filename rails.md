@@ -480,6 +480,8 @@ From Jason S ([here](https://www.codewithjason.com/set-rails-application-testing
 
 ### Quick tips on testing
 
+- Nice table translating what rspec calls various types of tests to what minitest calls them [here](https://semaphoreci.com/blog/test-pyramid-ruby-on-rails#ruby-on-rails-test-types)
+
 From reinteractive's [article](https://reinteractive.com/posts/342-what-constitutes-good-testing-in-rails):
 
 - What's the best framework? Ruby has minitest and Rspec; both are great, just be sure to use a framework - don't go writing your own DSL or doing testing in raw ruby code. 
