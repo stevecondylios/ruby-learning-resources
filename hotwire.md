@@ -20,6 +20,23 @@
     - Turbostreams, which are executed from the controller, and tell the page to update various element(s) without a full page reload
     - Turbostreams broadcasts, which update all open browsers with affected streams (not just one user who makes a request as per regular turbostreams)  
 
+- Every rails 7+ app comes with app/javascript/controllers/hello_controller.js
+- According to [here](https://railsnotes.xyz/blog/your-first-stimulus-controller-learn-stimulus-ruby-on-rails-by-building-a-toggle-beginners-guide), stimulus works very well with tailwind. 
+
+
+
+
+
+# Stimulus
+
+- Nice (very simple) tutorial [here](https://railsnotes.xyz/blog/your-first-stimulus-controller-learn-stimulus-ruby-on-rails-by-building-a-toggle-beginners-guide)
+  - From [here](https://news.ycombinator.com/item?id=36486918)
+
+
+- Setting `application.debug = true` inside app/javascript/controllers/application.js will give more info in the 'console' tab of the chrome javascript console (from [here](https://railsnotes.xyz/blog/your-first-stimulus-controller-learn-stimulus-ruby-on-rails-by-building-a-toggle-beginners-guide) 
+
+
+
 
 
 
