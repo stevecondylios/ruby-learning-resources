@@ -960,7 +960,7 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 # Generators
 
-- Great way to see available options [here](https://rails.help/g/model). 
+- Great way to see available options [here](https://wasabigeek.github.io/railshelp). 
 - Great way to see avaialble `rails new` options interactively [here](https://railsnew.app/) (by axel from ror link). 
 
 
