@@ -231,6 +231,16 @@ Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well:
 
 ### has_and_belongs_to_many
 
+Sc note: after a fair bit of reading, there's virtually no reason not to use has_many :through (instead of HABTM) basically all the time. Rationale: the cost is you have to name a join model (as opposed to simply have a table with ids of both the tables it joins), so now you have to think of a name for that join table, but the benefits you get are: 1. You can now have attributes on that model (now or in the future), 2. You can have validations on that model (E.g. airbnb host can only be a host on the same property once - wouldn't make sense to simultaneously be the host of the same property twice as the same time, based on [this](https://stackoverflow.com/a/24559591/5783745) you wouldn't be able to validate it if it was just a model-less table as with HABTM). 
+
+Also [this](https://stackoverflow.com/questions/2780798/has-and-belongs-to-many-vs-has-many-through#comment101519442_2781049) says: 
+
+> The punch line here is that you will always end up needing to add attributes to your join table, sooner or later. Go ahead and use has_many through: from the beginning and save pain later.
+
+sc: the only thing I'd add to this is if you want the flexibility to move away from has_many :through to HABTM (pretty unlikely tbh) then you should name your join table according to HABTM conventions, which is in alphabetical order. What would motivate a change from HMT to HABTM? The only thing I can think of is if you don't like the join model's name (it causes confusion in development or something like that), and so you prefer there be no join model and just a table instead. Seems like a *very* weak motivator though. 
+
+TL;DR always go with has_many :through unless you really hate having to put a name on the join model or you're extremely certain you won't need attributes nor validations on the join model. 
+
 
 [This](https://www.youtube.com/watch?v=rbpye74Wt2o) video says: 
 
