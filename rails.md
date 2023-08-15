@@ -440,7 +440,7 @@ The purpose of testing is to:
 
 
 
-A quick note on how DHH tests (from his podcast appearance on *rerecursive* podcast):
+A quick note on how DHH tests (from his podcast appearance on *corecursive* podcast [here](https://corecursive.com/045-david-heinemeier-hansson-software-contrarian/#)):
 
 - DHH writes:
   - **model tests** (which incorporate everything unit tests do, but may also talk to the database),
