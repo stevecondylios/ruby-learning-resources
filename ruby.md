@@ -211,8 +211,23 @@ raise "failure to raise resource ABC"
 
 
 
+Tap method
+
+Tap allows you to do something with an object without modifying its value or disrupting a chain of method calls. That is, it yields the object on which it's called to a block. Then it returns the original object, regardless of what the block does. It can also produce more expressive code [example here](https://stackoverflow.com/a/17493604/5783745)
+
+```ruby
+'hello'.tap { |string| puts string.upcase }
+# Outputs: HELLO
+# Returns: 'hello'
 
 
+[1, 2, 3, 4, 5].select { |num| num.even? }
+    .tap { |nums| puts "Evens: #{nums}" }
+    .map { |num| num * 2 }
+# Outputs: Evens: [2, 4]
+# Returns: [4, 8]
+
+```
 
 
 
@@ -1594,7 +1609,7 @@ foo
 
 ### Heredocs
 
-A heredoc lets you create a string that spans multiple lines. It's a way to create a string that contains a lot of text without having to escape all the quotes and newlines. A [squiggly heredoc](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc) is the same but removes whitespace from the start of lines.  
+A heredoc lets you create a string that spans multiple lines. It's a way to create a string that contains a lot of text without having to escape all the quotes and newlines. A [squiggly heredoc](https://infinum.com/the-capsized-eight/multiline-strings-ruby-2-3-0-the-squiggly-heredoc) is the same but removes whitespace from the start of lines.
 
 ```ruby
 # Regular heredoc retains indentation
@@ -1608,7 +1623,7 @@ str2 = <<~DOC
   This is a string
   that spans multiple lines
 DOC
-``` 
+```
 
 
 
