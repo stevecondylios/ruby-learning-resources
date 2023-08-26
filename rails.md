@@ -672,6 +672,44 @@ And a LOT more (check the [readme](https://github.com/teamcapybara/capybara)).
 
 
 
+### Quick notes on mocks and stubs
+
+- A good use case / example of both is in a hypothetical set of tests for sending an sms in a rails application. In prod, you want it to send, in dev, you might want it to send to the developer's phone (stored in rails creds), and in test, you might want the method to simply log (rather than send any real sms)
+
+
+#### Stubs
+
+"Stubbing" refers to the practice of replacing a method or function with a simplified version that behaves in a predictable way, specifically for testing purposes.
+
+When you "stub out" a method, you're essentially overriding its behavior for the duration of a test so that it doesn't execute its real logic. Instead, it might return a hard-coded value, raise a specific exception, or simply do nothing.
+
+E.g. using a tool like RSpec, you can stub out the sns.publish method to avoid making the external call and check that it would have been called with the right arguments:
+
+```ruby
+it "attempts to send an SMS with the correct parameters" do
+  sender = SmsSender.new("1234567890", "Hello, World!")
+  expect_any_instance_of(Aws::SNS::Client).to receive(:publish).with(hash_including(
+    phone_number: "1234567890",
+    message: "Hello, World!"
+  ))
+  sender.send
+end
+```
+
+When you set an expectation on a method with receive, RSpec will also stub that method. This means that when the publish method is called during the test, it won't execute its original logic but will instead just acknowledge the method call (to check against the expectation).
+
+
+#### Mocks
+
+Similar to stubs as outlined [here](https://stackoverflow.com/a/17810004/5783745):
+
+> **Stubs** provide canned answers to calls made during the test, usually not responding at all to anything outside what's programmed in for the test.
+
+> **Mocks** objects pre-programmed with expectations which form a specification of the calls they are expected to receive.
+
+
+
+
 ### Nice example of GitHub Action for CI to run RSpec tests for rails 7 app (postgres db)
 
 - See CE readme for more. 
