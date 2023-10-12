@@ -174,14 +174,13 @@ t.name
 
 ```
 
-We can do something similar but use `initialize` which is a special ruby method which, when defined, will let you set those attributes when the instance is created. Note that `def initialize(name, age)` would *require* those attributes, whereas `def initialize(name=nil, age=nil)` allows them to be optionally provided
+We can do something similar but use `initialize` which is a special ruby method which, when defined, will let you set attributes when the instance is created. Note that `def initialize(name, age)` would *require* those attributes, whereas `def initialize(name: nil, age: nil)` allows them to be optionally provided
 
 
 ```ruby
 class Thing
   attr_accessor :name, :age
-
-  def initialize(name=nil, age=nil)
+  def initialize(name: nil, age: nil)
     @name = name
     @age = age
   end
@@ -193,7 +192,14 @@ t.name
 t.name = "John"
 t.name
 # => John
+
+s = Thing.new(name: "Sue", age: 99)
+s.name
+# => Sue
+s.age
+# => 99
 ```
+
 
 
 
