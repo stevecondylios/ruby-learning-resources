@@ -2,7 +2,7 @@
 
 
 
-Quick summary of things in this file: 
+Quick summary of things in this file:
 
 - How to use pry to debug, view docs, and view source code
 - Singletons
@@ -37,7 +37,7 @@ x = 5
 x -= 3 # minusequals takes 3 away from x
 x += 7 # plusequals adds 7 to x
 
-# the 'match operator' matches a regular expression on the left with a string on the right and 
+# the 'match operator' matches a regular expression on the left with a string on the right and
 # provides the offset, otherwise nil. See: https://stackoverflow.com/a/5781400
 
 /away/ =~ "give it away now"
@@ -46,13 +46,13 @@ x += 7 # plusequals adds 7 to x
 /know/ =~ "give it away now"
 # nil
 
-# Note: it seems not to matter which side the regex is on: /ell/ =~ "hello" is the same as "hello" =~ /ell/ 
+# Note: it seems not to matter which side the regex is on: /ell/ =~ "hello" is the same as "hello" =~ /ell/
 
 # threeequals asks: does the thing on the right belong on in the set on the left
-(1..5) === 4 
+(1..5) === 4
 # true
 
-(1..5) === 10 
+(1..5) === 10
 # false
 
 String === "hi"
@@ -147,6 +147,60 @@ s = "hello" if (s.nil? || s == false)
 
 
 By default, object attributes cannot be read or written from outside the object. You can change the access on attributes with `attr_writer` and `attr_reader` (or `attr_accessor` which does both). These are class methods that open the named attributes up to reading and writing. 
+
+Let's put this to the test:
+
+```ruby
+class Thing
+end
+
+t = Thing.new
+
+t.name
+# undefined method `name' for Thing
+
+class Thing
+  attr_accessor :name, :age
+end
+
+t.name
+# => nil
+
+t.name = "Joe"
+# => "Joe"
+
+t.name
+# => "Joe"
+
+```
+
+We can do something similar but use `initialize` which is a special ruby method which, when defined, will let you set those attributes when the instance is created. Note that `def initialize(name, age)` would *require* those attributes, whereas `def initialize(name=nil, age=nil)` allows them to be optionally provided
+
+
+```ruby
+class Thing
+  attr_accessor :name, :age
+
+  def initialize(name=nil, age=nil)
+    @name = name
+    @age = age
+  end
+end
+
+t = Thing.new
+t.name
+# nil
+t.name = "John"
+t.name
+# => John
+```
+
+
+
+
+
+
+
 
 
 You can write virtual attributes too. Example
