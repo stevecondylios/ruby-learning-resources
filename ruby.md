@@ -1,20 +1,14 @@
 
 
 
+# Installation
 
-Quick summary of things in this file:
+Recommended for macOS: follow [instructions](https://github.com/rbenv/rbenv?tab=readme-ov-file#using-package-managers) to install rbenv *and* ruby-build (using homebrew), then:
 
-- How to use pry to debug, view docs, and view source code
-- Singletons
-- Scopes
-- Super
-- Splat and keyword arguments
-- Modules
-- Ruby Gems
-- Odds and Ends to explore some day
-
-
-
+```sh
+rbenv versions --list # shows available versions
+rbenv install 3.3.0 # installs version 3.3.0
+```
 
 
 # First things first
