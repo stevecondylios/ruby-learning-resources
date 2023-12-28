@@ -6,8 +6,10 @@
 Recommended for macOS: follow [instructions](https://github.com/rbenv/rbenv?tab=readme-ov-file#using-package-managers) to install rbenv *and* ruby-build (using homebrew), then:
 
 ```sh
-rbenv versions --list # shows available versions
+rbenv install --list # shows available versions
 rbenv install 3.3.0 # installs version 3.3.0
+rbenv versions # shows installed versions, with * next to the one in use
+# To alter the version in use, typically edit a file like /Users/<username>/.rbenv/version
 ```
 
 
