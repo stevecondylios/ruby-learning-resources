@@ -1749,6 +1749,22 @@ instead. This allows plugins to hook into association object creation.
 
 
 
+### Cool examples that elucidate thinking on ruby methods
+
+From Dees:
+
+```rb
+1.public_send(:+, 2)
+# => 3
+
+my_hash = {"foo" => "abc", "bar" => "def"}
+my_hash.public_send(:[], 'foo')
+# => "abc"
+```
+
+
+
+
 # Mixins
 
 From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mixin is nothing more than a class which includes a module (which, as one may anticipate, makes the module's methods available to the class). My own thought: seems hardly worth mentioning, since it seems obvious.  
@@ -1777,7 +1793,7 @@ From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mix
 > In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods
 
 - `public_send` as found [here](https://ruby-doc.org/core-3.1.0/Object.html#method-i-remove_instance_variable)
-- `.send` found [here](https://stackoverflow.com/a/420837/5783745) to access a class's private methods. 
+- `.send` found [here](https://stackoverflow.com/a/420837/5783745) to access a class's private methods.
 
 - Example of macros (mentioned [here](https://github.com/alexandreruban/action-markdown#usage), and implemented as code [here](https://github.com/alexandreruban/action-markdown/blob/d636ba7e809ecc46782423149ca61f30c2236c66/lib/action_markdown/attribute.rb)) which defines the `has_markdown` macro. From Walter:
 
