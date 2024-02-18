@@ -1857,6 +1857,42 @@ If a particular class shares similar/same methods to another class, then it can 
 
 
 
+Multi assignment
+
+
+```ruby
+def something
+  return nil, 2
+end
+
+a, b = something
+# => [nil, 2]
+
+a
+# => nil
+
+b
+# => 2
+```
+
+Note that in ruby, this is merely syntactic sugar since methods always return exactly 1 thing, and in this case `return nil, 2` is just syntactic sugar for `return [nil, 2]`. 
+
+This concept is known as [destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
