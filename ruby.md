@@ -1361,6 +1361,24 @@ show-source Rails.configuration
 ```
 
 
+# How to find documentation for the ruby language (and rails)
+
+
+- [devdocs](https://devdocs.io/) website is great, and it can be installed on localhost for offline access
+  - See instructions in the [github repo](https://github.com/freeCodeCamp/devdocs) for how to get up and running locally in a few minutes
+    - Follow the [quick start](https://github.com/freeCodeCamp/devdocs?tab=readme-ov-file#quick-start) instructions, and start the localhost with `bundle exec rackup` (and visit http://localhost:9292). 
+    - To show available docs `thor docs:list` and to download a specific one e.g. `thor docs:download ruby@3.1` (note that you have to 'enable' it in the browser once downloaded)
+
+
+- Another way is using `ri`
+  - Run `gem rdoc --all` to install docs for installed gems
+  - Install if you haven't already: `gem install rubygems-server`
+  - Start it with: `gem server`
+  - Go to: http://0.0.0.0:8808
+
+- Another way is to download the rails guides: https://guides.rubyonrails.org/
+  - I think this is only possible via cloning the rails repo and I think they're also on kindle
+
 
 
 
