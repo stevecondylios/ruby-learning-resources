@@ -1,4 +1,4 @@
-
+/
 
 
 # Installation
@@ -1378,8 +1378,8 @@ show-source Rails.configuration
 
 - Another way is to download the rails guides: https://guides.rubyonrails.org/
   - I think this is only possible via cloning the rails repo and I think they're also on kindle
-
-
+  - When cloning rails, the guides are in rails/guides/source
+  - Note that if wishing to view these offline, grip doesn't work (it needs to make network calls for some reason)
 
 
 
@@ -1642,7 +1642,7 @@ r.mm #=> 2000
 - When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations". 
 - Good use case [here](https://www.honeybadger.io/blog/how-to-try-again-when-exceptions-happen-in-ruby/)
   - Brilliant examples of case when and case in [here](https://www.akshaykhot.com/ruby-switch-statement/)
-
+- Note that randomly paul graham says continuations may make a comeback in his 'Dynamic languages' talk [here](https://www.youtube.com/watch?v=agw-wlHGi0E&t=36m30s)
 <hr>
 
 Note that methods like `<<` can still be called with the `.` syntax, like so:
