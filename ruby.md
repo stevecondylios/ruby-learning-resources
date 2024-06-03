@@ -1,5 +1,3 @@
-/
-
 
 # Installation
 
@@ -130,14 +128,9 @@ a ||= b
 # a is now 5 
 
 
-
-
 s ||= "hello" # is the same as
 
 s = "hello" if (s.nil? || s == false)
-
-
-
 ```
 
 
@@ -1900,10 +1893,10 @@ This concept is known as [destructuring assignment](https://developer.mozilla.or
 
 
 
+# Resources
 
-
-
-
+- Wonderful example of MissileLauncher ruby class [here](https://www.reddit.com/r/programming/comments/3ui1sw/comment/cxfg98b/) (found via [here](https://jvns.ca/blog/2015/11/27/why-rubys-timeout-is-dangerous-and-thread-dot-raise-is-terrifying/) and [here](https://news.ycombinator.com/item?id=40560913)
+  - Incidentally, a nice into to mutex and concurrency and thread safety.
 
 
 
