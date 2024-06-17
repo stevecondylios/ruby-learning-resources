@@ -909,6 +909,7 @@ hi { |parameter| puts "My number is #{parameter}"}
 Another example (from [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1), this time defining behaviour when a block is optional:
 
 ```ruby
+
 def say_my_age
   if block_given?
     yield
@@ -979,6 +980,7 @@ p y
 Just one more example of a block, use of &block, block_given? and yield (I made this one up)
 
 ```rb
+
 def hi(*args)
   args.each do |arg|
     puts arg.to_s
@@ -986,8 +988,8 @@ def hi(*args)
 end
 
 hi("a", "b")
-a
-b
+# a
+# b
 
 def hii(*args, &block)
   args.each do |arg|
@@ -1000,8 +1002,9 @@ end
 
 # Call without a block
 hii("a", "b")
-a
-b
+
+# a
+# b
 
 # Call with a block
 hii("a", "b") { puts "boom!" }
@@ -1311,6 +1314,69 @@ require 'pry-doc'
 
 # Don't forget to run 'pry' command to enter pry
 pry 
+```
+
+
+### How to clean up the ruby irb or rails console a bit
+
+
+Situation: say I run 
+
+```ruby
+
+Conversation.all.each do |c|
+  puts "convo: #{c.id.to_s} messages: #{c.messages.count.to_s}"
+end
+
+```
+
+That will puts the required line but it will also be cluttered with: 
+
+1. the sql query(ies) e.g. (this for every query that's run, e.g. potentially a lot if running some sql in a .each enumeration):
+
+
+```
+convo: 15 messages: 2
+  Message Count (0.0ms)  SELECT COUNT(*) FROM "messages" WHERE "messages"."conversation_id" = ?  [["conversation_id", 16]]
+```
+
+2. the return objects (also a lot), e.g.
+
+```
+ #<Conversation:0x000000010614a008
+  id: 9,
+  title: "Howdy",
+  created_at: Wed, 15 May 2024 01:28:54.201524000 UTC +00:00,
+  updated_at: Wed, 15 May 2024 01:28:54.201524000 UTC +00:00>,
+```
+
+
+
+To turn off the sql queries:
+
+```rb
+ActiveRecord::Base.logger.level = Logger::WARN
+
+# Can reenable with 
+ActiveRecord::Base.logger.level = Logger::DEBUG
+
+```
+
+And can get rid of those return objects by appending `; nil`
+
+```rb
+Conversation.all.each do |c|
+  puts "convo: #{c.id.to_s} messages: #{c.messages.count.to_s}"
+end; nil
+```
+
+To [turn off the pager](https://stackoverflow.com/a/78630771/5783745) in the rails console:
+
+```
+IRB.conf[:USE_PAGER]
+
+# View IRB settings with
+IRB.conf
 ```
 
 
