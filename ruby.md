@@ -1008,9 +1008,50 @@ hii("a", "b")
 
 # Call with a block
 hii("a", "b") { puts "boom!" }
-a
-b
-boom!
+# a
+# b
+# boom!
+
+# or same thing using 'do' block
+
+hii("a", "b") do
+  puts "boom!"
+end
+
+
+# define a method with one or more block and block parameters
+
+def hi3(a, b, p, q, &block)
+ puts a
+ if block_given?
+   yield p, q
+ end
+ puts b
+end
+
+# Call it without a block
+
+
+hi3("a", "b", "p", "q")
+
+# Call it with a block
+hi3("a", "b", "p", "q") do |i, j|
+  puts "this is the value of p: #{i}"
+  puts "and here's q!.. #{j}"
+end
+
+# Reminder, if we want optional arguments to a method in ruby, simply make them p = nil and q = nil etc.
+# Redfine above method accordingly
+def hi4(a, b, p=nil, q=nil, &block)
+ puts a
+ if block_given?
+   yield p, q
+ end
+ puts b
+end
+
+# Now calling without a block and omitting p and q works (attempting to omit p and q without making them optional arguments would result in an error).
+hi4("a", "b")
 
 ```
 
