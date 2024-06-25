@@ -2000,6 +2000,75 @@ This concept is known as [destructuring assignment](https://developer.mozilla.or
 
 
 
+# Random notes
+
+- You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks. 
+  - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for this, but ruby is great too
+  - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output 
+  - Note ([here](https://news.ycombinator.com/item?id=40764793)) that one gotcha is it doesn't tell you if there was an error in the system code, you have to manually check `$?` (0 is success, and anything else is an error) - e.g. `$?.success?`
+
+Some more examples
+
+```rb
+
+`ls`.lines.each do |line|
+  puts line
+end; nil
+
+total_lines = `wc -l README.md`.to_i
+half = total_lines.div 2
+
+puts `head -n #{half} README.md`
+
+# Functional constructions
+puts `ls`.lines.map { |name| name.strip.length }
+
+# Regex matching
+# This returns the current branch
+current_branch_regex = /^\* (\S+)/
+output_lines = `git branch`.lines
+output_lines.each do |line|
+  if line =~ current_branch_regex # match the string with the regex
+    puts $1                       # prints the match of the first group  
+  end
+end
+
+```
+
+- Working with multiple threads (from [same article]() as above):
+
+> If want to work with multiple threads, Ruby is perhaps the one of the easiest language to do it.
+
+```rb
+
+thread = Thread.new do
+  puts "I'm in a thread!"
+end
+
+puts "I'm outside a thread!"
+
+thread.join
+```
+
+so something like this could be used to download multiple files at the same time
+
+```rb
+
+# iterates from i=1 to i=10, inclusive
+
+(1..10).map do |i|
+
+# you can use variables inside commands!
+  Thread.new do
+    `wget http://my_site.com/file_#{i}`
+  end
+
+# do/end and curly braces have the same purpose!
+end.each { |thread| thread.join }
+
+```
+
+
 # Resources
 
 - Wonderful example of MissileLauncher ruby class [here](https://www.reddit.com/r/programming/comments/3ui1sw/comment/cxfg98b/) (found via [here](https://jvns.ca/blog/2015/11/27/why-rubys-timeout-is-dangerous-and-thread-dot-raise-is-terrifying/) and [here](https://news.ycombinator.com/item?id=40560913)
