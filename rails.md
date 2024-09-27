@@ -1019,6 +1019,9 @@ include ActionView::Helpers::DateHelper
 include ActionView::Helpers
 ```
 
+- More info on [how to create and use a module]() and [where to put a module in a rails app](https://stackoverflow.com/a/4013685/5783745)
+
+
 
 
 

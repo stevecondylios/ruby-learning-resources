@@ -1300,6 +1300,14 @@ Math::PI
 ```	
 
 
+- Random example of (what I think is) a module [here](https://stackoverflow.com/a/75559132/5783745)
+
+
+```rb
+ActiveRecord::Migration.drop_table(:products)
+```
+
+Which I found by looking through the ActiveRecord source code [here](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/migration/command_recorder.rb). (note that I couldn't actually find `def drop_table` so perhaps it's defined elsewhere, or defined via meta programming - not too sure tbh.
 
 
 
@@ -1445,6 +1453,12 @@ Another great way to look up source code is to use `ri` in *the command line* (n
 ri File.link
 ri inject
 ```
+
+- Note that `ri` won't give documentation on ruby keywords (nor will a lot of other ruby documentation sites). Example `ri and` gives (for me) docs for ActiveRecord, capybara, and rspec's `and` methods, but not the ruby `and` keyword. 
+  - [This](https://rubystyle.guide/#and-or-flow) site does give a little info about ruby keywords.
+  - [This](https://docs.ruby-lang.org/en/3.2/keywords_rdoc.html) is the best page I could find with info about ruby keywords (although there's not a *lot* of info there).
+
+
 
 
 **To look up source code for a method**
@@ -2005,7 +2019,7 @@ This concept is known as [destructuring assignment](https://developer.mozilla.or
 - You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks. 
   - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for this, but ruby is great too
   - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output 
-  - Note ([here](https://news.ycombinator.com/item?id=40764793)) that one gotcha is it doesn't tell you if there was an error in the system code, you have to manually check `$?` (0 is success, and anything else is an error) - e.g. `$?.success?`
+  - Note ([here](https://news.ycombinator.com/item?id=40764793)) that one gotcha is it doesn't tell you if there was an error in the system code, you have to manually check `$?` (0 is success, and anything else is an error) - e.g. `$?.success?`. Or you can use another method (see stack overflow post linked to from child hn comment)
 
 Some more examples
 
