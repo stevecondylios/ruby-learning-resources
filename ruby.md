@@ -2016,6 +2016,31 @@ This concept is known as [destructuring assignment](https://developer.mozilla.or
 
 # Random notes
 
+
+- The 'safe navigation operator' is when you stick an ampersand before calling a method, then it won't error if the method was called on `nil`. Example:
+
+
+```ruby
+
+arr1 = ["hi"]
+arr2 = nil
+
+arr1.first
+# => "hi"
+
+arr2.first
+# undefined method `first' for nil (NoMethodError)
+
+arr1&.first # has no effect here becauase the object the method is called on isn't nil
+# => "hi"
+
+arr2&.first
+# => nil <--- no error as it did before
+
+```
+
+
+
 - You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks. 
   - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for this, but ruby is great too
   - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output 
