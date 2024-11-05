@@ -2112,7 +2112,7 @@ end.each { |thread| thread.join }
 
 - Wonderful example of MissileLauncher ruby class [here](https://www.reddit.com/r/programming/comments/3ui1sw/comment/cxfg98b/) (found via [here](https://jvns.ca/blog/2015/11/27/why-rubys-timeout-is-dangerous-and-thread-dot-raise-is-terrifying/) and [here](https://news.ycombinator.com/item?id=40560913)
   - Incidentally, a nice into to mutex and concurrency and thread safety.
-
+- Interesting read [here](https://thomascountz.com/2023/07/30/low-poly-image-generation) showing nice examples of use of modules and classes.
 
 
 
