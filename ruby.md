@@ -484,11 +484,116 @@ end
 ```
 
 
+### Handy note on superclass and ancestors
 
 
+To get an object's class
 
+```ruby
 
+user = User.first
+user.class
 
+# Get it's superclass
+
+user.class.superclass
+# ApplicationRecord(abstract)
+
+# View all its ancestors
+
+user.class.ancestors
+# Devise::Models::Trackable,
+# Devise::Models::Confirmable,
+# Devise::Models::Validatable,
+# Devise::Models::Registerable,
+# Devise::Models::Recoverable,
+# Devise::Models::Rememberable,
+# Devise::Models::DatabaseAuthenticatable,
+# Devise::Models::Authenticatable,
+# ActiveSupport::Deprecation::DeprecatedConstantAccessor,
+# Devise::Orm::DirtyTrackingNewMethods,
+# Devise::Orm,
+# User::GeneratedAssociationMethods,
+# User::GeneratedAttributeMethods,
+# ApplicationRecord(abstract),
+# ApplicationRecord::GeneratedAssociationMethods,
+# ApplicationRecord::GeneratedAttributeMethods,
+# ActionText::Encryption,
+# ActiveRecord::Base,
+# Turbo::Broadcastable,
+# ActionText::Attribute,
+# ActiveStorage::Reflection::ActiveRecordExtensions,
+# ActiveStorage::Attached::Model,
+# MoneyRails::ActiveRecord::Monetizable,
+# GlobalID::Identification,
+# ActiveStorageValidations,
+# PhonyRails::Extension,
+# CanCan::ModelAdditions,
+# ActiveRecord::Encryption::EncryptableRecord,
+# ActiveRecord::Suppressor,
+# ActiveRecord::SignedId,
+# ActiveRecord::SecureToken,
+# ActiveRecord::Store,
+# ActiveRecord::Serialization,
+# ActiveModel::Serializers::JSON,
+# ActiveModel::Serialization,
+# ActiveRecord::Reflection,
+# ActiveRecord::NoTouching,
+# ActiveRecord::TouchLater,
+# ActiveRecord::Transactions,
+# ActiveRecord::NestedAttributes,
+# ActiveRecord::AutosaveAssociation,
+# ActiveModel::SecurePassword,
+# ActiveRecord::Associations,
+# ActiveRecord::Timestamp,
+# ActiveModel::Validations::Callbacks,
+# ActiveRecord::Callbacks,
+# ActiveRecord::AttributeMethods::Serialization,
+# ActiveRecord::AttributeMethods::Dirty,
+# ActiveModel::Dirty,
+# ActiveRecord::AttributeMethods::TimeZoneConversion,
+# ActiveRecord::AttributeMethods::PrimaryKey,
+# ActiveRecord::AttributeMethods::Query,
+# ActiveRecord::AttributeMethods::BeforeTypeCast,
+# ActiveRecord::AttributeMethods::Write,
+# ActiveRecord::AttributeMethods::Read,
+# ActiveRecord::Base::GeneratedAssociationMethods,
+# ActiveRecord::Base::GeneratedAttributeMethods,
+# ActiveRecord::AttributeMethods,
+# ActiveModel::AttributeMethods,
+# ActiveRecord::Locking::Pessimistic,
+# ActiveRecord::Locking::Optimistic,
+# ActiveRecord::Attributes,
+# ActiveRecord::CounterCache,
+# ActiveRecord::Validations,
+# ActiveModel::Validations::HelperMethods,
+# ActiveSupport::Callbacks,
+# ActiveModel::Validations,
+# ActiveRecord::Integration,
+# ActiveModel::Conversion,
+# ActiveRecord::AttributeAssignment,
+# ActiveModel::AttributeAssignment,
+# ActiveModel::ForbiddenAttributesProtection,
+# ActiveRecord::Sanitization,
+# ActiveRecord::Scoping::Named,
+# ActiveRecord::Scoping::Default,
+# ActiveRecord::Scoping,
+# ActiveRecord::Inheritance,
+# ActiveRecord::ModelSchema,
+# ActiveRecord::ReadonlyAttributes,
+# ActiveRecord::Persistence,
+# ActiveRecord::Core,
+# ActiveSupport::Dependencies::RequireDependency,
+# ActiveSupport::ToJsonWithActiveSupportEncoder,
+# Object,
+# PP::ObjectMixin,
+# ActiveSupport::Tryable,
+# JSON::Ext::Generator::GeneratorMethods::Object,
+# DEBUGGER__::TrapInterceptor,
+# Kernel,
+# BasicObject]
+
+```
 
 
 

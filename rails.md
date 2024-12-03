@@ -6,6 +6,13 @@ This may become its own repo. For now including in ruby-learning-resources
 The purpose is to collect rails tid-bits that will serve as a useful reminder for anyone forgetful. 
 
 
+# TODO
+
+- Learn about and add notes on ActiveRecord::Base.transaction do ... and ActiveRecord::Rollback
+  - Useful Q&A [here](https://chatgpt.com/c/67495ad2-51ac-8008-b323-6e97120fe749)
+  - Related: get thorough about error and exception handling.
+
+
 # Random notes
 
 - The average rails app has 1.03 lines of test code for every line of code in the app! [Source](https://semaphoreci.com/blog/2018/04/11/state-of-testing-in-rails.html)
