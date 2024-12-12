@@ -2122,6 +2122,29 @@ This concept is known as [destructuring assignment](https://developer.mozilla.or
 # Random notes
 
 
+
+- Ruby 3.0 added the 'endless' method (see [here](https://www.bigbinary.com/blog/ruby-3-adds-endless-method-definition))
+
+```ruby
+# endless method definition
+def raise_to_power(number, power) = number ** power
+
+raise_to_power(2, 5)
+
+32
+
+```
+
+Endless methods can be elegant in rails models like so
+
+
+```ruby
+
+def sortable? = persisted? && complete?
+
+
+```
+
 - The 'safe navigation operator' is when you stick an ampersand before calling a method, then it won't error if the method was called on `nil`. Example:
 
 
@@ -2211,6 +2234,33 @@ so something like this could be used to download multiple files at the same time
 end.each { |thread| thread.join }
 
 ```
+
+
+
+
+# Ruby gotchas
+
+
+
+```ruby
+
+(1...4).last
+# 4
+
+(1..4).last
+# 4
+
+(1...4).to_a
+# [1, 2, 3]
+
+(1...4).to_a == [1, 2, 3]
+
+
+```
+
+Why? Well quite simply becuase `.last` is a completely different method on class Array than it is on class Range. It felt very natural for me to think of `.last` like a functional programming language where it would presumably do the same (or equivalent) operation on whatever argument it was passed (e.g. whether it was given a Range, an Array, an ActiveRecord collection or whatever; similarly to how in R we might make a function seamlessly handle for a data.frame or vector, without the programmer having to reach for a separate function for each input type).
+
+
 
 
 # Resources
