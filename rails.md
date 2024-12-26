@@ -1044,7 +1044,7 @@ include ActionView::Helpers
 
 ### Notes and resources on hotwire, stimulus and the Turbos
 
-- Nice simple tutorial on hotwire [here](https://monn.app/blog/the-simplest-ruby-on-rails-and-hotwire-app-possible-beginners-guide), found [here](https://www.reddit.com/r/rails/comments/13tratd/learn_hotwire_by_building_the_simplest_possible/). 
+- Nice simple tutorial on hotwire [here](https://monn.app/blog/the-simplest-ruby-on-rails-and-hotwire-app-possible-beginners-guide), found [here](https://www.reddit.com/r/rails/comments/13tratd/learn_hotwire_by_building_the_simplest_possible/). Update: on waybackmachine [here](https://web.archive.org/web/20240421192038/https://railsnotes.xyz/blog/the-simplest-ruby-on-rails-and-hotwire-app-possible-beginners-guide)
 
 
 
@@ -1057,7 +1057,7 @@ include ActionView::Helpers
 dom_id(Todo.new)
 # => "new_todo"
 dom_id(Todo.last)
-# => "todo_65"  
+# => "todo_65"
 ```
 
 In other words, if `dom_id()` receives a `.new` object, it will recognise that and simply give the element a dom_id of "new_thing". 
@@ -1080,7 +1080,7 @@ In other words, if `dom_id()` receives a `.new` object, it will recognise that a
 # More random things to follow up at some point
 
 
-Looking at `javascript_include_tag` which is used in application.html.erb when using esbuild, it's [source code](https://github.com/rails/rails/blob/de29ff225e47ddee3e5a1f2289a44852e5a65eb9/actionview/lib/action_view/helpers/asset_tag_helper.rb#L111) contains [`extract_options!`](https://api.rubyonrails.org/classes/Array.html#method-i-extract_options-21): 
+Looking at `javascript_include_tag` which is used in application.html.erb when using esbuild, it's [source code](https://github.com/rails/rails/blob/de29ff225e47ddee3e5a1f2289a44852e5a65eb9/actionview/lib/action_view/helpers/asset_tag_helper.rb#L111) contains [`extract_options!`](https://api.rubyonrails.org/classes/Array.html#method-i-extract_options-21):
 
 
 A note on loading the active_support library
