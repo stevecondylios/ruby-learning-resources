@@ -228,4 +228,43 @@ Appears to combine an array of arrays into one array.
 
 
 
+# A few notes in relation to ActiveRecord
+
+Note that for some queries and operations, there's (one or more) AR ways of doing it, and (one or more) enumerable ways of doing it.
+
+Generally, allowing AR to do it pushes the work to the db, which is generally better practice, since it won't hog memory in your application.
+
+There are some common patterns of queries that are occasionally used. Here are some examples.
+
+
+
+```ruby
+
+# uses application's memory (also possibly an N + 1)
+users = studio.bookings.map(&:users)
+
+# whereas this uses the db and avoids N + 1.
+users = User.joins(:bookings).where(bookigns: { studio_id: studio.id }).distinct
+
+
+# Or with complexity of some bookings not having emails (guest users), claude suggests using two queries:
+
+
+users = User.joins(:bookings).where(bookings: { studio_id: studio.id }).distinct
+
+# To find guest emails:
+guest_emails = Booking.where(studio_id: studio.id, user_id: nil).where.not(email: nil).pluck(:email).uniq
+
+
+```
+
+
+
+
+
+
+
+
+
+
 
