@@ -46,12 +46,66 @@ x += 7 # plusequals adds 7 to x
 (1..5) === 4
 # true
 
+# Eh, not really:
+
+[1,2,3] === 2  # false
+"abc" === "b" # false
+
+# The === operator is primarily used to support `case` statements. When you do this...
+
+case foo
+when bar
+when baz
+# ...
+
+# this is actually equivalent to
+
+if bar === foo
+  # ...
+elsif baz === foo
+  # ...
+
+# For Ranges, this works:
+#
+# case x
+# when (1..5) # if (1..5) === x
+#
+# consider:
+
+class Integer
+  def ===(other)
+    p "Integer#=== with #{self} === #{other}"
+    false
+  end
+end
+
+case "bob"
+when 3  # if 3 === "bob" 
+when 4  # if 4 === "bob"
+when 5  # if 5 === "bob"
+  raise "this line cannot be reached because === returns false"
+else
+  puts "none of those matches"
+end
+
+# output:
+# "Integer#=== with 3 === bob"
+# "Integer#=== with 4 === bob"
+# "Integer#=== with 5 === bob"
+# none of those matches
+
+
 (1..5) === 10
 # false
 
 String === "hi"
 # true
+# This works because `Class === x` is implemented as `x.is_a?(Class)` because one common usecase of case statements is type-checking:
 
+case x
+when Array # x is an array
+when String # x is a string
+when Integer # x is an integer
 
 
 # unless works like 'if not'
@@ -134,8 +188,12 @@ s = "hello" if (s.nil? || s == false)
 ```
 
 
-
 By default, object attributes cannot be read or written from outside the object. You can change the access on attributes with `attr_writer` and `attr_reader` (or `attr_accessor` which does both). These are class methods that open the named attributes up to reading and writing. 
+
+^ There are no such thing as "object attributes" in Ruby, this is a fuzzy ill-defined statement.
+
+It's more accurate to say that you cannot directly access member variables (ie `@name`) of an object from outside that object, and that you need to define 
+accessor functions to provide a public interface.
 
 Let's put this to the test:
 
@@ -148,8 +206,27 @@ t = Thing.new
 t.name
 # undefined method `name' for Thing
 
+# Well, there's no `name`, but that's not about "reading or writing outside the class",
+# there just _is no name_. This isn't testing what you imply it's testing, that you've
+# just "changed access" with attr_accessor. Rather, `attr_accessor` defines methods
+# for you that weren't there previously. 
+
 class Thing
   attr_accessor :name, :age
+end
+
+# You can do this yourself without attr_, the above Thing is literally identical to this Thing:
+class Thing
+  def name
+    @name
+  end
+
+  def name=(name)
+    @name = name
+  end
+
+  def age; @age end
+  def age=(age); @age = age; end
 end
 
 t.name
@@ -163,7 +240,25 @@ t.name
 
 ```
 
-We can do something similar but use `initialize` which is a special ruby method which, when defined, will let you set attributes when the instance is created. Note that `def initialize(name, age)` would *require* those attributes, whereas `def initialize(name: nil, age: nil)` allows them to be optionally provided
+We can do something similar but use `initialize` which is a special ruby method which, when defined, will let you set attributes when the instance is created.
+
+^ It's called a "constructor" in Ruby and virtually all other OOP languages
+
+Note that `def initialize(name, age)` would *require* those attributes, whereas `def initialize(name: nil, age: nil)` allows them to be optionally provided
+
+^ This isn't really accurate, you're conflating two concepts.
+
+First, you have two styles of arguments in Ruby:
+
+* positional arguments: `def foo(name, age)`
+* keyword arguments: `def(name:, age:)`
+
+What allows you to be optionally provided is specifying a default value, and you can do this with both styles of arguments:
+
+```ruby
+def foo(name = nil, age = nil) # optional positional arguments
+def foo(name: nil, age: nil) # optinoal keyword arguemnts
+```
 
 
 ```ruby
@@ -199,6 +294,8 @@ s.age
 
 
 You can write virtual attributes too. Example
+
+^ I'm not sure what "virtual" means here, there's nothing "virtual" about this example
 
 ```ruby
 
@@ -256,9 +353,25 @@ raise StandardError.new
 raise "failure to raise resource ABC"
 ```
 
+^ You can also raise custom objects, they just have to provide either a `to_s` or `exception` method
+
+```ruby
+class Foo
+  def exception
+    ArgumentError.new("OH NO")
+  end
+end
+
+begin
+raise Foo.new
+rescue => ex
+    p ex  # #<ArgumentError: OH NO>
+end
+```
+
 `fail` is an alias for `raise`, they can be used interchangably. Some exceptions cannot be caught unless explicity caught in `rescue`. 
 
-
+^ Not sure what other type of caught there is except "explicitly caught" - example?
 
 Tap method
 
