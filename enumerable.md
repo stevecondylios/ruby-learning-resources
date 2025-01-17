@@ -62,6 +62,8 @@ pets.map{ |pet| pet + "aaa" }
 
 ### `.select`
 
+Note: see below for more ways of using enumerable on an ActiveRecord object, and alternatives for .select
+
 ```ruby
 (1..10).to_a.select{ |el| el > 5}
 # => [6, 7, 8, 9, 10]
@@ -115,7 +117,7 @@ Example from `ri group_by`
 
 
 
-### `.any? 
+### `.any?` 
 
 
 ```ruby
@@ -261,9 +263,29 @@ guest_emails = Booking.where(studio_id: studio.id, user_id: nil).where.not(email
 
 
 
+### Alternatives to `.select`
 
 
+Here are some ways to filter child records for an ActiveRecord object. Note: I don't actually know the pros/cons of each yet.
 
+
+```ruby
+@teacher = Teacher.includes(:students).find(1) # Assuming teacher with id 1
+
+# Remove students with an average grade below 70
+@teacher.students = @teacher.students.reject { |student| student.average_grade < 70 }
+
+# Keep only students in grade 10
+@teacher.students.select! { |student| student.grade == 10 }
+
+# Remove students who are above 18 years old
+@teacher.students.delete_if { |student| student.age > 18 }
+
+# Remove some specific students
+students_to_exclude = [Student.find(3), Student.find(7)] # Assume these are student objects
+@teacher.students = @teacher.students.excluding(*students_to_exclude)
+
+```
 
 
 
