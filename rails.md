@@ -1129,10 +1129,19 @@ thing(a: "abc", b: "def")
 
 
 
+# More random notes
 
 
+### To install and use brakeman
 
+It's very easy, add to Gemfile, then run `brakeman`
 
+To see it work, try adding this to the users controller, it should detect the SQL injection attack vector 
 
+```ruby
+
+@users = User.where("name = '#{params[:name]}'") 
+
+```
 
 
