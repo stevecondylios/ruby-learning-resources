@@ -225,6 +225,37 @@ Also note that if there's no `respond_to` block in the controller action, and a 
 
 
 
+### Concerns
+
+Problem: say you have a method in a controller (say 'bookings_controller.rb'), and everything's great, then you realise you need to use that method in another controller (say, 'events_controller.rb'), then what? You could duplciate the code. But best practice is to create a concern for shared code between the 2 or more controllers.
+  - A concern looks like this:
+
+
+```ruby
+
+# app/controllers/concerns/booking_event_helpers.rb
+module BookingEventHelpers
+  extend ActiveSupport::Concern
+
+  def some_method_to_be_used_in_both_controllers
+    # 
+  end
+end
+
+
+```
+
+
+And to use the `some_method_to_be_used_in_both_controllers` method in either events or bookings controller, just add this to the controller:
+
+
+```ruby
+
+include BookingEventHelpers
+
+
+```
+
 
 # Model associations
 
