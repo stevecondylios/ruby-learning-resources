@@ -2170,9 +2170,11 @@ arr2&.first
 
 
 - You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks. 
-  - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for this, but ruby is great too
+  - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for writing scripts that run system commands, but ruby is great too
   - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output 
   - Note ([here](https://news.ycombinator.com/item?id=40764793)) that one gotcha is it doesn't tell you if there was an error in the system code, you have to manually check `$?` (0 is success, and anything else is an error) - e.g. `$?.success?`. Or you can use another method (see stack overflow post linked to from child hn comment)
+    - An LLM [tells me](https://chatgpt.com/c/67fb4d5f-865c-8008-aefc-6f495da31919) using `system()` can be a bit more reliable as it will return true if it succeeded, false if it didn't, and nil if the command didn't run. Then you can use `unless` or similar to logically handle.
+
 
 Some more examples
 
