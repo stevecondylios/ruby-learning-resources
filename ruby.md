@@ -260,7 +260,107 @@ raise "failure to raise resource ABC"
 
 
 
-Tap method
+Exception handling in a loop 
+
+Example: you have a list of emails and an email could bounce, causing an error, but you want to ensure the loop continues to try to send to the remaining emails
+
+
+```ruby
+
+arr = [1, 2, 4]
+arr.each_with_index do |el, i|
+  arr[i] = el + 2
+end
+# [12, 4, 6]
+
+
+
+arr = [1, 2, "cats and dogs", 4]
+arr.each_with_index do |el, i|
+  arr[i] = el + 2
+end
+# in `+': no implicit conversion of Integer into String (TypeError)
+arr
+# [3, 4, "cats and dogs", 4] <--- big problem! code ran on elements before
+# the error but not after!
+
+
+# Solution
+arr = [1, 2, "cats and dogs", 4]
+arr.each_with_index do |el, i|
+  begin
+    arr[i] = el + 2
+  rescue => e
+    $stderr.puts "error: #{e.message}"
+  end
+end
+# error: no implicit conversion of Integer into String
+# => [3, 4, "cats and dogs", 6]
+# sc: this time, the code ran on each element in the array, and raised an
+# error|exception on the item that cause a problem
+
+
+# Same as above, but with custom error
+# (need to flesh out my understanding here)
+arr = [1, 2, "cats and dogs", 4]
+arr.each_with_index do |el, i|
+  begin
+    arr[i] = el + 2
+  rescue => e
+    raise StandardError.new()
+  end
+end
+
+```
+
+
+Additional variants to consider:
+
+- behaviour of nested begin/rescue's
+- how to raise an error/exception from inside a nested begin/rescue
+
+E.g. say you're already inside a begin/rescue and you want another. You probably don't want to accidentally break out of the *entire* (i.e. both) begin/rescue's if there's an error in the inner one. Let's see what ruby actually does:
+
+
+```ruby
+
+(1..3).each do |num|
+  begin
+    puts "outer loop: #{num.to_s}"
+    # Stuff from simpler example above
+    arr = [1, 2, "cats and dogs", 4]
+    arr.each_with_index do |el, i|
+      begin
+        arr[i] = el + 2
+      rescue => e
+        $stderr.puts "inner error: #{e.message}"
+      end
+    end
+  rescue => e
+    $stderr.puts "outer error: #{e.message}"
+  end
+end
+
+# outer loop: 1
+# inner error: no implicit conversion of Integer into String
+# outer loop: 2
+# inner error: no implicit conversion of Integer into String
+# outer loop: 3
+# inner error: no implicit conversion of Integer into String
+
+```
+
+Could probably have come up with a simpler example, but the above demonstrates that the outer loop continues to run despite the inner loop hitting an error and being rescued
+
+
+
+
+
+
+
+
+
+### Tap method
 
 Tap allows you to do something with an object without modifying its value or disrupting a chain of method calls. That is, it yields the object on which it's called to a block. Then it returns the original object, regardless of what the block does. It can also produce more expressive code [example here](https://stackoverflow.com/a/17493604/5783745)
 
