@@ -3,7 +3,7 @@
 This may become its own repo. For now including in ruby-learning-resources
 
 
-The purpose is to collect rails tid-bits that will serve as a useful reminder for anyone forgetful. 
+The purpose is to collect rails tid-bits that will serve as a useful reminder for anyone forgetful.
 
 
 # TODO
@@ -22,10 +22,10 @@ The purpose is to collect rails tid-bits that will serve as a useful reminder fo
 # Important resources
 
 - How to look up rails documentation: [api.rubyonrails.org](https://api.rubyonrails.org/classes/ActiveRecord/ConnectionAdapters/Table.html#method-i-timestamps) - **use the search bar on top left**
-  - And how to find out which module/class a method comes from [here](https://stackoverflow.com/a/76500645/5783745). 
+  - And how to find out which module/class a method comes from [here](https://stackoverflow.com/a/76500645/5783745).
     - Basically: `method(:render).source_location` where 'render' is the method you want to look up (and remember to do it in the same scope as you're using it in the app - e.g. the view, but could be anywhere else - use `binding.pry` if necessary)
 - [Rails guides](https://guides.rubyonrails.org/) (these aren't 'read once and forget' - experienced devs use them daily)
-- To get source code of any ruby/rails method from the rails console [here](https://stackoverflow.com/a/70819821/5783745) 
+- To get source code of any ruby/rails method from the rails console [here](https://stackoverflow.com/a/70819821/5783745)
 - Awesome list of ruby gems by category [here](https://opensource-heroes.com/awesome/ruby)
 - Nice list of ruby gems used in a typical application [here](https://twitter.com/marckohlbrugge/status/1669794416343523355?s=20)
 
@@ -37,9 +37,9 @@ The purpose is to collect rails tid-bits that will serve as a useful reminder fo
 
 # Notes from [Rails 7 demo](https://www.youtube.com/watch?v=mpWFrUwAN88)
 
-- `.deliver_later` knows to run inline in development, and for it to work properly (i.e. asynchonously) in production, it requires some setup of (??) 
+- `.deliver_later` knows to run inline in development, and for it to work properly (i.e. asynchonously) in production, it requires some setup of (??)
 - Rich text fields
-- 
+-
 
 
 
@@ -47,15 +47,36 @@ The purpose is to collect rails tid-bits that will serve as a useful reminder fo
 
 # Rails environments: test / dev / prod
 
-- `rails console` will get you the rails console. `RAILS_ENV=test rails c` will open the rails console in test mode! 
+- `rails console` will get you the rails console. `RAILS_ENV=test rails c` will open the rails console in test mode!
   - Similarly, to reset the test database: `RAILS_ENV=test rails db:reset`
+
+
+
+
+### Debugging
+
+Typically, best to use `binding.pry`.
+
+Then (from ChatGPT):
+
+- `next`: Steps over the method call (like skipping over the method body).
+
+- `step`: Steps into the method call (like a deep dive).
+
+- `continue` or `c`: Resumes normal program execution until the next breakpoint or end.
+
+
+- ctrl + d to end pry session
+
+- Note: it would be great to have keybindings for next and step, although I don't think they exist.
+
 
 
 
 ### Credentials
 
 
-Open credentials with 
+Open credentials with
 
 ```
 EDITOR="vim" bin/rails credentials:edit
@@ -72,7 +93,7 @@ aws:
 And access the variables like so
 
 ```
-# Print credentials 
+# Print credentials
 Rails.application.credentials
 ```
 
@@ -96,10 +117,10 @@ test:
     second_thing: defg
 ```
 
-And then use this to access them in the various environments: 
+And then use this to access them in the various environments:
 
 ```
-Rails.application.credentials[Rails.env.to_sym] 
+Rails.application.credentials[Rails.env.to_sym]
 ```
 
 
@@ -137,10 +158,10 @@ Since it's using render, that will send the same model instance back to the view
   <% end %>
 ```
 
-Note, I'm pretty sure you can roll your own mechanism, just create something like `@errors` in the controller, and some logic to display it in the view. 
+Note, I'm pretty sure you can roll your own mechanism, just create something like `@errors` in the controller, and some logic to display it in the view.
 
 
-### How to make flash messages in the view 
+### How to make flash messages in the view
 
 Reading:
 
@@ -220,7 +241,7 @@ respond_to do |format|
 end
 ```
 
-Also note that if there's no `respond_to` block in the controller action, and a `.json` url is accessed, it will look for a jbuilder file, which is a ruby DSL to generate json. Note that it's not necessary to use jbuilder, you can always fall back on plain old ruby and `.to_json` or `.as_json` instead. 
+Also note that if there's no `respond_to` block in the controller action, and a `.json` url is accessed, it will look for a jbuilder file, which is a ruby DSL to generate json. Note that it's not necessary to use jbuilder, you can always fall back on plain old ruby and `.to_json` or `.as_json` instead.
 
 
 
@@ -238,7 +259,7 @@ module BookingEventHelpers
   extend ActiveSupport::Concern
 
   def some_method_to_be_used_in_both_controllers
-    # 
+    #
   end
 end
 
@@ -259,9 +280,9 @@ include BookingEventHelpers
 
 # Model associations
 
-Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well: 
+Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well:
 
-- has_many 
+- has_many
 - belongs_to
 - has_many :through
 
@@ -269,15 +290,15 @@ Know the [3 big ones](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=880s) well:
 
 ### has_and_belongs_to_many
 
-Sc note: after a fair bit of reading, **there's virtually no reason not to use has_many :through (instead of HABTM)** basically all the time. Rationale: the cost is you have to name a join model (as opposed to simply have a table with ids of both the tables it joins), so now you have to think of a name for that join table, but the benefits you get are: 1. You can now have attributes on that model (now or in the future), 2. You can have validations on that model (E.g. airbnb host can only be a host on the same property once - wouldn't make sense to simultaneously be the host of the same property twice as the same time, based on [this](https://stackoverflow.com/a/24559591/5783745) you wouldn't be able to validate it if it was just a model-less table as with HABTM). 
+Sc note: after a fair bit of reading, **there's virtually no reason not to use has_many :through (instead of HABTM)** basically all the time. Rationale: the cost is you have to name a join model (as opposed to simply have a table with ids of both the tables it joins), so now you have to think of a name for that join table, but the benefits you get are: 1. You can now have attributes on that model (now or in the future), 2. You can have validations on that model (E.g. airbnb host can only be a host on the same property once - wouldn't make sense to simultaneously be the host of the same property twice as the same time, based on [this](https://stackoverflow.com/a/24559591/5783745) you wouldn't be able to validate it if it was just a model-less table as with HABTM).
 
-Also [this](https://stackoverflow.com/questions/2780798/has-and-belongs-to-many-vs-has-many-through#comment101519442_2781049) says: 
+Also [this](https://stackoverflow.com/questions/2780798/has-and-belongs-to-many-vs-has-many-through#comment101519442_2781049) says:
 
 > The punch line here is that you will always end up needing to add attributes to your join table, sooner or later. Go ahead and use has_many through: from the beginning and save pain later.
 
-sc: the only thing I'd add to this is if you want the flexibility to move away from has_many :through to HABTM (pretty unlikely tbh) then you should name your join table according to HABTM conventions, which is in alphabetical order. What would motivate a change from HMT to HABTM? The only thing I can think of is if you don't like the join model's name (it causes confusion in development or something like that), and so you prefer there be no join model and just a table instead. Seems like a *very* weak motivator though. 
+sc: the only thing I'd add to this is if you want the flexibility to move away from has_many :through to HABTM (pretty unlikely tbh) then you should name your join table according to HABTM conventions, which is in alphabetical order. What would motivate a change from HMT to HABTM? The only thing I can think of is if you don't like the join model's name (it causes confusion in development or something like that), and so you prefer there be no join model and just a table instead. Seems like a *very* weak motivator though.
 
-TL;DR always go with has_many through unless you really hate having to put a name on the join model or you're extremely certain you won't need attributes nor validations on the join model. 
+TL;DR always go with has_many through unless you really hate having to put a name on the join model or you're extremely certain you won't need attributes nor validations on the join model.
 
 Reminder: has_many through requires more than the one line in the model to define, namely, it needs two lines per model, [like so](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association) (could be easy to overlook that since it's the only model association requiring >1 line to delcare):
 
@@ -302,14 +323,14 @@ end
 
 
 
-[This](https://www.youtube.com/watch?v=rbpye74Wt2o) video says: 
+[This](https://www.youtube.com/watch?v=rbpye74Wt2o) video says:
 
 > Don't use (has_and_belongs_to_many) when you need validations, callbacks, or extra attributes on the join model
 
 (but I suspect by 'join model' it means the little model rails sets up *inbetween* the two models connected by has_and_belongs_to_many, so I think has_and_belongs_to_many should still be fine for my purposes)
 
 
-- A 'Join Table' is just a table that has two columns, model1_id, and model2_id, that way for a given model1_id you can see all the model2_ids, and vice-verse. I.e. allowing a many to many relationship. 
+- A 'Join Table' is just a table that has two columns, model1_id, and model2_id, that way for a given model1_id you can see all the model2_ids, and vice-verse. I.e. allowing a many to many relationship.
 
 Resources on HABTM:
 - Great diagram [here](https://stackoverflow.com/questions/34565148/what-is-the-use-of-join-table-in-rails#comment127295361_34565307) (3rd/last diagram)
@@ -318,7 +339,7 @@ Resources on HABTM:
 
 > Developer and Project will give the default join table name of “developers_projects” because “D” precedes “P” alphabetically
 
-- Rails Guide on [HABTM](https://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association) is really good. 
+- Rails Guide on [HABTM](https://guides.rubyonrails.org/association_basics.html#the-has-and-belongs-to-many-association) is really good.
 
 - How to create a join table, see [here](https://guides.rubyonrails.org/active_record_migrations.html#creating-a-join-table)
 
@@ -339,7 +360,7 @@ How to create records in the join table
 Landlord.first.properties << Property.first
 Landlord.first.properties
 
-# Note that nothing stops duplicates. 
+# Note that nothing stops duplicates.
 
 ```
 
@@ -350,7 +371,7 @@ Note that `Landlord.first.properties.first.destory` would delete **the actual pr
 
 Notes:
 
-- The [strong migrations](https://github.com/ankane/strong_migrations#changing-the-type-of-a-column) gem lets you try to do a migration but it will stop you if you're going to do it in a way that would be unsafe. Probably a great idea to use this gem as soon as an app has consistent usage.  
+- The [strong migrations](https://github.com/ankane/strong_migrations#changing-the-type-of-a-column) gem lets you try to do a migration but it will stop you if you're going to do it in a way that would be unsafe. Probably a great idea to use this gem as soon as an app has consistent usage.
 
 
 
@@ -362,10 +383,10 @@ See
 - [This video](://www.youtube.com/watch?v=EiceC-m2UmI&t=575s)
 - [rails 7 enum syntax](https://blog.saeloun.com/2021/02/26/rails-introduces-new-syntax-for-enum/)
 
-But basically all you need to do is 
+But basically all you need to do is
 
 - Have a column that's an integer
-- Add something like this to the model file 
+- Add something like this to the model file
 
 
 ```
@@ -378,7 +399,7 @@ and the form field should look like [this](https://stackoverflow.com/a/49851936/
 <%= form.select :incomeType, options_for_select([['Income', 'income'], ['Allowance', 'allowance']]), id: :incomeType %>
 ```
 
-Note the array of arrays, where subarrays are length 2. The subarray contains what you want the user to see followed by what you want to pass to the database, in that order. I haven't looked particularly hard, but I suprisingly didn't find much documentation on how enums should be dealt with in the view, so I'm going by the stack overflow answer unless I find something better. 
+Note the array of arrays, where subarrays are length 2. The subarray contains what you want the user to see followed by what you want to pass to the database, in that order. I haven't looked particularly hard, but I suprisingly didn't find much documentation on how enums should be dealt with in the view, so I'm going by the stack overflow answer unless I find something better.
 
 
 Some other (awesome) ways to populate the enum values in the form [here](https://spaquet.medium.com/activerecord-enum-and-activeview-form-f09dca0ea4b0):
@@ -409,7 +430,7 @@ Some other (awesome) ways to populate the enum values in the form [here](https:/
 > Scopes are custom queries that you define inside your Rails models with the scope method. From [here](https://www.rubyguides.com/2019/10/scopes-in-ruby-on-rails/)
 
 
-In your controller you might want to only show published posts: 
+In your controller you might want to only show published posts:
 
 ```ruby
 
@@ -438,14 +459,12 @@ Then in your controller you can have this:
 
 ```
 
-And it will do the exact same thing. 
+And it will do the exact same thing.
 
-So TL;DR scopes are a great way to keep controller code DRY, and move some controller code into the model. 
-
-
-**A note on default scopes** - [Don't use default scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using default scopes is strong: they look convenient, but really just mess with your queries - steer well clear. `default_scope`s  tend to [make a massive mess](https://stackoverflow.com/questions/25087336/why-is-using-the-rails-default-scope-often-recommend-against)!. 
+So TL;DR scopes are a great way to keep controller code DRY, and move some controller code into the model.
 
 
+**A note on default scopes** - [Don't use default scopes!](https://piechowski.io/post/why-is-default-scope-bad-rails/) - The case for not using default scopes is strong: they look convenient, but really just mess with your queries - steer well clear. `default_scope`s  tend to [make a massive mess](https://stackoverflow.com/questions/25087336/why-is-using-the-rails-default-scope-often-recommend-against)!.
 
 
 
@@ -459,7 +478,9 @@ So TL;DR scopes are a great way to keep controller code DRY, and move some contr
 
 
 
-# Testing 
+
+
+# Testing
 
 - Awesome [rails guide on testing](https://guides.rubyonrails.org/testing.html)
   - It covers **unit**, **functional**, **integration**, and **system** tests
@@ -494,49 +515,49 @@ The rails guide [introduces 4 types of tests](https://guides.rubyonrails.org/tes
 
 > How to write unit, functional, integration, and system tests for your application.
 
-1. Unit tests 
+1. Unit tests
   - e.g. testing minute details in a methods inputs/outputs
   - A unit test is about testing a single function/method in isolation with all of its possible outputs. ([source](https://developers.forem.com/tests/unit-functional-tests))
 2. [Functional tests](https://guides.rubyonrails.org/testing.html#functional-tests-for-your-controllers) (AKA Controller Tests)
   - 'testing that controllers and models are using the mailer in the right way'
   - A functional test is about testing a single functionality, which can span multiple methods and a controller. Other common terms in Rails are "model tests," "controller tests," and others. ([source](https://developers.forem.com/tests/unit-functional-tests))
-  - SC thinking: Based on the examples I see in a MRE test rails app, I *think* controller tests test things like whether a GET/POST/PATCH/DELETE to a certain url works, whether a new record is created/deleted in the right table, and whether any redirect occurs as expected. 
-    - But note (from [rails guide](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests)): 
+  - SC thinking: Based on the examples I see in a MRE test rails app, I *think* controller tests test things like whether a GET/POST/PATCH/DELETE to a certain url works, whether a new record is created/deleted in the right table, and whether any redirect occurs as expected.
+    - But note (from [rails guide](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests)):
     > Functional tests do not verify whether the specified request type is accepted by the action, we're more concerned with the result. Request tests exist for this use case to make your tests more purposeful.
-    - Also note under 'functional tests' (aka controller tests) the [rails guide](https://guides.rubyonrails.org/testing.html#putting-it-together) gives an example of a test that reloads the fixure after a PATCH, and checks that the new attribute was indeed updated as expected. 
-    - Note that Rspec recommends not doing controller tests (since around 2018), and now recommends [request tests](https://medium.com/just-tech/rspec-controller-or-request-specs-d93ef563ef11) which are like integration tests and route tests conbined. 
+    - Also note under 'functional tests' (aka controller tests) the [rails guide](https://guides.rubyonrails.org/testing.html#putting-it-together) gives an example of a test that reloads the fixure after a PATCH, and checks that the new attribute was indeed updated as expected.
+    - Note that Rspec recommends not doing controller tests (since around 2018), and now recommends [request tests](https://medium.com/just-tech/rspec-controller-or-request-specs-d93ef563ef11) which are like integration tests and route tests conbined.
 3. Integration tests
   - Integration tests are used to test how various parts of our application interact. They are generally used to test important workflows within our application. ([source](https://guides.rubyonrails.org/testing.html#integration-testing))
   - An integration test is a test that measures the interaction of multiple systems or parts of your application. ([source](https://developers.forem.com/tests/integration-tests))
 4. System tests ([AKA **acceptance tests**, **feature tests**](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
-  - Great practical [video](https://www.youtube.com/watch?v=QNZt7FCVYro) to get started quickly. 
+  - Great practical [video](https://www.youtube.com/watch?v=QNZt7FCVYro) to get started quickly.
   - Might use capibara (a ruby tool for managing selenium) to visit a certain route, and see if it can see what it expects on the page (see great example [here](https://www.youtube.com/watch?v=ZPcRiPrpQTc))
   - System tests allow you to test user interactions with your application, running tests in either a real or a headless browser. System tests use Capybara under the hood. ([source](https://guides.rubyonrails.org/testing.html#system-testing))
   - Good thoughtbot cheatsheet on accepting testing in Rspec [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf) which uses `feature` and `scenario` e.g. (feature 'Signing in' do
   scenario 'signs the user in successfully with a valid email and password')
-  - SC thinking: I *think* system tests use a browser and simulate mouse clicks, then check if the next page has what we expect on it. I think the distinguishing characteristic of system tests is that system tests are confirming what's going on *from the user's perspective*, that is, based on things a user would do, and based on what a user would see. 
+  - SC thinking: I *think* system tests use a browser and simulate mouse clicks, then check if the next page has what we expect on it. I think the distinguishing characteristic of system tests is that system tests are confirming what's going on *from the user's perspective*, that is, based on things a user would do, and based on what a user would see.
 
-Other notes: 
+Other notes:
 
 - Acceptance tests are also known as Feature tests or System tests. ([source](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.))
 
-On mailer tests: 
+On mailer tests:
 
 > There are two aspects of testing your mailer, the **unit tests** and the **functional tests**. In the unit tests, you run the mailer in isolation with tightly controlled inputs and compare the output to a known value (a fixture). In the functional tests you don't so much test the minute details produced by the mailer; instead, we test that our controllers and models are using the mailer in the right way. You test to prove that the right email was sent at the right time.
 
 > Functional tests do not verify whether the specified request type is accepted by the action, we're more concerned with the result. Request tests exist for this use case to make your tests more purposeful. ([source](https://guides.rubyonrails.org/testing.html#available-request-types-for-functional-tests))
 
 
-### What is acceptance testing? 
+### What is acceptance testing?
 
-From top of google [results](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.): 
+From top of google [results](https://developers.forem.com/tests/acceptance-tests#:~:text=Acceptance%20tests%20are%20tests%20from,actions%20inside%20of%20our%20tests.&text=Acceptance%20tests%20can%20be%20found%20in%20the%20directory%20spec%2Fsystem%20.):
 
 > **Acceptance tests are tests from the perspective of the end-user**. In the Rails world, we sometimes refer to these as **Feature tests** or **System tests**. A tool called Capybara is included to help us simulate a human's actions inside of our tests.
 
-From the [RSpec cheat sheet on acceptance tests](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). Very elucidating example [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). 
+From the [RSpec cheat sheet on acceptance tests](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf). Very elucidating example [here](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec_acceptance.pdf).
 
 
-From Jason K: 
+From Jason K:
 
 > You might have an acceptance test to make sure that when that route is visited, the db is 'fixtured up' and something displayed in the view
 
@@ -554,7 +575,7 @@ From Jason S ([here](https://www.codewithjason.com/set-rails-application-testing
 
 From reinteractive's [article](https://reinteractive.com/posts/342-what-constitutes-good-testing-in-rails):
 
-- What's the best framework? Ruby has minitest and Rspec; both are great, just be sure to use a framework - don't go writing your own DSL or doing testing in raw ruby code. 
+- What's the best framework? Ruby has minitest and Rspec; both are great, just be sure to use a framework - don't go writing your own DSL or doing testing in raw ruby code.
 
 Testing in essence:
 
@@ -566,17 +587,17 @@ Testing in essence:
 > I am personally not a hardcore fan of any of those camps. Sometimes I write the test before I write the actual code. However, there are also times when I write the code first and then the test. The important part is that I have a test for my new feature. Whether you write the test before or after doesn't really matter, as long as it is there by the time you push your code to review and merge it to the main codebase.
 
 
-To what extent should you test? 
+To what extent should you test?
 
-Author: 
+Author:
 
-> I'll test the 'happy path' (both arguments provided), possible error paths (e.g. both arguments `nil`), and with one argument as `nil`. 
+> I'll test the 'happy path' (both arguments provided), possible error paths (e.g. both arguments `nil`), and with one argument as `nil`.
 
 It would look like this:
 
 ```ruby
 def full_name
-  "#{first_name} #{last_name}".strip 
+  "#{first_name} #{last_name}".strip
 end
 
 describe "#full_name" do
@@ -611,7 +632,7 @@ describe "#full_name" do
 end
 ```
 
-> If it's not critical code, test the 'happy path', the worst case scenario, and one other test. 
+> If it's not critical code, test the 'happy path', the worst case scenario, and one other test.
 
 
 Don't test frameworks/libraries (trust their maintainers and the community to do that).
@@ -644,7 +665,7 @@ end
 ```
 
 
-Always write readable tests: 
+Always write readable tests:
 
 > Tests usually serve as documentation for your code. Try to write them in a way that someone can understand the intention of the code simply by reading your tests.
 
@@ -750,8 +771,8 @@ Similar to stubs as outlined [here](https://stackoverflow.com/a/17810004/5783745
 
 ### Nice example of GitHub Action for CI to run RSpec tests for rails 7 app (postgres db)
 
-- See CE readme for more. 
-- Update: note that this might not work since I think I used it somewhere and it broke because of some changes elsewhere	
+- See CE readme for more.
+- Update: note that this might not work since I think I used it somewhere and it broke because of some changes elsewhere
 
 ```yaml
 # .github/workflows/main.yml
@@ -767,7 +788,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services: 
+    services:
       postgres:
         image: postgres:10.8
         env:
@@ -852,22 +873,22 @@ jobs:
 ## RSpec
 
 - To run RSpec tests, simply: `bundle exec rspec` (or simply `rspec`)
-- What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over. 
-- It looks like when you [install and setup Rspec](https://semaphoreci.com/community/tutorials/getting-started-with-rspec) it creates a /spec directory. I *think* everything inside it will get run automatically as part of RSpec tests, so long as it ends in `_spec.rb` (a file I created that ended in `_helper.rb` did *not* get run). 
+- What does `let` do? `let` simply creates a variable [but it lazy evaluates it](https://pololu.github.io/rpicsim/file.IntroductionToRSpec.html#label-Let+variables), in other words, it only evaluates it when the variable is actually used. I'm pretty sure it memoizes (which is approximately equal to 'caches') it too, so it's kinda 'made once, used many times' rather than being recreated over and over.
+- It looks like when you [install and setup Rspec](https://semaphoreci.com/community/tutorials/getting-started-with-rspec) it creates a /spec directory. I *think* everything inside it will get run automatically as part of RSpec tests, so long as it ends in `_spec.rb` (a file I created that ended in `_helper.rb` did *not* get run).
 - To remove records from the test database between test runs, see [here](https://github.com/DatabaseCleaner/database_cleaner#rspec-example)
 
 
 A few notes about organising RSpec tests:
 
-- After setting up RSpec, any new scaffolds will automatically set up RSpec tests (a la 'reviews' tests in HW app). 
-- The scaffold will also generate 'routes' tests - by default testing all 7 controller actions (and update via PUT and PATCH). 
+- After setting up RSpec, any new scaffolds will automatically set up RSpec tests (a la 'reviews' tests in HW app).
+- The scaffold will also generate 'routes' tests - by default testing all 7 controller actions (and update via PUT and PATCH).
 - As for controller tests? (there's no directory for those). From rorlink: "You should use requests specs instead of controllers. Request specs tests all from routes, to actions and rendering.". Also confirmed [here](https://medium.com/just-tech/rspec-controller-or-request-specs-d93ef563ef11)
 - Similarlly helpers/ directory is to test the helpers in your app. (see Rspec docs [here](https://relishapp.com/rspec/rspec-rails/v/5-0/docs/helper-specs/helper-spec))
 
 
 Setting up a test:
 
-- I *think* each test file should have `require 'rails_helper'` otherwise the helpers (and even something like `binding.pry`) will not be accessible from rspec tests. 
+- I *think* each test file should have `require 'rails_helper'` otherwise the helpers (and even something like `binding.pry`) will not be accessible from rspec tests.
 
 
 ## Factories and Fixtures
@@ -883,7 +904,7 @@ From [here](https://stackoverflow.com/questions/7786207/whats-the-difference-bet
 From [rails guide on testing](https://guides.rubyonrails.org/testing.html#what-are-fixtures-questionmark):
 
 
-- Interesting comment [here](https://www.reddit.com/r/rails/comments/13lvzk4/comment/jksu5n8/?utm_source=reddit&utm_medium=web2x&context=3) saying they wouldn't use fixtures at all. 
+- Interesting comment [here](https://www.reddit.com/r/rails/comments/13lvzk4/comment/jksu5n8/?utm_source=reddit&utm_medium=web2x&context=3) saying they wouldn't use fixtures at all.
 
 > What are fixtures? **Fixtures is a fancy word for sample data**. Fixtures allow you to populate your testing database with predefined data before your tests run. Fixtures are database independent and written in YAML. There is one file per model.
 
@@ -922,7 +943,7 @@ FactoryBot.define do
 end
 ```
 
-to this: 
+to this:
 
 ```ruby
 FactoryBot.define do
@@ -934,7 +955,7 @@ FactoryBot.define do
 end
 ```
 
-That solves the problem of any unique constraints we have in the db (e.g. 'email' field might have the requirement that it's unique). Example from [here](https://www.codewithjason.com/set-rails-application-testing/). 
+That solves the problem of any unique constraints we have in the db (e.g. 'email' field might have the requirement that it's unique). Example from [here](https://www.codewithjason.com/set-rails-application-testing/).
 
 
 
@@ -948,14 +969,14 @@ That solves the problem of any unique constraints we have in the db (e.g. 'email
 # Summary of notes from Agile Web Development with Rails 5
 
 
-How to think of classes and objects in an object oriented language like ruby: 
+How to think of classes and objects in an object oriented language like ruby:
 
 > When you write object-oriented code, you're normally looking to model concepts from the real world. Typically, during this modelling process you discover categories of thinks that need to be represented. In an online  store, the concept of a line item could be such a category. In Ruby, you'd define a *class* to represent each of these categories. You then use this class as a kind of factory that generates *objects* - instances of that class. An object is a combination of state (for example, the quantity and the product ID) and methods that use the state (perhaps a method to calculate the line the line item's total cost. (p47)
 
-- You create objects by calling a *constructor*, a special method associated with a class. The standard constructor is called `new()`. 
-- You invoke methods by sending a message to an object. The message contains the method's name, along with any parameters the method may need. 
-- Rails uses *symbols* to identify things. In particular, it uses them as keys when naming method parameters and looking things up in hashes. 
-  - A symbol looks like a variable name, but it's prefixed with a colon. You can think of symbols as string literals magically made into constants. Alternatively, you can consider the colon to mean *thing named*, so `:id` is the thing named `id`. 
+- You create objects by calling a *constructor*, a special method associated with a class. The standard constructor is called `new()`.
+- You invoke methods by sending a message to an object. The message contains the method's name, along with any parameters the method may need.
+- Rails uses *symbols* to identify things. In particular, it uses them as keys when naming method parameters and looking things up in hashes.
+  - A symbol looks like a variable name, but it's prefixed with a colon. You can think of symbols as string literals magically made into constants. Alternatively, you can consider the colon to mean *thing named*, so `:id` is the thing named `id`.
 
 
 
@@ -974,9 +995,9 @@ How to think of classes and objects in an object oriented language like ruby:
 **General notes**
 
 
-- [This walkthrough](https://satchel.works/@wclittle/how-to-upgrade-ruby-versions-within-your-ruby-on-rails-app) suggests running `yarn upgrade` to upgrade javascript packages after you finish updating gems. 
-- You can delete `yarn.lock` and `node_modules/` and run `yarn install` to grab javascript packages. 
-- Run `node --version` to see the node version. 
+- [This walkthrough](https://satchel.works/@wclittle/how-to-upgrade-ruby-versions-within-your-ruby-on-rails-app) suggests running `yarn upgrade` to upgrade javascript packages after you finish updating gems.
+- You can delete `yarn.lock` and `node_modules/` and run `yarn install` to grab javascript packages.
+- Run `node --version` to see the node version.
 
 
 
@@ -999,28 +1020,28 @@ How to think of classes and objects in an object oriented language like ruby:
 
 From [here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice):
 
-- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2. [Here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice#section-workflow-for-each-major-rails-upgrade-a) is a workflow for going from one major rails version to another. 
+- Do a separate step for each major Rails version (A). So, if you want to upgrade from Rails 3 to 5, I would do it in two steps 3.x -> 4.2 -> 5.2. [Here](https://makandracards.com/makandra/59328-how-to-upgrade-rails-workflow-advice#section-workflow-for-each-major-rails-upgrade-a) is a workflow for going from one major rails version to another.
 - From [rails guides](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#the-upgrade-process): When changing Rails versions, it's best to move slowly, one minor version at a time, in order to make good use of the deprecation warnings. Rails version numbers are in the form Major.Minor.Patch.
   - Upgrade your gems together with Rails if possible.
 - Upgrade Ruby in a separate step.
 - If your code base is very large you might need to go in smaller increments.
 
-- Discussion [here](https://www.reddit.com/r/rails/comments/11nxqqv/comment/jbpmp9i/?utm_source=reddit&utm_medium=web2x&context=3): 
+- Discussion [here](https://www.reddit.com/r/rails/comments/11nxqqv/comment/jbpmp9i/?utm_source=reddit&utm_medium=web2x&context=3):
 
 > Trying to run an old rails on a ruby version that didn't exist when the rails version was written is a recipe for many confusing issues.
 
-also 
+also
 
 > Gems first, then rails, then ruby.
 
 
-- So tl;dr, upgrading rails before ruby is a good idea, but probably only if the rails version was made to work on that particular version of ruby. 
+- So tl;dr, upgrading rails before ruby is a good idea, but probably only if the rails version was made to work on that particular version of ruby.
 
 
-An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like: 
+An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 0. Make sure you have good test coverage!
-1. Upgrade to rails 6.1.4.4 
+1. Upgrade to rails 6.1.4.4
 2. Upgrade to rails 7 (note that "Rails 7 requires Ruby 2.7.0 or newer" ([here](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html))). Note [steps](https://stackoverflow.com/a/71112586/5783745) for dealing with webpacker when upgrading to rails 7 (more [here](https://docs.google.com/document/d/1jQn7EP3N53c55p601bgnxw5HO8jMLXhu0EDZCW6SWmQ/edit#).
 3. Upgrade to ruby 3.x.x
 4. Migrate to hotwire from UJS/Turbolinks. DK: Keep your browser's console up as you're working through this. You'll uncover a bunch of "hidden" issues.
@@ -1036,8 +1057,8 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 # Generators
 
-- Great way to see available options [here](https://wasabigeek.github.io/railshelp). 
-- Great way to see avaialble `rails new` options interactively [here](https://railsnew.app/) (by axel from ror link). 
+- Great way to see available options [here](https://wasabigeek.github.io/railshelp).
+- Great way to see avaialble `rails new` options interactively [here](https://railsnew.app/) (by axel from ror link).
 
 
 
@@ -1091,14 +1112,14 @@ dom_id(Todo.last)
 # => "todo_65"
 ```
 
-In other words, if `dom_id()` receives a `.new` object, it will recognise that and simply give the element a dom_id of "new_thing". 
+In other words, if `dom_id()` receives a `.new` object, it will recognise that and simply give the element a dom_id of "new_thing".
 
 
 
 # Deployment
 
 
-- Interesting advice [here](https://www.reddit.com/r/rails/comments/14khvxe/hosting_rails_app_on_aws/)) on deploying to EC2s - Tl;dr: don't. It's too much work and even with thorough GoRails guides, it's still more complicated. Go with a PaaS, pay a little to save a tonne of time/effort. 
+- Interesting advice [here](https://www.reddit.com/r/rails/comments/14khvxe/hosting_rails_app_on_aws/)) on deploying to EC2s - Tl;dr: don't. It's too much work and even with thorough GoRails guides, it's still more complicated. Go with a PaaS, pay a little to save a tonne of time/effort.
   - If you must go on aws, use elastic bean stalk (see comment in above thread)
 
 
@@ -1120,7 +1141,7 @@ When using irb (not in a rails app), I thought `require 'active_support'` would 
 
 To see which modules and extensions a library contains, consult its official documentation you can load everything with require 'active_support/all'
 
-Note that presumably everything in this [active_support directory](https://github.com/rails/rails/tree/main/activesupport/lib/active_support) is also an extension/module within active_support. It contains 'core_ext' as well as 'all' and a heap of others. 
+Note that presumably everything in this [active_support directory](https://github.com/rails/rails/tree/main/activesupport/lib/active_support) is also an extension/module within active_support. It contains 'core_ext' as well as 'all' and a heap of others.
 
 
 ```rb
@@ -1134,7 +1155,7 @@ options(1, 2)        # => {}
 options(1, 2, a: :b) # => {:a=>:b}
 
 
-# My playing around 
+# My playing around
 
 def thing(*sources)
   options = sources.extract_options!.stringify_keys
@@ -1142,8 +1163,8 @@ def thing(*sources)
   puts options.class
   puts options.length
   options.each do |k, v|
-    puts "key: " + k + " value: " + v 
-  end 
+    puts "key: " + k + " value: " + v
+  end
 end
 
 thing(a: "abc", b: "def")
@@ -1167,11 +1188,11 @@ thing(a: "abc", b: "def")
 
 It's very easy, add to Gemfile, then run `brakeman`
 
-To see it work, try adding this to the users controller, it should detect the SQL injection attack vector 
+To see it work, try adding this to the users controller, it should detect the SQL injection attack vector
 
 ```ruby
 
-@users = User.where("name = '#{params[:name]}'") 
+@users = User.where("name = '#{params[:name]}'")
 
 ```
 

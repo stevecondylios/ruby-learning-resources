@@ -62,10 +62,10 @@ puts "hey there" unless no_time_to_talk
 
 # A note about unless
 # Recall that the two falsey values in ruby are false and nil, everything else is truthy (I think)
-# So something like 
+# So something like
 puts "hi" unless 5
 # won't print because 5 is 'truthy', which can be a little surprising first time around
-# Also, 
+# Also,
 b = 55
 puts "hi" unless b
 # That will also not print because b is 55, and that's again truthy. Just be aware that unless doesn't have to be provided some very obvious `true` for it to work. Use to your advantage, for example https://github.com/rails/rails/blob/577274d57d57df35f99655d0923252a6d9879090/activerecord/lib/active_record/tasks/database_tasks.rb#L555
@@ -74,7 +74,7 @@ puts "hi" unless b
 
 # until works like 'while not'
 x = 2
-while x > -5 do 
+while x > -5 do
   puts x
   x -= 1
 end
@@ -91,7 +91,7 @@ end
 __FILE__ # is the name of the current source file
 $0 # at the top level is the name of the top-level program being executed
 $: # is an array of paths to look for Ruby scripts to load
-$! # is the current Exception passed to raise 
+$! # is the current Exception passed to raise
 
 ENV # is the hash of environment variables
 ARGV # is the array of command line arguments (synonym for $*)
@@ -101,8 +101,8 @@ ARGV # is the array of command line arguments (synonym for $*)
 Conventions:
 
 - Methods ending in `?` return boolean
-- Methods ending in `!` are dangerous (they modify the receiver) 
-  - Note that in rails, the `!` (or 'bang') often means "raise an error if the method doesn't work" e.g. `update!(age: "lskdjfs")` 
+- Methods ending in `!` are dangerous (they modify the receiver)
+  - Note that in rails, the `!` (or 'bang') often means "raise an error if the method doesn't work" e.g. `update!(age: "lskdjfs")`
 - These are optional but make code readable
 
 
@@ -119,13 +119,13 @@ a ||= b # means if a doesn't exist or is falsy, assign it the value of b
 
 a = nil
 b = 5
-a ||= b 
+a ||= b
 # now a is 5
 
 a = false
 b = 5
-a ||= b 
-# a is now 5 
+a ||= b
+# a is now 5
 
 
 s ||= "hello" # is the same as
@@ -135,7 +135,7 @@ s = "hello" if (s.nil? || s == false)
 
 
 
-By default, object attributes cannot be read or written from outside the object. You can change the access on attributes with `attr_writer` and `attr_reader` (or `attr_accessor` which does both). These are class methods that open the named attributes up to reading and writing. 
+By default, object attributes cannot be read or written from outside the object. You can change the access on attributes with `attr_writer` and `attr_reader` (or `attr_accessor` which does both). These are class methods that open the named attributes up to reading and writing.
 
 Let's put this to the test:
 
@@ -218,15 +218,15 @@ p x.name
 ```
 
 
-**Exception handling** 
+**Exception handling**
 
 Catch exceptions with `begin` and `rescue`
 
 ```ruby
 
-begin 
+begin
   2 * "hi"
-rescue => e 
+rescue => e
   $stderr.puts "error: #{e.message}"
 end
 
@@ -248,7 +248,7 @@ end
 
 ```
 
-You can raise your own exceptions with `raise`. `raise` can be used with `String` or `Exception` objects. 
+You can raise your own exceptions with `raise`. `raise` can be used with `String` or `Exception` objects.
 
 ```ruby
 raise
@@ -256,11 +256,11 @@ raise StandardError.new
 raise "failure to raise resource ABC"
 ```
 
-`fail` is an alias for `raise`, they can be used interchangably. Some exceptions cannot be caught unless explicity caught in `rescue`. 
+`fail` is an alias for `raise`, they can be used interchangably. Some exceptions cannot be caught unless explicity caught in `rescue`.
 
 
 
-Exception handling in a loop 
+Exception handling in a loop
 
 Example: you have a list of emails and an email could bounce, causing an error, but you want to ensure the loop continues to try to send to the remaining emails
 
@@ -429,7 +429,7 @@ end
 
 # A third way to define a class method
 # From: https://railsware.com/blog/better-ruby-choosing-convention-for-class-methods-definition/
-# Also okay, but not the preferred way.  
+# Also okay, but not the preferred way.
 
 class Test
   class << self
@@ -462,15 +462,15 @@ end
 class Test
   def palindrome?
     self == self.reverse?
-  end  
-end  
+  end
+end
 
 
 # Note that the method above will error if run because the .reverse method is not defined for class Test (only for class String).
 # I.e. this won't work:
 
 # test = Test.new
-# test.palindrome? 
+# test.palindrome?
 # NoMethodError (undefined method `reverse' for #<Test:0x00007fb2ef9d9e38>)
 
 # But if we define the same method on the string class:
@@ -491,11 +491,11 @@ end
 ```
 
 
-- After defining a **class** method, you can see that it exists like so: `Thing.methods(:your_class_method)` (you can add `.source_location` to get result if it exists and an obvious error if it doesn't). 
-- After defining an **instance** method, you can check it like so `Thing.new.methods(:your_instance_method)` (add `.source_location` as before). Note that looking up a class method on an instance will return nothing/error, and looking up an instance method on a class will also return nothing/error! 
+- After defining a **class** method, you can see that it exists like so: `Thing.methods(:your_class_method)` (you can add `.source_location` to get result if it exists and an obvious error if it doesn't).
+- After defining an **instance** method, you can check it like so `Thing.new.methods(:your_instance_method)` (add `.source_location` as before). Note that looking up a class method on an instance will return nothing/error, and looking up an instance method on a class will also return nothing/error!
 - These are good ways of understanding that class methods really are available to the class (only), and instance methods only available to the instance (only).
-  - This is obvious once you know, but those from a functional programming background may erroneously assume that class methods are available to instances and instance methods available to classes, but that's not the case. 
-- A good practical example of a class method is something like `purge_banned_users` or some method that would have to run across all instances of a class. Whereas a good example of an instance method is something that would only be run on one instance (e.g. one user) at a time. 
+  - This is obvious once you know, but those from a functional programming background may erroneously assume that class methods are available to instances and instance methods available to classes, but that's not the case.
+- A good practical example of a class method is something like `purge_banned_users` or some method that would have to run across all instances of a class. Whereas a good example of an instance method is something that would only be run on one instance (e.g. one user) at a time.
 
 
 
@@ -570,7 +570,7 @@ end
 
 
 
-Note that all classes inherit from the `Object` class, so anything you place there will be available in other classes. For example, here we make `somemethod` available to the `String` class, via the `Object` class. 
+Note that all classes inherit from the `Object` class, so anything you place there will be available in other classes. For example, here we make `somemethod` available to the `String` class, via the `Object` class.
 
 
 ```rb
@@ -580,7 +580,7 @@ class Object
   end
 end
 "nn".somemethod
-# => "nnhi" 
+# => "nnhi"
 ```
 
 
@@ -699,14 +699,14 @@ user.class.ancestors
 
 
 
-### How ruby handles hashes as arguments 
+### How ruby handles hashes as arguments
 
 
 ```rb
 def foo(first={}, second={})
   puts "First hash:"
   first.each do |k, v|
-    puts k.to_s + ": " + v.to_s 
+    puts k.to_s + ": " + v.to_s
   end
   puts "Second hash:"
   second.each do |k, v|
@@ -755,28 +755,28 @@ foo({hi: 2, there: 4}, other: 7, more: 9)
 
 Lessons:
 
-- when a method accepts a hash, you don't need to place the {} around its key value pairs as you would normally when making a hash. 
+- when a method accepts a hash, you don't need to place the {} around its key value pairs as you would normally when making a hash.
 - When a method accepts multiple hashes, it will assume arguments without {} around them are all from the **first** hash
   - If the first hash has {} around it and there's more key/value pair(s) without {} around it/them, it will be assumed those arguments are from the **second** hash
 
-Yeah, that's not intuitive, but it makes sense when you're aware of it. Methods like [button_to](https://apidock.com/rails/v5.2.3/ActionView/Helpers/UrlHelper/button_to) will then make sense. 
+Yeah, that's not intuitive, but it makes sense when you're aware of it. Methods like [button_to](https://apidock.com/rails/v5.2.3/ActionView/Helpers/UrlHelper/button_to) will then make sense.
 
-- Consider what would happen if a function took two hashes as arguments and the {} were omitted, then it would be ambiguous as to which hash each key/value pair belonged to. See [here](https://www.youtube.com/watch?v=LuuKDyUYFTU&t=5m50s): 
+- Consider what would happen if a function took two hashes as arguments and the {} were omitted, then it would be ambiguous as to which hash each key/value pair belonged to. See [here](https://www.youtube.com/watch?v=LuuKDyUYFTU&t=5m50s):
 
 > If you have a function that can take multiple arguments each of which is a hash, then it becomes confusing
 
-Solution: use {} in that case to denote the start and end of each hash. 
+Solution: use {} in that case to denote the start and end of each hash.
 
 
 # Super
 
-`super` (and `super()`) are keywords (not methods). 
+`super` (and `super()`) are keywords (not methods).
 
-A really basic example: 
+A really basic example:
 
 ```ruby
 
-class Test1 
+class Test1
   def hello
     puts "hello"
   end
@@ -791,7 +791,7 @@ end
 Test2.new.hello
 # hello
 
-class Test2 
+class Test2
   def hello
     super
   end
@@ -834,7 +834,7 @@ end
 Child.new.say('Hi!') # => "I'm the parent"
 ```
 
-So the point here is that when using the `super()` keyword (with `()`), then the argument *won't* get passed up to the parent method. I'm not too sure where this would be useful tbh (a [quick search](https://github.com/search?p=5&q=%22super%22+language%3Aruby&type=Code) on GitHub shows the first case of super *with* the parentheses appears on page 5 of the search results, around the 50th result). 
+So the point here is that when using the `super()` keyword (with `()`), then the argument *won't* get passed up to the parent method. I'm not too sure where this would be useful tbh (a [quick search](https://github.com/search?p=5&q=%22super%22+language%3Aruby&type=Code) on GitHub shows the first case of super *with* the parentheses appears on page 5 of the search results, around the 50th result).
 
 
 
@@ -863,14 +863,14 @@ Child.new.say { p 'Hi!' }
 
 
 
-# Regular expressions in ruby 
+# Regular expressions in ruby
 
 From Agile Web Development in Rails:
 
-> A regular expression lets you specify a *pattern* of characters to be matched in a string. In Ruby, you typically create a regular epression by writing `/pattern/` or `%r{pattern}`. (p52). Programs typically use the *match operator* `=~` to test strings against regular expressions. 
+> A regular expression lets you specify a *pattern* of characters to be matched in a string. In Ruby, you typically create a regular epression by writing `/pattern/` or `%r{pattern}`. (p52). Programs typically use the *match operator* `=~` to test strings against regular expressions.
 
 
-Some examples from [idiomatic ruby slides](http://cbcg.net/talks/rubyidioms/) (slide 17). Reminder that `sub` subs the *first* ocurrance, and `gsub` subs *all* ocurrences. 
+Some examples from [idiomatic ruby slides](http://cbcg.net/talks/rubyidioms/) (slide 17). Reminder that `sub` subs the *first* ocurrance, and `gsub` subs *all* ocurrences.
 
 ```ruby
 "hello".sub /o/, ' no'
@@ -924,7 +924,7 @@ hi("john", "susan", "jo")
 # hi jo
 ```
 
-Using splat in assignment 
+Using splat in assignment
 
 ```ruby
 arr = ["mouse", "cat", "dog"]
@@ -942,10 +942,10 @@ pets
 
 # Keyword arguments and default arguments
 
-There are some great examples of these in my poodr notes. TL;DR 
+There are some great examples of these in my poodr notes. TL;DR
 
-- Use keyword arguments \~80% of the time (they make code more loosely coupled, since argument order ceases to matter), so keyword arguments > positional arguments 80% of the time. 
-- Be careful of a potential 'gotcha' when you think you're dealing with a method that accepts keyword arguments. Since they're submitted like hashes, a method that *doesn't* accept keyword arguments but receives one will think it's a hash and might run without error, which could be dangerous! 
+- Use keyword arguments \~80% of the time (they make code more loosely coupled, since argument order ceases to matter), so keyword arguments > positional arguments 80% of the time.
+- Be careful of a potential 'gotcha' when you think you're dealing with a method that accepts keyword arguments. Since they're submitted like hashes, a method that *doesn't* accept keyword arguments but receives one will think it's a hash and might run without error, which could be dangerous!
 - Interesting case with rails `render` method [here](https://stackoverflow.com/a/75586745/5783745)
 
 **Keyword arguments**
@@ -981,7 +981,7 @@ end
 
 hotdog # workds
 hotdog(99) # works
-hotdog(amount: 55) # DANGER - it doesn't error but it's not what we want! 
+hotdog(amount: 55) # DANGER - it doesn't error but it's not what we want!
 ```
 
 Default paramters with keyword arguments
@@ -1027,14 +1027,14 @@ Resources:
 
 From [idiomatic ruby](http://cbcg.net/talks/rubyidioms/) (slide 21):
 
-> Blocks make it easy to implement iterators, callbacks, transactions etc. 
+> Blocks make it easy to implement iterators, callbacks, transactions etc.
 
 From [here](http://www.vikingcodeschool.com/falling-in-love-with-ruby/blocks-procs-and-lambdas):
 
 > They're often called "anonymous functions" because they have no name but behave much like functions.
 
 
-```ruby 
+```ruby
 
 # A block (inline)
 [1, 2, 3].each { |n| puts n }
@@ -1066,7 +1066,7 @@ end
 # goodbye
 ```
 
-So literally all yield does is run the code supplied in the block. 
+So literally all yield does is run the code supplied in the block.
 
 Another example (from [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=31m14s)):
 
@@ -1083,7 +1083,7 @@ twice { puts "Get your shoes on..." }
 
 # or
 
-twice do 
+twice do
   puts "Get your shoes on..."
 end
 
@@ -1126,13 +1126,13 @@ end
 say_my_age
 # "You didn't give me your age"
 say_my_age { 30 }
-# 30 
+# 30
 
 ```
 
 
 
-Another example (based on [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1)): We can explicitly pass in a block as method parameter and invoke the block right inside our method (using the `.call` method). Note: The `&` denotes that the parameter is a block. 
+Another example (based on [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1)): We can explicitly pass in a block as method parameter and invoke the block right inside our method (using the `.call` method). Note: The `&` denotes that the parameter is a block.
 
 
 ```ruby
@@ -1146,7 +1146,7 @@ say_age { puts 22 }
 
 # or
 
-say_age do 
+say_age do
   22
 end
 # 22
@@ -1160,14 +1160,14 @@ From [here](https://medium.com/@noordean/understanding-ruby-blocks-3a45d16891f1)
 
 
 
-Another example from slide 22 [here](http://cbcg.net/talks/rubyidioms/). This example shows how to pass a parameter and a block to a method other examples [here](http://www.vikingcodeschool.com/falling-in-love-with-ruby/blocks-procs-and-lambdas): 
+Another example from slide 22 [here](http://cbcg.net/talks/rubyidioms/). This example shows how to pass a parameter and a block to a method other examples [here](http://www.vikingcodeschool.com/falling-in-love-with-ruby/blocks-procs-and-lambdas):
 
 ```ruby
 
 def fibonacci(max)
   x, y = 1, 1
   while x <= max
-    yield x if block_given? 
+    yield x if block_given?
     x, y = y, x + y
   end
 end
@@ -1177,7 +1177,7 @@ fibonacci(30) { |x| print x.to_s + " " }
 
 y = 0
 fibonacci(30) { |x| y += x }
-p y 
+p y
 # 54
 
 ```
@@ -1266,11 +1266,11 @@ hi4("a", "b")
 
 From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843):
 
-> Ruby introduces procs so that we are able to pass blocks around. 
+> Ruby introduces procs so that we are able to pass blocks around.
 
 > Proc objects are blocks of code that have been bound to a set of local variables. Once bound, the code may be called in different contexts and still access those variables.
 
-From me: basically it's storing code as a variable. Nothing more than that. E.g. 
+From me: basically it's storing code as a variable. Nothing more than that. E.g.
 
 ```rb
 square = Proc.new { |x| x ** 2 }
@@ -1297,7 +1297,7 @@ outer_funct <- function(dosomething, number) {
 outer_funct(square, 5)
 ```
 
-TL;DR R can already do the work of Procs. R calls the *outer* function a 'functional' (a function which accepts a function). Whereas in ruby you can't pass a method/function to another method/function, so instead you create a Proc if you want to do that. 
+TL;DR R can already do the work of Procs. R calls the *outer* function a 'functional' (a function which accepts a function). Whereas in ruby you can't pass a method/function to another method/function, so instead you create a Proc if you want to do that.
 
 Here's a great example of using ruby procs (from Jason's book on testing):
 
@@ -1333,11 +1333,11 @@ myproc = proc { |num| puts num**3} # the 'proc' method is simply an alias for Pr
 
 
 
-# Lambdas 
+# Lambdas
 
-- A great (and really easy to understand) example of lambdas is in rails scopes. 
+- A great (and really easy to understand) example of lambdas is in rails scopes.
 
-From [here](https://scoutapm.com/blog/how-to-use-lambdas-in-ruby): 
+From [here](https://scoutapm.com/blog/how-to-use-lambdas-in-ruby):
 
 > Ruby lambdas allow you to encapsulate logic and data in an eminently portable variable.
 
@@ -1362,7 +1362,7 @@ So what's the difference between a proc and a lambda? (from [here](https://mediu
 - My words: procs and lambdas are both just chunks of code that can be called at some future time
 
 
-- From [here](https://www.codecademy.com/learn/learn-ruby/modules/learn-ruby-blocks-procs-and-lambdas-u/cheatsheet): 
+- From [here](https://www.codecademy.com/learn/learn-ruby/modules/learn-ruby-blocks-procs-and-lambdas-u/cheatsheet):
 
 > In Ruby, a proc and a lambda can be called directly using the `.call` method.
 
@@ -1388,8 +1388,8 @@ def proc_demo_method
   "But what about me?" # Never reached
 end
 
-puts proc_demo_method 
-# Output 
+puts proc_demo_method
+# Output
 # Only I print!
 
 # (Notice that the proc breaks out of the method when it returns the value.)
@@ -1431,7 +1431,7 @@ puts lambda_demo_method
 
 # Modules
 
-From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods): 
+From [ruby docs](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods):
 
 > A module is a collection of methods and constants. The methods in a module may be instance methods or module methods. Instance methods appear as methods in a class when the module is included, module methods do not.
 - A module is a great way of including the same methods/constants in mulitple classes whilst keeping code DRY (since you can simply write the module, then import it in any class you want it in, then the methods/constants will be considered part of whatever class(s) imported the module).
@@ -1454,17 +1454,17 @@ Mod.instance_methods   #=> [:meth]
 ```ruby
 module ApplicationHelper
 end
-``` 
+```
 
 - `include` the module like so
 
 ```ruby
 include CurrenciesHelper
 include HomeHelper
-# etc 
+# etc
 ```
 
-Note that it's common to include one or more modules inside a class. Note that rails automatically includes the helper file of the same name in that class without you having to do anything. 
+Note that it's common to include one or more modules inside a class. Note that rails automatically includes the helper file of the same name in that class without you having to do anything.
 
 From [Derek Banas](https://www.youtube.com/watch?v=Dji9ALCgfpM&t=34m25s):
 
@@ -1475,13 +1475,13 @@ A note on the enumerables module (from [Derek Banas](https://www.youtube.com/wat
 
 > a class that includes the Enummerable module is gonna gain collection capabilities sort of like we saw with arrays and hashes
 
-e.g. 
+e.g.
 
 ```ruby
 class Menu
   include Enumerable
 
-  def my_each 
+  def my_each
     yield "pizza"
     yield "coke"
     yield "fries"
@@ -1501,8 +1501,8 @@ end
 
 ```
 Math::PI
-=> 3.141592653589793 
-```	
+=> 3.141592653589793
+```
 
 
 - Random example of (what I think is) a module [here](https://stackoverflow.com/a/75559132/5783745)
@@ -1513,6 +1513,32 @@ ActiveRecord::Migration.drop_table(:products)
 ```
 
 Which I found by looking through the ActiveRecord source code [here](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/migration/command_recorder.rb). (note that I couldn't actually find `def drop_table` so perhaps it's defined elsewhere, or defined via meta programming - not too sure tbh.
+
+
+
+
+### Example of modules from the Stripe gem
+
+
+In both of these examples, `Stripe` is the top level module.
+
+In the first example, `Price` is the class
+
+In the second example, `BillingPortal` is a nested module and `Configuration` in the class
+
+List is the `method` name in both cases
+
+
+```ruby
+
+Stripe::Price.list(product: product.id, limit: 100)
+
+Stripe::BillingPortal::Configuration.list
+
+```
+
+
+
 
 
 
@@ -1529,7 +1555,7 @@ bundle exec rake test # Runs tests
 ```
 
 Side note: incidentally, [this](https://www.youtube.com/watch?v=NGXp6_-nc4s&t=12m) is an excellent \~10 minute example of
-test driven development. 
+test driven development.
 
 
 
@@ -1545,13 +1571,13 @@ test driven development.
 
 - Rubyconf 2019 [video on pry and debugging](https://www.youtube.com/watch?v=GwgF8GcynV0) by Jim Weirich
   - `ls` to view objects available to you
-  - `cd ../` etc to navigate 
+  - `cd ../` etc to navigate
   - `$` to show the current source of where your `binding.pry` is (or wherever you've cd'd into)
   - `$ Module` or `$ method` to see other stuff's source
-    - Great [examples here](https://stackoverflow.com/a/7056610/5783745) 
-- The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality). 
+    - Great [examples here](https://stackoverflow.com/a/7056610/5783745)
+- The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality).
 
-Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like. 
+Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like.
 
 To run the pry console in irb or rails console, you do the following:
 
@@ -1567,14 +1593,14 @@ require 'pry'
 require 'pry-doc'
 
 # Don't forget to run 'pry' command to enter pry
-pry 
+pry
 ```
 
 
 ### How to clean up the ruby irb or rails console a bit
 
 
-Situation: say I run 
+Situation: say I run
 
 ```ruby
 
@@ -1584,7 +1610,7 @@ end
 
 ```
 
-That will puts the required line but it will also be cluttered with: 
+That will puts the required line but it will also be cluttered with:
 
 1. the sql query(ies) e.g. (this for every query that's run, e.g. potentially a lot if running some sql in a .each enumeration):
 
@@ -1611,7 +1637,7 @@ To turn off the sql queries:
 ```rb
 ActiveRecord::Base.logger.level = Logger::WARN
 
-# Can reenable with 
+# Can reenable with
 ActiveRecord::Base.logger.level = Logger::DEBUG
 
 ```
@@ -1646,7 +1672,7 @@ Use `?` or `show-source` methods (I'm not sure of the difference, but `?` appear
 
 
 # Note: ? and show-source appear to do the same thing:
-? Array#pop 
+? Array#pop
 show-source Array#pop -d
 # Second example is from here: https://www.reddit.com/r/ruby/comments/m11lms/how_to_fix_invoke_the_geminstall_prydoc_pry/
 
@@ -1659,7 +1685,7 @@ ri File.link
 ri inject
 ```
 
-- Note that `ri` won't give documentation on ruby keywords (nor will a lot of other ruby documentation sites). Example `ri and` gives (for me) docs for ActiveRecord, capybara, and rspec's `and` methods, but not the ruby `and` keyword. 
+- Note that `ri` won't give documentation on ruby keywords (nor will a lot of other ruby documentation sites). Example `ri and` gives (for me) docs for ActiveRecord, capybara, and rspec's `and` methods, but not the ruby `and` keyword.
   - [This](https://rubystyle.guide/#and-or-flow) site does give a little info about ruby keywords.
   - [This](https://docs.ruby-lang.org/en/3.2/keywords_rdoc.html) is the best page I could find with info about ruby keywords (although there's not a *lot* of info there).
 
@@ -1673,7 +1699,7 @@ ri inject
 $ File.link
 # NOTE: if this doesn't work, don't forget to require 'pry-doc'
 
-# Another example (hese do the same thing): 
+# Another example (hese do the same thing):
 $ Rails.configuration
 show-source Rails.configuration
 
@@ -1685,7 +1711,7 @@ show-source Rails.configuration
 
 - [devdocs](https://devdocs.io/) website is great, and it can be installed on localhost for offline access
   - See instructions in the [github repo](https://github.com/freeCodeCamp/devdocs) for how to get up and running locally in a few minutes
-    - Follow the [quick start](https://github.com/freeCodeCamp/devdocs?tab=readme-ov-file#quick-start) instructions, and start the localhost with `bundle exec rackup` (and visit http://localhost:9292). 
+    - Follow the [quick start](https://github.com/freeCodeCamp/devdocs?tab=readme-ov-file#quick-start) instructions, and start the localhost with `bundle exec rackup` (and visit http://localhost:9292).
     - To show available docs `thor docs:list` and to download a specific one e.g. `thor docs:download ruby@3.1` (note that you have to 'enable' it in the browser once downloaded)
 
 
@@ -1709,11 +1735,11 @@ show-source Rails.configuration
 
 # Singletons
 
-**Singletons TL;DR** Singletons are good to know about, but except for special cases, avoid using them. 
+**Singletons TL;DR** Singletons are good to know about, but except for special cases, avoid using them.
 
 - [Medium article](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596)
 
-From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigenclass-to-confused-beginners-cep): 
+From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigenclass-to-confused-beginners-cep):
 
 > The Singleton pattern is simply an object-oriented programming pattern where you make sure to have 1 and only 1 instance of some class.
 
@@ -1722,7 +1748,7 @@ From [here](https://dev.to/samuelfaure/explaining-ruby-s-singleton-class-eigencl
 
 From [here](https://medium.com/rubyinside/class-methods-in-ruby-a-thorough-review-and-why-i-define-them-using-class-self-af677ede9596):
 
-> In general, Ruby methods are stored in classes while data is stored in objects, which are instances of classes. 
+> In general, Ruby methods are stored in classes while data is stored in objects, which are instances of classes.
 
 
 ### A quick example of a singleton
@@ -1759,13 +1785,13 @@ Shop.instance
 
 # Ruby language capabilities and quirks
 
-- [Single quotes vs Double quotes](https://stackoverflow.com/questions/6395288/double-vs-single-quotes#comment88736030_6395332)? ANS: just use double quotes all the time (they allow string interpolation, and there's no performance impact over single quotes). 
+- [Single quotes vs Double quotes](https://stackoverflow.com/questions/6395288/double-vs-single-quotes#comment88736030_6395332)? ANS: just use double quotes all the time (they allow string interpolation, and there's no performance impact over single quotes).
 
 
 
 Assign multiple variables like this: `a, b = 2, 3`
 
-It also works with splat `*` e.g. 
+It also works with splat `*` e.g.
 
 ```ruby
 arr = ['mouse', 'cat', 'dog']
@@ -1810,9 +1836,9 @@ end
   - TODO `method_missing` example here
 
 
-<hr> 
+<hr>
 
-The way to remove / delete / destroy an object in ruby? Surprise: there isn't one! The best you can do is [set it to `nil`](https://stackoverflow.com/a/19530391/5783745). 
+The way to remove / delete / destroy an object in ruby? Surprise: there isn't one! The best you can do is [set it to `nil`](https://stackoverflow.com/a/19530391/5783745).
 
 However, you can use the pry console (by `gem install pry`, then `require 'pry'`, then simply `pry`), and use `reset` to remove all objects. Another way to enter the pry console from terminal simply type `pry` and boom, you're in!
 
@@ -1847,7 +1873,7 @@ Dummy2.new.var
 
 # Note that
 a = Dummy2.new
-a.var 
+a.var
 # 9999
 a.var = 80
 # NoMethodError (undefined method `var=' for #<Dummy2:0x00007fad78815a88 @var=9999>)
@@ -1858,7 +1884,7 @@ a.update(var: 80)
 class Dummy3
   attr_reader :var
   attr_writer :var
-  def initialize 
+  def initialize
     @var = 99999
   end
 end
@@ -1884,7 +1910,7 @@ Note that removing / deleting / destroying objects doesn't seem to be simple as 
 
 <hr>
 
-Note that while hashes can have keys that are symbols or strings, that doesn't mean they can be accessed either way. That is, if the key is a string, use a string to access it; similarly, if they key is a symbol, you must use a symbol to acccess it. From community: "most of the time you'll want symbol keys". Note that you [must use hash rocket](https://stackoverflow.com/a/70726247/5783745) notation when defining a hash with keys of class String. 
+Note that while hashes can have keys that are symbols or strings, that doesn't mean they can be accessed either way. That is, if the key is a string, use a string to access it; similarly, if they key is a symbol, you must use a symbol to acccess it. From community: "most of the time you'll want symbol keys". Note that you [must use hash rocket](https://stackoverflow.com/a/70726247/5783745) notation when defining a hash with keys of class String.
 
 Easy example (from [here](https://stackoverflow.com/a/16194278/5783745)):
 
@@ -1918,7 +1944,7 @@ ButtonController.new("Pause") { thread.pause }
 
 - .start and .pause work even when thread goes out of scope
 - closure's environment is a reference, not a copy
-- They're most commonly created with blocks or lambda: 
+- They're most commonly created with blocks or lambda:
 
 ```ruby
 def mkcounter
@@ -1926,7 +1952,7 @@ def mkcounter
 end
 ```
 
-The lambda creates a `proc` object with associated block. 
+The lambda creates a `proc` object with associated block.
 
 
 <hr>
@@ -1940,7 +1966,7 @@ class Roman
   end
   def method_missing(methId)
     str = methId.id2name
-    romanToInt str 
+    romanToInt str
   end
 end
 
@@ -1958,7 +1984,7 @@ r.mm #=> 2000
 - Calling a continuation brings execution back to right after it was created
 - `callcc` (["call with current continuation"](https://stackoverflow.com/questions/tagged/callcc)) takes a block and passes a `Continuation` object to it
 - Often described as a "go to with arguments".
-- When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations". 
+- When asked why he put in continuations and not macros, Matz said "the people who'd make an awful mess with macros wouldn't even dare to *touch* continuations".
 - Good use case [here](https://www.honeybadger.io/blog/how-to-try-again-when-exceptions-happen-in-ruby/)
   - Brilliant examples of case when and case in [here](https://www.akshaykhot.com/ruby-switch-statement/)
 - Note that randomly paul graham says continuations may make a comeback in his 'Dynamic languages' talk [here](https://www.youtube.com/watch?v=agw-wlHGi0E&t=36m30s)
@@ -1969,7 +1995,7 @@ Note that methods like `<<` can still be called with the `.` syntax, like so:
 ```ruby
 arr = [1,2,3]
 
-arr << 4 # standard way to call << 
+arr << 4 # standard way to call <<
 
 lol.<<(5) # with . syntax
 ```
@@ -2024,23 +2050,23 @@ DOC
 ### Metaprogramming
 
 
-- Technically, things like `attr_accessor` and `has_many` are metaprogramming, since they're macros that define more methods/functions within a class (i.e. they're functions that define functions). 
-  - See [berkeley video](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h7m34s) for more. 
+- Technically, things like `attr_accessor` and `has_many` are metaprogramming, since they're macros that define more methods/functions within a class (i.e. they're functions that define functions).
+  - See [berkeley video](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h7m34s) for more.
 
-From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h9m32s): 
+From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=1h9m32s):
 
 > the idea is, with metaprogramming, I can inject code into my Classes. And a lot of the way rails works is ... at run time it's injecting a whole bunch of methods dynamically into that class
 
 
-Nice example: 
+Nice example:
 
 ```rb
 def delete_an_image
   @image = ActiveStorage::Attachment.find_by_id(delete_an_image_params[:attachment_id])
   @image.purge
-  resource = delete_an_image_params[:resource] 
+  resource = delete_an_image_params[:resource]
   redirect_method = "edit_#{resource.underscore}_path" # underscore produces snake case
-  redirect_to send(redirect_method, delete_an_image_params[:resource_id])    
+  redirect_to send(redirect_method, delete_an_image_params[:resource_id])
 end
 
 private
@@ -2050,12 +2076,12 @@ def delete_an_image_params
 end
 ```
 
-The metaprogramming will evaluate the 'redirect_method' e.g. `edit_product_path(delete_an_image_params[:resource_id])`, but would just as easily handle `edit_seller_path` or any other resource/model. 
+The metaprogramming will evaluate the 'redirect_method' e.g. `edit_product_path(delete_an_image_params[:resource_id])`, but would just as easily handle `edit_seller_path` or any other resource/model.
 
 
 <hr>
 
-Another example (using `.send` and `.klass`) in [tutorial](https://www.driftingruby.com/episodes/nested-forms-from-scratch) on a form to accept multiple associated records (using simple_form_for).  
+Another example (using `.send` and `.klass`) in [tutorial](https://www.driftingruby.com/episodes/nested-forms-from-scratch) on a form to accept multiple associated records (using simple_form_for).
 
 Here's some output from `ri klass`:
 
@@ -2104,7 +2130,7 @@ my_hash.public_send(:[], 'foo')
 
 # Mixins
 
-From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mixin is nothing more than a class which includes a module (which, as one may anticipate, makes the module's methods available to the class). My own thought: seems hardly worth mentioning, since it seems obvious.  
+From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mixin is nothing more than a class which includes a module (which, as one may anticipate, makes the module's methods available to the class). My own thought: seems hardly worth mentioning, since it seems obvious.
 
 
 
@@ -2124,7 +2150,7 @@ From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=58m20s) it seems a mix
 - `Module.constants.first(4)` - note you can call `.constants` on some objects
 - You can call `.instance_methods` on a class (funnily, you cannot call it on an instance of a class, also funnily, you cannot replace 'instance' with class/module e.g. .class_methods isn't a thing). Example of `.instance_methods` [here](https://ruby-doc.org/core-2.4.2/Module.html#method-i-instance_methods), as well as [docs here](https://apidock.com/ruby/Module/instance_methods)
 - This works on a class method `String.method(:hello2).source_location` (not on an instance method though)
-- Calling `.source_location` on a method returns the location it was defined, which isn't too useful in irb/rails console, but is probably very handy in an actual application, particularly when debugging. 
+- Calling `.source_location` on a method returns the location it was defined, which isn't too useful in irb/rails console, but is probably very handy in an actual application, particularly when debugging.
 - What is monkey patching? From [here](https://www.geeksforgeeks.org/monkey-patching-in-ruby):
 
 > In Ruby, a Monkey Patch (MP) is referred to as a dynamic modification to a class and by a dynamic modification to a class means to add new or overwrite existing methods
@@ -2145,9 +2171,9 @@ And great explanation of `instance_eval` and `class_eval` [here](https://web.sta
 - A note about ruby macros [here](https://stackoverflow.com/questions/47746381/creating-a-macro-in-ruby?noredirect=1#comment132510618_47746381). Basically what ruby calls a macros isn't consistent with what the broader programming world calls macros (so ruby's macros aren't consistent with what a Lisp programmer would call a macro)
 
 
-- A quick demonstration of duck typing. 
+- A quick demonstration of duck typing.
   - Great example [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=48m)
-  - Basic idea: instead of asking: "is this instance a class (or subclass) of some class?", you ask, does it have the same/similar methods to some class. 
+  - Basic idea: instead of asking: "is this instance a class (or subclass) of some class?", you ask, does it have the same/similar methods to some class.
   - Example:
 
 
@@ -2179,9 +2205,9 @@ t.respond_to? :pqr
 
 ```
 
-If a particular class shares similar/same methods to another class, then it can be said that they're similar. Like if we had a calss of Mailard and class of Pochard, and they both `respond_to? :quack`, then they both quack so they're probably both ducks (whereas class Goose has `respond_to :quack # false` so it's not a goose. From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=48m45s): 
+If a particular class shares similar/same methods to another class, then it can be said that they're similar. Like if we had a calss of Mailard and class of Pochard, and they both `respond_to? :quack`, then they both quack so they're probably both ducks (whereas class Goose has `respond_to :quack # false` so it's not a goose. From [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=48m45s):
 
-> An object is less defined by ineritance, and more by what the object does.  
+> An object is less defined by ineritance, and more by what the object does.
 
 
 
@@ -2212,7 +2238,7 @@ b
 # => 2
 ```
 
-Note that in ruby, this is merely syntactic sugar since methods always return exactly 1 thing, and in this case `return nil, 2` is just syntactic sugar for `return [nil, 2]`. 
+Note that in ruby, this is merely syntactic sugar since methods always return exactly 1 thing, and in this case `return nil, 2` is just syntactic sugar for `return [nil, 2]`.
 
 This concept is known as [destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
 
@@ -2269,9 +2295,9 @@ arr2&.first
 
 
 
-- You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks. 
+- You can run any system command (i.e. bash code) in ruby by simply wrapping it in backticks.
   - Python is probably the [tool of choice](https://news.ycombinator.com/item?id=40764706) for writing scripts that run system commands, but ruby is great too
-  - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output 
+  - See [here](https://news.ycombinator.com/item?id=40763640) for some great examples, e.g. parsing git command output
   - Note ([here](https://news.ycombinator.com/item?id=40764793)) that one gotcha is it doesn't tell you if there was an error in the system code, you have to manually check `$?` (0 is success, and anything else is an error) - e.g. `$?.success?`. Or you can use another method (see stack overflow post linked to from child hn comment)
     - An LLM [tells me](https://chatgpt.com/c/67fb4d5f-865c-8008-aefc-6f495da31919) using `system()` can be a bit more reliable as it will return true if it succeeded, false if it didn't, and nil if the command didn't run. Then you can use `unless` or similar to logically handle.
 
@@ -2298,7 +2324,7 @@ current_branch_regex = /^\* (\S+)/
 output_lines = `git branch`.lines
 output_lines.each do |line|
   if line =~ current_branch_regex # match the string with the regex
-    puts $1                       # prints the match of the first group  
+    puts $1                       # prints the match of the first group
   end
 end
 
