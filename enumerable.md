@@ -1,11 +1,11 @@
-This file contains a quick example of each of the 59 enumerable methods found [here](https://ruby-doc.org/core-3.0.2/Enumerable.html). It's mentioned [here](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=14m10s) that it's a great idea to know a little about each: 
+This file contains a quick example of each of the 59 enumerable methods found [here](https://ruby-doc.org/core-3.0.2/Enumerable.html). It's mentioned [here](https://www.youtube.com/watch?v=nZNfSQKC-Yk&t=14m10s) that it's a great idea to know a little about each:
 
 > If you have time, because it's so important, write an example for each enumerable method
 
 The three big ones: `.each`, `.map`, and `.inject`. But there are 56 more!
 
 
-- Enumerable one-pager of documentation: 
+- Enumerable one-pager of documentation:
 - Also note that using `ri` in the command line gives really great docs with examples. E.g. in terminal: `ri inject`
 
 
@@ -15,14 +15,14 @@ The three big ones: `.each`, `.map`, and `.inject`. But there are 56 more!
 
 ```ruby
 pets = "cat", "mouse", "dog", "lizard", "tiger"]
-pets.each do |pet| 
+pets.each do |pet|
   puts "I have a #{pet}"
 end
 # I have a cat
 # I have a mouse
 # I have a dog
 # I have a lizard
-# I have a tiger 
+# I have a tiger
 ```
 
 
@@ -30,7 +30,7 @@ end
 ### `.map`
 
 ```ruby
-pets.map do |pet| 
+pets.map do |pet|
   pet + "aaa"
 end
 # => ["cataaa", "mouseaaa", "dogaaa", "lizardaaa", "tigeraaa"]
@@ -39,7 +39,7 @@ pets.map{ |pet| pet + "aaa" }
 # => ["cataaa", "mouseaaa", "dogaaa", "lizardaaa", "tigeraaa"]
 ```
 
-### `.inject` AKA `.reduce` 
+### `.inject` AKA `.reduce`
 
 - See `ri inject` docs for example
 
@@ -54,7 +54,7 @@ pets.map{ |pet| pet + "aaa" }
 # => 55
 ```
 
-### `.count` 
+### `.count`
 
 ```ruby
 (1..10).to_a.count
@@ -69,7 +69,7 @@ Note: see below for more ways of using enumerable on an ActiveRecord object, and
 # => [6, 7, 8, 9, 10]
 ```
 
-### `.min` and `.max` 
+### `.min` and `.max`
 
 
 ```ruby
@@ -83,11 +83,11 @@ irb(main):005:0> [4,3,11,9,555].max
 
 
 
-### `.group_by` 
+### `.group_by`
 
 From `ri group_by`:
 
-> Groups the collection by result of the block.  Returns a hash where the keys are the evaluated result from the block and the values are arrays of elements in the collection that correspond to the key.	
+> Groups the collection by result of the block.  Returns a hash where the keys are the evaluated result from the block and the values are arrays of elements in the collection that correspond to the key.
 
 Example from `ri group_by`
 
@@ -103,7 +103,7 @@ Example from `ri group_by`
 
 
 
-### `.partition` 
+### `.partition`
 
 
 
@@ -117,7 +117,7 @@ Example from `ri group_by`
 
 
 
-### `.any?` 
+### `.any?`
 
 
 ```ruby
@@ -127,7 +127,7 @@ arr.any? { |el| el >4 }
 
 arr2 = [1,2,3,4,5]
 arr2.any? { |el| el >4 }
-# => true 
+# => true
 ```
 
 
@@ -136,7 +136,7 @@ arr2.any? { |el| el >4 }
 
 
 
-### `.all?` 
+### `.all?`
 
 
 ```ruby
@@ -150,8 +150,8 @@ arr2.all? { |el| el <= 4 }
 end
 # => true
 
-[45, 5, 75, 7].all? do |num| 
-  num % 5 == 0 
+[45, 5, 75, 7].all? do |num|
+  num % 5 == 0
 end
 # => false
 ```
@@ -163,7 +163,7 @@ end
 
 
 
-### `.none?` 
+### `.none?`
 
 
 ```ruby
@@ -178,7 +178,7 @@ end
 
 ### `compact` and `compact!`
 
-Removes all `nil` elements from itself. 
+Removes all `nil` elements from itself.
 
 Note: to get docs for `compact!`, escape the bang. E.g. `ri compact\!`
 
@@ -193,7 +193,7 @@ Note: to get docs for `compact!`, escape the bang. E.g. `ri compact\!`
 
 
 
-### `.zip` 
+### `.zip`
 
 Example from `ri zip`
 
@@ -209,7 +209,7 @@ a.zip(b, c)
 
 ### `.flatten`
 
-Appears to combine an array of arrays into one array. 
+Appears to combine an array of arrays into one array.
 
 
 ```ruby
@@ -284,6 +284,16 @@ Here are some ways to filter child records for an ActiveRecord object. Note: I d
 # Remove some specific students
 students_to_exclude = [Student.find(3), Student.find(7)] # Assume these are student objects
 @teacher.students = @teacher.students.excluding(*students_to_exclude)
+
+# This could be handy in rails
+
+params = {abc: 123, def: 456, ghi: 789, zzz: 000}
+
+# Suppose we want to get rid of zzz: 000
+
+params.reject { |key, value| key == :zzz }
+
+# Or edit in place with .tap - see good examples in pp
 
 ```
 
