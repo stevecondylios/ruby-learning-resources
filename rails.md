@@ -1062,6 +1062,21 @@ An **example workflow** from rails 6.0.4.4 / ruby 2.7.1 could look like:
 
 
 
+
+# Database and ActiveRecord notes
+
+Quick difference between `upsert`, `find_or_create_by` and `find_or_initialize_by`
+
+- `upsert` - does *not* run validations or callbacks, database-level operation
+- `find_or_create_by` - *does* run validations and callbacks (but only when creating, not when finding)
+- `find_or_initialize_by` - similar to find_or_create_by but doesn't save the record, it only exists in memory and requires manual saving
+
+
+
+
+
+
+
 # Miscellaneous notes
 
 - On the role of models vs controllers (from John M):
