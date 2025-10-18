@@ -1262,6 +1262,30 @@ hi4("a", "b")
 
 
 
+Another nice (simple, intuitive) example
+
+From [here](https://tech.stonecharioteer.com/posts/2025/ruby-blocks/):
+
+
+
+```ruby
+
+def with_timer(name)
+  start_time = Time.now
+  yield
+  end_time = Time.now
+  puts "#{name} took #{end_time - start_time} seconds"
+end
+
+with_timer("Database query") do
+  # Some expensive operation
+  sleep(2)
+end
+
+
+```
+
+
 # Procs
 
 From [here](https://medium.com/podiihq/ruby-blocks-procs-and-lambdas-bb6233f68843):
