@@ -1212,3 +1212,26 @@ To see it work, try adding this to the users controller, it should detect the SQ
 ```
 
 
+### Tips for dealing with webhooks (mostly from rorlink)
+
+
+- convert the cart into a “payment_pending” order and update the details once the webhook arrives
+- Stripe’s success URL includes a stripe checkout session id. We fetch the session in the success action, do an API call to Stripe, and upsert the purchases into my database.
+- If you include ?checkout_session_id={CHECKOUT_SESSION_ID} (literally that, don’t try to interpolate anything) in the success_url, stripe will interpolate the actual checkout session id into the query string parameter. So you’ll get ?checkout_session_id=cs_qwerty123 in your success action
+  - Basically, we view the webhooks as a way to accept updates about a subscription / customer, but prefer the inline API call for the initial create. That avoids the possibility of race conditions that can happen from their queue being backed up, or ours.
+  - The last thing we want is for our customers to pay us money and not immediately receive something for it.
+- the webhook is still important though, because the user can close the window or lose network before the redirect ever happens.
+- Stripe actually shows a spinner for up to 10 seconds after payment. During that time, they send the webhook and will only redirect once you return 2xx from it. If the redirect never happens, you still need the webhook to complete the order.
+- Generic webhook advice: don’t do real work inside the webhook controller.
+- Parse the payload, enqueue a job, return 202 immediately. That way you never time out, you never lose events, and if something goes wrong you can retry cleanly in the background.
+- We also just queue a job with the payload instead of processing the webhook inline. It helps prevent scaling issues. I can enqueue the webhook job with some JSON in a few ms. Processing the webhook takes quite a bit longer. I don’t want to be DDoSed by webhooks.
+
+
+
+
+
+
+
+
+
+
