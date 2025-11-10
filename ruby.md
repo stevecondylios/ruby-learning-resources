@@ -1591,7 +1591,7 @@ test driven development.
 
 
 
-# Pry - Using `pry` to debug, view docs, and view source (for both irb and rails c)
+# Debugging, using using `pry` to debug, view docs, and view source (for both irb and rails c)
 
 - Rubyconf 2019 [video on pry and debugging](https://www.youtube.com/watch?v=GwgF8GcynV0) by Jim Weirich
   - `ls` to view objects available to you
@@ -1728,6 +1728,57 @@ $ Rails.configuration
 show-source Rails.configuration
 
 ```
+
+
+**Useful commands during debugging**
+
+
+```ruby
+# see controller you're in
+controller_name
+
+# see action
+action_name
+
+# From meagar, regarding controller_name and action_name:
+# something like <body class="#{controller_name} #{controller_name}_#{action_name}"> to allow you to scope styles by controller and/or action name
+
+# e.g shows the method you're currently in
+__method__
+
+# or
+__callee__
+
+# see where you are in your code
+whereami
+
+# tip from meagar
+backtrace
+
+# ihe last exception that was raised:
+$!
+
+
+# More tips from meagar:
+# Most people know about `foo.method(:bar)` to look at the "bar" method on the object "foo", and the fact that you can ask it for its source and source_location.
+
+# But you can also use `Module#const_source_location` to find where a constant is defined
+# Where is OAuth::Token defined?
+# irb(rails):001> OAuth.const_source_location(:Token)
+# => [".../vendor/bundle/ruby/3.1.0/gems/oauth-1.1.0/lib/oauth/tokens/token.rb", 5]
+
+# You can use `Module.const_source_location` for top-level constants
+# Where is OAuth itself defined?
+# Module.const_source_location(:OAuth)
+# => [".../vendor/bundle/ruby/3.1.0/gems/oauth-1.1.0/lib/oauth/version.rb", 3]
+# Very useful for debugging and figuring out where a thing is defined
+
+
+
+```
+
+
+
 
 
 # How to find documentation for the ruby language (and rails)
