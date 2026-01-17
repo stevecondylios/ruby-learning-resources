@@ -1070,7 +1070,8 @@ So literally all yield does is run the code supplied in the block.
 
 Another example (from [here](https://www.youtube.com/watch?v=UCB57Npj9U0#t=31m14s)):
 
-```
+```ruby
+
 def twice
   yield
   yield
@@ -1184,7 +1185,7 @@ p y
 
 Just one more example of a block, use of &block, block_given? and yield (I made this one up)
 
-```rb
+```ruby
 
 def hi(*args)
   args.each do |arg|
@@ -1284,6 +1285,150 @@ end
 
 
 ```
+
+
+Glossary note:
+
+In this
+
+```ruby
+
+some_method do |thing|
+# ...
+end
+
+```
+
+|thing| is called a 'block parameter'
+
+Example from the wild:
+
+
+
+```ruby
+# config/initializers/exception_notification.rb
+ExceptionNotification.configure do |config|
+  config.ignore_if do |exception, options|
+    exception.is_a?(RedisClient::CannotConnectError)
+  end
+end
+
+```
+My understanding of what's happening here:
+
+
+- ExceptionNotification.configure: configure is a method in the ExceptionNotification module
+  - configure method accepts a block parameter, in this case we call it 'config'
+- we call the ignore_if method on the config block parameter, and ignore_if method happens to also accept block parameters (in this case we call them exception and options
+- on the 'exception' block parameter to the ignore_if method, we call is_a? to determine whther it's a RedisClient::CannotConnectError, in which case the ignore_if method will return true
+
+
+
+
+More notes and Q&A on block parameters
+
+
+Q:
+
+- When defining a method that accepts a block, how do you define block parameters? And how could someone that encounters that method for the first time know how many and which block parameters the method is able to / expects to accept?
+
+
+A: (multiple points)
+
+
+1. You don’t need special syntax to accept a block — Ruby always allows one:
+
+```ruby
+
+def my_method
+  yield
+end
+
+my_method do
+  puts "yo"
+end
+
+my_method { puts "yo" }
+
+# calling without a block will error, since execution reaches `yield` and it's expecting a block to call
+my_method
+
+
+```
+
+
+2. But to work with a block explicitly, you usually capture it:
+
+
+```ruby
+
+def my_method(&block)
+  block.call
+end
+
+my_method do
+  puts "yo"
+end
+
+# calling without a block errors, since executation reaches block.call and the block is nil since one wasn't provided
+my_method
+
+
+```
+
+Tangent: slight variation to make method not error if not block provided and executation reaches the block
+
+
+```ruby
+
+def my_method
+  yield if block_given?
+end
+
+
+my_method { puts "sup" }
+
+
+my_method
+# just returns nil, no actual error
+
+```
+
+
+
+```ruby
+
+def my_method
+  yield 4, 15
+end
+
+# Call it with a block and block parameters provided
+my_method do |a, b|
+  puts "hi, #{a}, and #{b}"
+end
+
+# hi, 4 and 15
+
+
+# Call it with a block and block parameters provided
+my_method do |a, b|
+  puts a + b
+end
+# 19
+
+
+```
+
+
+
+Glossary note: 'caller' is the code that calls the method to which the block is passed
+
+
+Note: ruby does no arity enforcement on block parameters (i.e. enforcement of which arguments are provided)
+
+
+
+
 
 
 # Procs
