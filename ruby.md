@@ -1744,6 +1744,8 @@ test driven development.
   - `$` to show the current source of where your `binding.pry` is (or wherever you've cd'd into)
   - `$ Module` or `$ method` to see other stuff's source
     - Great [examples here](https://stackoverflow.com/a/7056610/5783745)
+        - It shows how to look up documentation in pry: `? File.dirname`
+        - And how to look up source code in pry: `$ File.link`
 - The pry docs are great (just the [readme itself](https://github.com/pry/pry#navigating-around-state) contains a lot of beginner and advanced functionality).
 
 Note that the run pry in rails, you add `binding.pry` where you want the code execution to pause. You can then jump into the console and run whatever code you like.
@@ -1948,6 +1950,43 @@ $!
 
 
 
+Note that the `ri` *ruby* method (as opposed to command line function) can look up docs. For some weird reason it's available in IRB but not rails console.
+
+in `rails console` doesn't work):
+
+```
+irb(main):001> ri File.size
+(irb):1:in `size': wrong number of arguments (given 0, expected 1) (ArgumentError)
+irb(main):002> exit
+```
+
+in `irb` (works):
+
+```
+irb(main):001> ri File.size
+= File.size
+
+(from ruby core)
+------------------------------------------------------------------------
+  File.size(file_name)	-> integer
+
+------------------------------------------------------------------------
+
+Returns the size of file_name.
+
+file_name can be an IO object.
+
+
+(from ruby core)
+------------------------------------------------------------------------
+  file.size    -> integer
+
+------------------------------------------------------------------------
+
+Returns the size of file in bytes.
+
+  File.new("testfile").size   #=> 66
+```
 
 
 

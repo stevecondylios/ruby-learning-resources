@@ -65,10 +65,29 @@ Then (from ChatGPT):
 
 - `continue` or `c`: Resumes normal program execution until the next breakpoint or end.
 
+- I haven't used `break` but apparently you can do stuff like:
+
+```ruby
+break MyClass#method_name    # break when that instance method is called
+break SomeClass.class_method # break when that class method is called
+break 25                     # break at line 25 of the current file
+break path/to/file.rb:42     # break at line 42 of that file
+```
 
 - ctrl + d to end pry session
 
 - Note: it would be great to have keybindings for next and step, although I don't think they exist.
+
+- Incredibly useful `finish` to exit the current scope (e.g. inner method) and go into the enclosing method, i.e. back up the call stack ([here](https://chatgpt.com/c/697d928d-a060-839d-bad0-383eaef6fc42))
+
+- I think I have more notes like this in ~/ruby.md
+
+
+
+
+
+
+
 
 
 
