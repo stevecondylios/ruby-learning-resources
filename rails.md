@@ -83,11 +83,56 @@ break path/to/file.rb:42     # break at line 42 of that file
 - I think I have more notes like this in ~/ruby.md
 
 
+Conditional binding.pry is possible like so:
 
 
+```ruby
+
+binding.pry if TbpPause.active.any? { |p| p.end_date && p.end_date < studio_today }
+
+```
+
+Note that `step` with binding.pry can be flakey (e.g. it flaked out on me when called in a spec that needed to call a job, I tried to 'step' into the job but no luck). `debugger` might be better in those cases.
 
 
+Debugger commands / shortcuts (according to an LLM, exercise caution):
 
+
+| Command | Short | Description |
+|---------|-------|-------------|
+| `step` | `s` | Step into method |
+| `next` | `n` | Step over (same level) |
+| `continue` | `c` | Continue execution |
+| `finish` | `fin` | Run until current method returns |
+| `break` | `b` | Set breakpoint, e.g. `b TbpPauseService:189` |
+| `list` | `l` | Show surrounding source code (sc: similar to binding.pry's $ |
+| `where` | `bt` | Show backtrace |
+| `up` / `down` | | Move up/down call stack |
+| `var local` | | Show local variables |
+| `var instance` | | Show instance variables |
+| `info breakpoints` | | List breakpoints |
+| `quit` | `q` | Exit |
+
+Also try:
+
+```
+l           # show surrounding code
+l 180-220   # show specific line range
+l =         # show code centered on current line
+```
+
+
+Note that when 'step'ing through code, there can be a LOT of framework code. (e.g. I put a `debugger` before a job, and there was hundreds or possibly thousands of 'step's required before it gets to the actual job!)
+
+One possible solution is to try c for continue.
+
+But probably the best solution is to use b to set a breakpoint, e.g.
+
+```
+b app/services/tbp_pause_service.rb:189
+```
+
+then `c` after the breakpoint is made to go to it.
 
 
 
