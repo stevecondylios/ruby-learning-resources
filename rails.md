@@ -55,6 +55,12 @@ The purpose is to collect rails tid-bits that will serve as a useful reminder fo
 
 ### Debugging
 
+
+- Reminder: logs for dev/test/prod found in logs/
+- E.g. try `tail -f log/development.log` or use grep with something like `tail -f log/test.log | grep -E '\[Stripe\]|Event type|Stripe webhook event|Updated|Processed|Deprovisioned|Cancelled'`
+
+
+
 Typically, best to use `binding.pry`.
 
 Then (from ChatGPT):
