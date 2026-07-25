@@ -5,6 +5,8 @@ Recommended for macOS: follow [instructions](https://github.com/rbenv/rbenv?tab=
 
 ```sh
 rbenv install --list # shows available versions
+# Note that brew update && brew upgrade ruby-build
+# is required to see latest versions when running rbenv install --list
 rbenv install 3.3.0 # installs version 3.3.0
 rbenv versions # shows installed versions, with * next to the one in use
 # To alter the version in use, typically edit a file like /Users/<username>/.rbenv/version

@@ -1055,6 +1055,26 @@ How to think of classes and objects in an object oriented language like ruby:
 # Upgrading a ruby or rails version
 
 
+Rails guides shows how [to upgrade rails versions](https://guides.rubyonrails.org/upgrading_ruby_on_rails.html#moving-between-versions) (and just above are four steps).
+
+tl;dr:
+
+Rails guides offer some info on how to upgrade rails. How I did it:
+
+- In Gemfile, edit rails gem to most recent patch version. Run `bundle update rails`. Make sure tests pass
+- Now upgrade to next minor version (most recent patch). Check if js/css bundling/sprockets/esbuild needs changes (mine didn't). Run `bin/rails app:update` which will let you override files, then use `git add -p` (i tried `git checkout -p` but it did my head in) to selectively add the ones you want. However, I prefered:
+
+```sh
+THOR_MERGE="nvim -d $1 $2" bin/rails app:update
+```
+
+as this lets you hit 'm' (merge) on every file, on the lhs is the new one, rhs existing. Then just make the rhs (existing) file how you want it. Tip dp (diff put) and do (diff obtain) can be used to push from lhs to rhs and pull from rhs to lhs respectively.
+
+Then just run tests and make sure it works, if so, you're good to go.
+
+Tip: I also asked cursor to sweep through and check my changes (not just the additions, but the changes suggested by bin/rails app:update which *I didn't* include. The latter is easy if the `git add -p` method is used (since what's staged is what's opted into, and what's left behind in the working dir but not staged is what's not included). But AI was still able to infer the ones not opted into by looking for the new files created via rails app:update (if found them somewhere in railties) - anyway, AI is great for a second-opinion; it did catch a couple of bad configs that would have otherwise slipped through to prod.
+
+
 **General resources**:
 
 - Railsdiff (explained [here](https://www.youtube.com/watch?v=ljgmjoIv4Y8&t=5m46s), link [here](https://railsdiff.org/)) - use it when upgrading from one rails version to another.
