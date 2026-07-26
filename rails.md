@@ -1318,10 +1318,10 @@ To see it work, try adding this to the users controller, it should detect the SQ
 
 
 
+### Tips for handling n+1s
 
 
-
-
-
-
+- Sentry picks N+1's up brilliantly, however only once they've reached prod
+- A Preloader (like goldiloader) essentially lets you not have to modify your code (you can leave n+1's in there) and it will find them and do the 'right code' load the necessary associated data with a query that isn't an n+1 (seems brilliant, although I haven't used a Preloader yet)
+- Bullet and Prosopite are tools to detect n+1's in dev. The latter claims no false negatives nor false positives in its Github.
 
