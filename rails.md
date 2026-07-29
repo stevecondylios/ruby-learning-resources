@@ -143,6 +143,42 @@ then `c` after the breakpoint is made to go to it.
 
 
 
+```ruby
+
+# see controller
+controller_name
+
+# action
+action_name
+
+# method you're in
+__method__
+
+# or
+__callee__
+
+# see where you are in pry
+whereami
+
+
+
+
+# Incredibly convenient way to get json
+# from clipboard into rails console
+# or debugging session
+invoice = JSON.parse(`pbpaste`)
+
+invoice = JSON.parse(`pbpaste`, symbolize_names: true)
+
+
+```
+
+
+
+
+
+
+
 ### Credentials
 
 
